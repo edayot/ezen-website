@@ -5,6 +5,7 @@
     "navbar": {
       "home": "Home",
       "articles": "Articoli",
-      "contact": "Contatti"
+      "contact": "Contatti",
+      "login": "Accedi"
     }
   }

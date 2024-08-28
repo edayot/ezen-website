@@ -4,6 +4,6 @@ import next from 'next';
 const nextConfig = {};
 
 nextConfig.distDir = 'build';
-// nextConfig.output = "export"
+// nextConfig.output = "export";
 
 export default nextConfig;

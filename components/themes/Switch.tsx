@@ -8,8 +8,8 @@ import {useState, useEffect} from "react";
 
 export function ThemeSwitch(props: any) {
 
-  const [mounted, setMounted] = useState(false)
-  const { theme, setTheme } = useTheme()
+  const [mounted, setMounted] = useState(false);
+  const { theme, setTheme } = useTheme();
 
   useEffect(() => {
     setMounted(true)
@@ -18,17 +18,15 @@ export function ThemeSwitch(props: any) {
   const {
     Component, 
     slots, 
-    isSelected, 
     getBaseProps, 
     getInputProps, 
     getWrapperProps
   } = useSwitch(props);
 
-
   if(!mounted) return null
 
   const handleThemeChange = () => {
-    setTheme(isSelected ? "dark" : "light")
+    setTheme(theme === "dark" ? "light" : "dark");
   }
 
   return (
@@ -46,9 +44,9 @@ export function ThemeSwitch(props: any) {
                 "rounded-lg bg-default-100 hover:bg-default-200",
               ],
             })}
-            onClick={handleThemeChange} // Add this line
+            onClick={handleThemeChange} 
           >
-            {isSelected ? <SunIcon/> : <MoonIcon/>}
+            {theme === "dark" ? <MoonIcon /> : <SunIcon />}
           </div>
       </Component>
     </div>

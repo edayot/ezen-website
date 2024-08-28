@@ -4,7 +4,8 @@ import "../globals.css";
 import { HomeProps } from '@/dictionaries/dictionaries'
 import {NextUIProvider} from "@nextui-org/react";
 import {ThemeProvider as NextThemesProvider} from "next-themes";
-import NavbarComponent from "@/components/navbar";
+import NavBar from "@/components/navbar";
+import { getDictionary } from "@/dictionaries/dictionaries";
 
 
 
@@ -24,12 +25,13 @@ export default async function RootLayout(
     params: HomeProps;
   }
 ) {
+  const dict = await getDictionary(params.lang);
   return (
     <html lang={params.lang}>
       <body className={inter.className}>
         <NextUIProvider>
-          <NextThemesProvider attribute="class" defaultTheme="light">
-            <NavbarComponent params={params}/>
+          <NextThemesProvider attribute="class" defaultTheme="dark">
+            <NavBar {...dict}/>
             {children}
           </NextThemesProvider>
         </NextUIProvider>

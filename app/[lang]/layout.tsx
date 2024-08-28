@@ -20,7 +20,9 @@ export default function RootLayout({
       <body className={inter.className}>
         <div className=" align-top">
           <div className="flex justify-between">
-            <Image src="/favicon.ico" alt="Ezen Garden" width={100} height={100} />
+            <a href="/" className="p-4">
+              <Image src="/favicon.ico" alt="Ezen Garden" width={100} height={100} />
+            </a>
             <div className="flex items-center">
               <a href="/" className="p-4">Home</a>
               <a href="/about" className="p-4">About</a>

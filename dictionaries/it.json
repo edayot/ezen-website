@@ -1,5 +1,10 @@
 {
     "products": {
       "cart": "Carrello"
+    },
+    "navbar": {
+      "home": "Home",
+      "articles": "Articoli",
+      "contact": "Contatti"
     }
   }

@@ -1,6 +1,6 @@
 
 
-export const locales = ['en', 'it', 'fr']
+export const locales = ['it','en','fr']
 export const defaultLocale = 'it'
 
 

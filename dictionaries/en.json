@@ -1,5 +1,10 @@
 {
     "products": {
       "cart": "Add to Cart"
+    },
+    "navbar": {
+      "home": "Home",
+      "articles": "Articles",
+      "contact": "Contact"
     }
   }

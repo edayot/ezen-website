@@ -5,23 +5,26 @@ import {Navbar, NavbarBrand, NavbarContent, NavbarItem, Link} from "@nextui-org/
 import { ThemeSwitch } from "./themes/Switch";
 import React from "react";
 import { FiHome, FiBookOpen, FiInfo, FiUser} from "react-icons/fi";
+import { usePathname } from 'next/navigation'
+
 
 
 
 function NavBarLeftContent({size}: {size: number}) {
+    const path = "/" + usePathname().split("/").slice(2).join("/")
     return (
         <>
-            <NavbarItem isActive>
+            <NavbarItem isActive={path==="/"}>
                 <Link href="/">
                     <FiHome size={size} />
                 </Link>
             </NavbarItem>
-            <NavbarItem isActive>
+            <NavbarItem isActive={path==="/articles"}>
                 <Link href="/articles">
                     <FiBookOpen size={size} />
                 </Link>
             </NavbarItem>
-            <NavbarItem isActive>
+            <NavbarItem isActive={path==="/contact"}>
                 <Link href="/contact">
                     <FiInfo size={size} />
                 </Link>
@@ -34,7 +37,7 @@ function NavBarRightContent({size}: {size: number}) {
     return (
         <>
             <NavbarItem className="lg:flex">
-                <ThemeSwitch props={{size}} />
+                <ThemeSwitch props={{size:size}} />
             </NavbarItem>
             <NavbarItem className="lg:flex">
                 <Link href="/auth/login">
@@ -59,7 +62,7 @@ function NavBarLogo() {
 
 
 export default function NavbarComponent(dict: any) {
-    const size = 24;
+    const size = 28;
     dict = {...dict, size};
     return (
     <>

@@ -2,13 +2,16 @@ import { getDictionary, HomeProps } from '@/dictionaries/dictionaries'
 
 
 
+
+const text = ""
+
+
 export default async function Home({ params }: { params: HomeProps })
 {
   const dict = await getDictionary(params.lang);
   return (
-    <main className="">
-      <div>
-      Lorem ipsum odor amet, consectetuer adipiscing elit. Eros eu pharetra natoque dolor congue fringilla maximus erat ipsum. Per congue tincidunt et erat sociosqu odio elementum fringilla. Odio urna scelerisque ex; ultrices nascetur nostra ullamcorper? Massa posuere magna, orci velit aliquet suscipit magna finibus. Pretium sit non egestas efficitur tempor orci mi vestibulum. Vulputate duis viverra feugiat aenean accumsan, massa tortor interdum.
+      <div className=''>
+Lorem ipsum odor amet, consectetuer adipiscing elit. Eros eu pharetra natoque dolor congue fringilla maximus erat ipsum. Per congue tincidunt et erat sociosqu odio elementum fringilla. Odio urna scelerisque ex; ultrices nascetur nostra ullamcorper? Massa posuere magna, orci velit aliquet suscipit magna finibus. Pretium sit non egestas efficitur tempor orci mi vestibulum. Vulputate duis viverra feugiat aenean accumsan, massa tortor interdum.
 
 Etiam magna gravida arcu rutrum quisque. Facilisi mauris donec imperdiet nulla; habitasse ridiculus hendrerit. Sagittis rhoncus tincidunt id ad condimentum placerat velit phasellus praesent. Finibus ultricies arcu malesuada risus diam. Nunc class purus senectus non risus sit pulvinar penatibus. Primis rhoncus fusce posuere primis eu mollis metus nisl. Ornare pharetra aliquet nisl auctor neque congue. Pulvinar curae lacus quisque vestibulum lobortis, consequat eget inceptos. Sapien rutrum hac molestie ligula ad sociosqu risus ultricies.
 
@@ -48,6 +51,5 @@ Ipsum ad parturient tempus tincidunt consequat euismod. Praesent nostra congue f
 
 Id suscipit ut primis litora duis vulputate. Etiam quis viverra phasellus dictumst dis. Vestibulum placerat parturient curabitur, netus iaculis nulla. Nullam commodo consectetur purus lacinia tristique per ridiculus. Nisl hac semper quam posuere volutpat dolor gravida pulvinar. Metus platea massa ipsum varius magnis efficitur hac. Quam vehicula adipiscing ullamcorper magnis in erat fusce venenatis. Purus eleifend accumsan justo eget eros vulputate.
       </div>
-    </main>
   );
 }

@@ -32,11 +32,14 @@ export default async function RootLayout(
         <NextUIProvider>
           <NextThemesProvider attribute="class" defaultTheme="dark">
             <NavBar {...dict}/>
-            {children}
+            <div className="flex flex-row min-h-screen justify-center">
+              <div className="w-5/6 max-w-lg">
+                {children}
+              </div>
+            </div>
           </NextThemesProvider>
         </NextUIProvider>
       </body>
     </html>
-    
   );
 }

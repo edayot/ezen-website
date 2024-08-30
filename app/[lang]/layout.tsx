@@ -35,7 +35,9 @@ export default async function RootLayout(
           <NextThemesProvider attribute="class" defaultTheme="dark">
             <SetLangComponent locale={params.lang} />
             <NavBar {...dict}/>
+              <div className="">
                 {children}
+              </div>
           </NextThemesProvider>
         </NextUIProvider>
       </body>

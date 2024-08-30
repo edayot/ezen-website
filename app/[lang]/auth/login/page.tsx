@@ -1,14 +1,17 @@
 import { getDictionary, HomeProps } from '@/dictionaries/dictionaries'
+import {LoginComponent} from '@/components/login/LoginComponent'
+
 
 
 export default async function Home({ params }: { params: HomeProps }) {
   const dict = await getDictionary(params.lang);
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="border bg-slate-400 h-20">
-        <input type="text" placeholder="Username" className="mb-4" />
-        <input type="password" placeholder="Password" className="mb-4" />
+    <>
+      <div className="flex flex-row min-h-screen justify-center">
+        <div className="w-5/6 max-w-xl">
+          <LoginComponent dict={dict} />
+        </div>
       </div>
-    </main>
+    </>
   );
 }

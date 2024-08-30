@@ -7,5 +7,10 @@
       "articles": "Articoli",
       "contact": "Contatti",
       "login": "Accedi"
+    },
+    "auth":{
+      "login": "Accedi",
+      "email": "Email",
+      "password": "Password"
     }
   }

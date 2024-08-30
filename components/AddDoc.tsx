@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from 'react';
-import db from '@/utils/firestore';
+import { db } from '@/utils/firebase';
 import { collection, addDoc } from "firebase/firestore"; 
 
 import {Textarea, Input, image} from "@nextui-org/react";

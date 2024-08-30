@@ -55,7 +55,7 @@ function NavBarLogo() {
     return (
         <NavbarBrand>
             <Link href="/">
-                <Image src={Logo} alt="Ezen Garden" height={40} width={40}/>
+                <Image src={Logo} alt="Ezen Garden" height={50} width={50}/>
             </Link>
         </NavbarBrand>
     );

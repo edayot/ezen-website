@@ -6,6 +6,7 @@ import {NextUIProvider} from "@nextui-org/react";
 import {ThemeProvider as NextThemesProvider} from "next-themes";
 import NavBar from "@/components/navbar";
 import { getDictionary } from "@/dictionaries/dictionaries";
+import { SetLangComponent } from "../setLangComponent";
 
 
 
@@ -32,6 +33,7 @@ export default async function RootLayout(
       <body className={inter.className}>
         <NextUIProvider>
           <NextThemesProvider attribute="class" defaultTheme="dark">
+            <SetLangComponent locale={params.lang} />
             <NavBar {...dict}/>
                 {children}
           </NextThemesProvider>

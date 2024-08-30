@@ -15,7 +15,12 @@ import RenderArticle from './RenderArticle';
 function CreateInput({all, setAll, lang}: {all: any, setAll: (value: any) => void, lang: string}) {
     
     return (
+        <>
+        
     <div className='flex flex-col gap-2 w-full'>
+    <div>
+        {lang}
+    </div>
     <Input
         className='w-1/2'
         label="Name"
@@ -39,7 +44,8 @@ function CreateInput({all, setAll, lang}: {all: any, setAll: (value: any) => voi
         maxRows={15}
     />
     
-    </div>);
+    </div>
+    </>);
 }
 
 

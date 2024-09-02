@@ -16,7 +16,10 @@ export default async function Home({ params }: { params: HomeProps }) {
 
   // render all elements in the collection trought the Element function
   let elements = q.docs.map((doc) =>
-    <Element data={doc.data()} lang={params.lang} id={doc.id}/>
+    {
+      let data = doc.data()
+      return <Element key={data.date} data={data} lang={params.lang} id={doc.id}/>
+  }
   )
 
   return (

@@ -1,25 +1,29 @@
 "use client";
-import {Card, CardHeader, CardBody, Image} from "@nextui-org/react";
-import Link from 'next/link';
-import { redirect } from 'next/navigation';
-import {QueryDocumentSnapshot} from '@firebase/firestore';
+import {Card, CardHeader, CardBody, Image as NextImage} from "@nextui-org/react";
+import { useRouter } from 'next/navigation'
+import {Image} from "@nextui-org/react";
+import { motion } from "framer-motion"
 
 
 export function Element({data, id, lang}: {data: any, lang: string, id: string}) {
     const local_data = data[lang]
-  
-    const redirectToArticle = () => {
-      redirect(`/article/${id}`)
+    const router = useRouter()
+
+    const redirectToArticle = (event: any) => {
+      console.log(`Redirecting to article ${id}`);
+      router.push(`/article/${id}`);
     }
     return (
       <div key={data.date} className="min-w-fit">
-          <Card className="py-4" onPressEnd={(e) => {redirect(`/article/${id}`)}}>
+        <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={redirectToArticle}>
+          <Card className="py-4">
             <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
               <div className="text-tiny uppercase font-bold">{local_data.name}</div>
               <small className="text-default-500">{data.latin_name}</small>
             </CardHeader>
             <CardBody className="overflow-visible py-2">
               <Image
+                as={NextImage}
                 alt="Card background"
                 className="object-cover rounded-xl"
                 src="https://nextui.org/images/hero-card-complete.jpeg"
@@ -27,6 +31,7 @@ export function Element({data, id, lang}: {data: any, lang: string, id: string})
               />
             </CardBody>
           </Card>
+        </motion.button>
       </div>
     )
   }

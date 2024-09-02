@@ -26,16 +26,6 @@ export default async function Home({ params }: { params: HomeProps }) {
         <br/>
         <div className='flex gap-2 flex-wrap justify-center'>
           {elements}
-          {elements}
-          {elements}
-          {elements}
-          {elements}
-          {elements}
-          {elements}
-          {elements}
-          {elements}
-          {elements}
-          {elements}
         </div>
       </div>
     </div>

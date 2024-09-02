@@ -96,8 +96,15 @@ function AddItem() {
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         try {
-            const docRef = await addDoc(collection(db, "items"), {
-                desc: ""
+            let timestamp = (new Date()).getTime()
+            const docRef = await addDoc(collection(db, "articles"), {
+                latin_name: all.latin_name,
+                image: all.image,
+                fr: allFR,
+                en: allEN,
+                it: allIT,
+                date: timestamp
+
             });
             console.log("Document written with ID: ", docRef.id);
         } catch (e) {

@@ -14,9 +14,8 @@ export default function RenderArticle(
 ) {
     return (
         <div className='flex flex-col gap-2 w-full'>
-            <h1>{name}</h1>
-            <h2>{latin_name}</h2>
-            <h3>{place}</h3>
+            <h1>{name} ({latin_name})</h1>
+            <h2>{place}</h2>
             <img src={image}/>
             <Markdown>{desc}</Markdown>
         </div>

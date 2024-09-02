@@ -1,4 +1,4 @@
-
+"use client";
 
 
 
@@ -17,7 +17,7 @@ export default function RenderArticle(
             <h1>{name} ({latin_name})</h1>
             <h2>{place}</h2>
             <img src={image}/>
-            <Markdown>{desc}</Markdown>
+            <Markdown className=" space-y-5">{desc}</Markdown>
         </div>
     );
 }

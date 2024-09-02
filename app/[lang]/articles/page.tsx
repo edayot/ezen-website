@@ -1,35 +1,12 @@
+
 import { getDictionary, HomeProps } from '@/dictionaries/dictionaries'
 import { getDocs, query, collection, limit, orderBy, QueryDocumentSnapshot} from '@firebase/firestore';
 import { db } from '@/utils/firebase';
 import React from "react";
-import {Card, CardHeader, CardBody, Image} from "@nextui-org/react";
-import Link from 'next/link';
+import { Element } from '@/components/ArticleCard';
 
 
-function Element(doc: QueryDocumentSnapshot, lang: string) {
-  const data = doc.data()
-  const local_data = data[lang]
-  return (
-    <div key={data.date}>
-      <Link href={`/article/${doc.id}`}>
-        <Card className="py-4">
-          <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
-            <div className="text-tiny uppercase font-bold">{local_data.name}</div>
-            <small className="text-default-500">{data.latin_name}</small>
-          </CardHeader>
-          <CardBody className="overflow-visible py-2">
-            <Image
-              alt="Card background"
-              className="object-cover rounded-xl"
-              src="https://nextui.org/images/hero-card-complete.jpeg"
-              width={270}
-            />
-          </CardBody>
-        </Card>
-      </Link>
-    </div>
-  )
-}
+
 
 
 export default async function Home({ params }: { params: HomeProps }) {
@@ -39,14 +16,25 @@ export default async function Home({ params }: { params: HomeProps }) {
 
   // render all elements in the collection trought the Element function
   let elements = q.docs.map((doc) =>
-    Element(doc, params.lang)
+    <Element data={doc.data()} lang={params.lang} id={doc.id}/>
   )
 
   return (
     <div className="flex flex-row min-h-screen justify-center">
-      <div className="w-5/6 max-w-4xl">
-        <h1>Articles</h1>
-        <div className='border flex'>
+      <div className="w-11/12 max-w-9xl">
+        <div className=' flex justify-center'><h1>{dict.articles.title}</h1></div>
+        <br/>
+        <div className='flex gap-2 flex-wrap justify-center'>
+          {elements}
+          {elements}
+          {elements}
+          {elements}
+          {elements}
+          {elements}
+          {elements}
+          {elements}
+          {elements}
+          {elements}
           {elements}
         </div>
       </div>

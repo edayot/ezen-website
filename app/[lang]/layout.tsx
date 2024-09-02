@@ -29,6 +29,7 @@ export default async function RootLayout(
   const dict = await getDictionary(params.lang);
   return (
     <html lang={params.lang}>
+      <head />
       <link rel="icon" href="/images/favicon.ico" sizes="any" />
       <body className={inter.className}>
         <NextUIProvider>

@@ -12,5 +12,8 @@
       "login": "Log in",
       "email": "Email",
       "password": "Password"
+    },
+    "articles": {
+      "title": "Articles : "
     }
   }

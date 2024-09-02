@@ -7,5 +7,10 @@
       "articles": "Articles",
       "contact": "Contact",
       "login": "Login"
+    },
+    "auth": {
+      "login": "Log in",
+      "email": "Email",
+      "password": "Password"
     }
   }

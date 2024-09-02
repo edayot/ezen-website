@@ -7,5 +7,15 @@
       "articles": "Articles",
       "contact": "Contact",
       "login": "Connexion"
+    },
+    "auth": {
+      "login": "Connexion",
+      "email": "Email",
+      "password": "Mot de passe"
+    },
+    "articles": {
+      "new":{
+        "save":"Sauvegarder les changements"
+      }
     }
   }

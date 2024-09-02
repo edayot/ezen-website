@@ -8,7 +8,7 @@
   --foreground: rgb(0, 0, 0);
 }
 .dark {
-  --background: rgb(10, 10, 20);
+  --background: rgb(21, 21, 59);
   --foreground: rgb(221, 221, 255);
 }
 

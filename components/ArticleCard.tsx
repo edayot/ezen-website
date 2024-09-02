@@ -1,8 +1,8 @@
 "use client";
-import {Card, CardHeader, CardBody, Image as NextImage} from "@nextui-org/react";
+import {Card, CardHeader, CardBody} from "@nextui-org/react";
 import { useRouter } from 'next/navigation'
 import {Image} from "@nextui-org/react";
-import { motion } from "framer-motion"
+import { motion } from "framer-motion";
 
 
 export function Element({data, id, lang}: {data: any, lang: string, id: string}) {
@@ -23,11 +23,11 @@ export function Element({data, id, lang}: {data: any, lang: string, id: string})
             </CardHeader>
             <CardBody className="overflow-visible py-2">
               <Image
-                as={NextImage}
                 alt="Card background"
                 className="object-cover rounded-xl"
                 src="https://nextui.org/images/hero-card-complete.jpeg"
                 width={270}
+                height="auto"
               />
             </CardBody>
           </Card>

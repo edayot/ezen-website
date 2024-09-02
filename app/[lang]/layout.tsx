@@ -30,7 +30,6 @@ export default async function RootLayout(
   return (
     <html lang={params.lang}>
       <head />
-      <link rel="icon" href="/images/favicon.ico" sizes="any" />
       <body className={inter.className}>
         <NextUIProvider>
           <NextThemesProvider attribute="class" defaultTheme="dark">

@@ -1,13 +1,12 @@
 "use client";
 
-import Image from "next/image";
+import {Image} from "@nextui-org/react";
 import {Navbar, NavbarBrand, NavbarContent, NavbarItem, Link} from "@nextui-org/react";
 import { ThemeSwitch } from "./themes/Switch";
 import React from "react";
 import { FiHome, FiBookOpen, FiInfo, FiUser} from "react-icons/fi";
 import { usePathname } from 'next/navigation'
 
-import Logo from "@/public/favicon.png";
 
 
 
@@ -55,7 +54,7 @@ function NavBarLogo() {
     return (
         <NavbarBrand>
             <Link href="/">
-                <Image src={Logo} alt="Ezen Garden" height={50}/>
+                <Image src="/favicon.ico" alt="Ezen Garden" height={50} isBlurred/>
             </Link>
         </NavbarBrand>
     );

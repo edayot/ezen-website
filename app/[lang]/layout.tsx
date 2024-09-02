@@ -7,6 +7,7 @@ import {ThemeProvider as NextThemesProvider} from "next-themes";
 import NavBar from "@/components/navbar";
 import { getDictionary } from "@/dictionaries/dictionaries";
 import { SetLangComponent } from "../setLangComponent";
+import { TranslationComponent } from "@/dictionaries/client";
 
 
 
@@ -36,7 +37,9 @@ export default async function RootLayout(
             <SetLangComponent locale={params.lang} />
             <NavBar {...dict}/>
               <div className="">
-                {children}
+                <TranslationComponent dict={dict}>
+                  {children}
+                </TranslationComponent>
               </div>
           </NextThemesProvider>
         </NextUIProvider>

@@ -1,12 +1,15 @@
-import { getDictionary, HomeProps } from '@/dictionaries/dictionaries'
+"use client";
+import { useTranslation } from "@/dictionaries/client";
 
 
-export default async function Home({ params }: { params: HomeProps })
+export default async function Home()
 {
-  const dict = await getDictionary(params.lang);
+  const dict = useTranslation()
   return (
     <>
       Home Page
+      <br/>
+      {dict.aaaaa.bbb}
     </>
   );
 }

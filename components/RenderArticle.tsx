@@ -5,20 +5,29 @@
 
 
 import Markdown from 'react-markdown'
+import {Image} from "@nextui-org/react";
 
 
 
 
 export default function RenderArticle(
-    {name, latin_name, place, desc, image}: {name: string, latin_name: string, place: string, desc: string, image: string}
+    {data, lang}: {data: any, lang: string}
 ) {
+    let name = `${data[lang].name} (${data.latin_name})`
+    if (!data.latin_name || !data.name) {
+        name = ""
+    }
     return (
+    <div className="flex flex-row min-h-screen justify-center">
+      <div className="w-5/6 max-w-xl">
         <div className='flex flex-col gap-2 w-full'>
-            <h1>{name} ({latin_name})</h1>
-            <h2>{place}</h2>
-            <img src={image}/>
-            <Markdown className=" space-y-5">{desc}</Markdown>
+            <h1>{data[lang].name} ({data.latin_name})</h1>
+            <h2>{data[lang].place}</h2>
+            <Image src={data.image} alt={name}/>
+            <Markdown className=" space-y-5">{data[lang].desc}</Markdown>
         </div>
+      </div>
+    </div>
     );
 }
 

@@ -3,6 +3,7 @@ import {Card, CardHeader, CardBody} from "@nextui-org/react";
 import { useRouter } from 'next/navigation'
 import {Image} from "@nextui-org/react";
 import { motion } from "framer-motion";
+import NextJSImage from "next/image";
 
 
 export function Element({data, id, lang}: {data: any, lang: string, id: string}) {
@@ -13,6 +14,7 @@ export function Element({data, id, lang}: {data: any, lang: string, id: string})
       console.log(`Redirecting to article ${id}`);
       router.push(`/article/${id}`);
     }
+    let imageSrc = data.image ? data.image : "https://nextui.org/images/hero-card-complete.jpeg"
     return (
       <div key={data.date} className="min-w-fit">
         <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={redirectToArticle}>
@@ -24,10 +26,9 @@ export function Element({data, id, lang}: {data: any, lang: string, id: string})
             <CardBody className="overflow-visible py-2">
               <Image
                 alt="Card background"
-                className="object-cover rounded-xl"
-                src="https://nextui.org/images/hero-card-complete.jpeg"
-                width={270}
-                height="auto"
+                className="object-cover rounded-xl w-52 h-32"
+                src={imageSrc}
+                fallbackSrc="https://nextui.org/images/hero-card-complete.jpeg"
               />
             </CardBody>
           </Card>

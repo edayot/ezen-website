@@ -3,9 +3,9 @@
 import { db } from '@/utils/firebase';
 import { collection, addDoc } from "firebase/firestore"; 
 
-import {Textarea, Input, image} from "@nextui-org/react";
-import RenderArticle from './RenderArticle';
+import {Textarea, Input, Image, Card, CardBody} from "@nextui-org/react";
 import { useDropzone } from 'react-dropzone';
+import { FiUpload } from 'react-icons/fi';
 
 
 
@@ -63,31 +63,40 @@ function CreateInput({all, setAll, lang}: {all: any, setAll: (value: any) => voi
 
 function CreateGlobalInput({all, setAll, lang}: {all: any, setAll: (value: any) => void, lang: string}) {
     const onDrop = (acceptedFiles: any) => {
-        // convert to base64 and set to state
+        // convert to base64 and set to state + set filename
         const reader = new FileReader();
         reader.onload = () => {
-            setAll({...all, image: reader.result});
+            setAll({...all, image_filename: acceptedFiles[0].name, image: reader.result});
         };
         reader.readAsDataURL(acceptedFiles[0]);
       };
+      let upload_text = 'Drop or click to upload your image';
+        if (all.image_filename) {
+            upload_text = `Click to change image, current: ${all.image_filename}`;
+        }
       const { getRootProps, getInputProps } = useDropzone({ onDrop, multiple: false });
         return (
-        <div className='flex flex-col gap-2 w-full'>
-        <Input
-            className='w-1/2'
-            label="Latin Name"
-            placeholder={lang}
-            value={all.latin_name}
-            onChange={(e) => setAll({...all, latin_name: e.target.value})}
-        />
-        <div {...getRootProps()} className="dropzone-container">
-            <input {...getInputProps()}/>
-            <div className="dropzone border">
-                <p>Drag 'n' drop some files here, or click to select files</p>
+        <div className='flex flex-col gap-2 w-full justify-center items-center'>
+            <Input
+                className='w-1/2'
+                label="Latin Name"
+                placeholder={lang}
+                value={all.latin_name}
+                onChange={(e) => setAll({...all, latin_name: e.target.value})}
+            />
+            <div {...getRootProps()} className="dropzone-container">
+                <input {...getInputProps()}/>
+                <div className="dropzone">
+                    <Card className='w-40 h-30'>
+                        <CardBody>
+                            <div className='flex flex-col justify-center items-center gap-6 text-center'>
+                                <FiUpload size={50}/>
+                                <p>{upload_text}</p>
+                            </div>
+                        </CardBody>
+                    </Card>
+                </div>
             </div>
-
-
-        </div>
         </div>);
 }
 
@@ -115,7 +124,7 @@ function AddItem({all, setAll}: {all: any, setAll: (value: any) => void}) {
                         <CreateGlobalInput all={all} setAll={setAll} lang='(global)'/>
                     </div>
                 </div>
-                <div className=' flex flex-row gap-2 border'> 
+                <div className=' flex flex-row gap-2'> 
                     <CreateInput all={all} setAll={setAll} lang='fr'/>
                     <CreateInput all={all} setAll={setAll} lang='en'/>
                     <CreateInput all={all} setAll={setAll} lang='it'/>

@@ -54,7 +54,12 @@ function NavBarLogo() {
     return (
         <NavbarBrand>
             <Link href="/">
-                <Image src="/favicon.ico" alt="Ezen Garden" height={50} isBlurred/>
+                <Image 
+                    className="w-12 h-12"
+                    src="/favicon.ico" 
+                    alt="Ezen Garden" 
+                    isBlurred
+                />
             </Link>
         </NavbarBrand>
     );
@@ -67,7 +72,7 @@ export default function NavbarComponent(dict: any) {
     dict = {...dict, size};
     return (
     <>
-    <Navbar>
+    <Navbar className="dark:bg-slate-900" isBlurred>
         <NavbarContent className="flex" justify="start">
             <NavBarLogo/>
         </NavbarContent>

@@ -11,14 +11,18 @@ export function LoginComponent({dict}: {dict: any}) {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
     const [error, setError] = React.useState('');
+    const [loading, setLoading] = React.useState(false);
 
     const router = useRouter();
 
     const onLogin = async () => {
+        setLoading(true);
         try {
             let [res, err] = await signInEmailPassword(email, password);
+            
             if (err) {
                 setError(err);
+                setLoading(false);
             }
             else if (res) {
                 setError('');
@@ -26,9 +30,12 @@ export function LoginComponent({dict}: {dict: any}) {
             }
             else {
                 setError('An error occurred');
+                setLoading(false);
             }
         } catch (e) {
             console.error(e);
+            setError('An error occurred');
+            setLoading(false);
         }
     }
 
@@ -39,7 +46,12 @@ export function LoginComponent({dict}: {dict: any}) {
             <Input type="email" label="Email" className="max-w-xs justify-center" value={email} onValueChange={setEmail}/>
             <PasswordInput value={password} onChange={setPassword} />
             <br/>
-            <Button color="primary" size="lg" onPress={(e) => onLogin()}>
+            <Button
+                isLoading={loading}
+                color="primary"
+                size="lg" 
+                onPress={(e) => onLogin()}
+            >
                 Login
             </Button>
             <div className=" text-red-600">

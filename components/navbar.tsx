@@ -72,7 +72,7 @@ export default function NavbarComponent(dict: any) {
     dict = {...dict, size};
     return (
     <>
-    <Navbar className="dark:bg-slate-900" isBlurred>
+    <Navbar className="dark:bg-white/5 " isBlurred>
         <NavbarContent className="flex" justify="start">
             <NavBarLogo/>
         </NavbarContent>

@@ -1,8 +1,5 @@
 "use client";
 
-import { db } from '@/utils/firebase';
-import { collection, addDoc } from "firebase/firestore"; 
-
 import {Textarea, Input, Image, Card, CardBody} from "@nextui-org/react";
 import { useDropzone } from 'react-dropzone';
 import { FiUpload } from 'react-icons/fi';
@@ -104,34 +101,20 @@ function CreateGlobalInput({all, setAll, lang}: {all: any, setAll: (value: any) 
 
 function AddItem({all, setAll}: {all: any, setAll: (value: any) => void}) {
 
-    const handleSubmit = async (event: React.FormEvent) => {
-        event.preventDefault();
-        try {
-            let timestamp = (new Date()).getTime()
-            const docRef = await addDoc(collection(db, "articles"), all);
-            console.log("Document written with ID: ", docRef.id);
-        } catch (e) {
-            console.error("Error adding document: ", e);
-        }
-    };
-
     return (
         <>
-        <form onSubmit={handleSubmit}>
-            <div className='flex flex-col gap-2'>
-                <div className="flex flex-row justify-center">
-                    <div className="w-5/6 max-w-xl">
-                        <CreateGlobalInput all={all} setAll={setAll} lang='(global)'/>
-                    </div>
-                </div>
-                <div className=' flex flex-row gap-2'> 
-                    <CreateInput all={all} setAll={setAll} lang='fr'/>
-                    <CreateInput all={all} setAll={setAll} lang='en'/>
-                    <CreateInput all={all} setAll={setAll} lang='it'/>
+        <div className='flex flex-col gap-2'>
+            <div className="flex flex-row justify-center">
+                <div className="w-5/6 max-w-xl">
+                    <CreateGlobalInput all={all} setAll={setAll} lang='(global)'/>
                 </div>
             </div>
-            <button type="submit">Add Item</button>
-        </form>
+            <div className=' flex flex-row gap-2'> 
+                <CreateInput all={all} setAll={setAll} lang='fr'/>
+                <CreateInput all={all} setAll={setAll} lang='en'/>
+                <CreateInput all={all} setAll={setAll} lang='it'/>
+            </div>
+        </div>
 
         </>
     );

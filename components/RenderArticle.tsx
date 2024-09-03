@@ -14,10 +14,14 @@ export default function RenderArticle(
     {data, lang}: {data: any, lang: string}
 ) {
     let name = `${data[lang].name} (${data.latin_name})`
+    if (name === ' ()') {
+        name = ''
+    }
     return (
     <div className="flex flex-row min-h-screen justify-center">
       <div className="w-5/6 max-w-xl">
         <div className='flex flex-col gap-2 w-full'>
+            <br/>
             <div className='flex justify-center items-center'>
                 <Image src={data.image} alt={name}/>
             </div>

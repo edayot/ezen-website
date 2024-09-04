@@ -27,7 +27,7 @@ export default async function Home({ params }: { params: HomeProps }) {
       <div className="w-11/12 max-w-9xl">
         <div className=' flex justify-center'><h1>{dict.articles.title}</h1></div>
         <br/>
-        <div className='flex gap-2 flex-wrap justify-center'>
+        <div className='flex gap-4 flex-wrap content-start'>
           {elements}
         </div>
       </div>

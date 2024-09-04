@@ -1,5 +1,5 @@
 "use client";
-import {Card, CardHeader, CardBody} from "@nextui-org/react";
+import {Card, CardHeader, CardBody, CardFooter, Button} from "@nextui-org/react";
 import { useRouter } from 'next/navigation'
 import {Image} from "@nextui-org/react";
 import { motion } from "framer-motion";
@@ -16,23 +16,32 @@ export function Element({data, id, lang}: {data: PlantData, lang: typeof locales
       router.push(`/article/${id}`);
     }
     let imageSrc = data.image ? data.image : "https://nextui.org/images/hero-card-complete.jpeg"
+
+    let imageComponent = (
+    <Image
+        removeWrapper
+        alt="Woman listing to music"
+        className="z-0 w-72 object-cover"
+        src={imageSrc}
+        fallbackSrc="https://nextui.org/images/hero-card-complete.jpeg"
+      />
+    )
+
     return (
-      <div key={data.date} className="min-w-fit">
-        <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={redirectToArticle}>
-          <Card className="py-4">
-            <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
-              <div className="text-tiny uppercase font-bold">{local_data.name}</div>
-              <small className="text-default-500">{data.latin_name}</small>
-            </CardHeader>
-            <CardBody className="overflow-visible py-2">
-              <Image
-                alt="Card background"
-                className="object-cover rounded-xl w-52 h-32"
-                src={imageSrc}
-                fallbackSrc="https://nextui.org/images/hero-card-complete.jpeg"
-              />
-            </CardBody>
-          </Card>
+      <div key={data.date} className="">
+        <motion.button whileHover={{ scale: 1.025 }} whileTap={{ scale: 0.95 }} onClick={redirectToArticle}>
+        <Card
+          isFooterBlurred
+          radius="lg"
+          className="border-none"
+        >
+          <CardHeader className="absolute z-10 top-1 flex-col items-start">
+            <p className="text-tiny text-white/40 font-bold">{data.latin_name}</p>
+            <h4 className="text-white/90 font-medium text-2xl text-wrap text-left">{data[lang].name}</h4>
+          </CardHeader>
+          {imageComponent}
+          
+        </Card>
         </motion.button>
       </div>
     )

@@ -5,34 +5,38 @@ import { useState } from "react";
 import { Element } from "./ArticleCard";
 import RenderArticle from "./RenderArticle";
 import { db } from '@/utils/firebase';
-import { collection, addDoc } from "firebase/firestore"; 
+import { collection, setDoc, doc, addDoc} from "firebase/firestore"; 
 import { PlantData } from "@/utils/article";
 import { locales } from "@/langs";
 
 
 
-export function NewArticleView({lang}: {lang: typeof locales[number]}) {
-    const [data, setData] = useState<PlantData>({
-        latin_name: '',
-        image: '',
-        image_filename: '',
-        date: 0,
-        fr: {
-            name: '',
-            place: '',
-            desc: ''
-        },
-        en: {
-            name: '',
-            place: '',
-            desc: ''
-        },
-        it: {
-            name: '',
-            place: '',
-            desc: ''
-        },
-    });
+export function ArticleEditor({
+  lang, 
+  initData = {
+    latin_name: '',
+    image: '',
+    image_filename: '',
+    date: 0,
+    fr: {
+        name: '',
+        place: '',
+        desc: ''
+    },
+    en: {
+        name: '',
+        place: '',
+        desc: ''
+    },
+    it: {
+        name: '',
+        place: '',
+        desc: ''
+    },
+  }, 
+  id = undefined
+}: {lang: typeof locales[number], initData?: PlantData, id?: string | undefined}) {
+    const [data, setData] = useState<PlantData>(initData);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const handleSubmit = async (event: React.FormEvent) => {
@@ -40,8 +44,17 @@ export function NewArticleView({lang}: {lang: typeof locales[number]}) {
         setLoading(true);
         try {
             let timestamp = (new Date()).getTime()
-            const docRef = await addDoc(collection(db, "articles"), {...data, date: timestamp});
-            console.log("Document written with ID: ", docRef.id);
+            const colRef = collection(db, "articles");
+            if (id) {
+                const docRef = doc(colRef, id);
+                await setDoc(docRef, {...data, date: timestamp});
+                console.log("Document edited with ID: ", docRef.id);
+            }
+            else {
+                const docRef = await addDoc(colRef, {...data, date: timestamp});
+                console.log("Document written with ID: ", docRef.id);
+            }
+            
         } catch (e: any) {
             console.error("Error adding document: ", e);
             setError(e.message);
@@ -50,16 +63,18 @@ export function NewArticleView({lang}: {lang: typeof locales[number]}) {
     };
     return (
       <div className="flex flex-col">
-        <div className="flex justify-end items-center">
-          <Button 
-            color="primary"
-            className="w-1/5"
-            onClick={handleSubmit} 
-            isLoading={loading}
-          >
-            Add to database
-          </Button>
+          <div className="flex flex-col justify-end items-end">
+            <Button 
+              color="primary"
+              className="w-52"
+              onClick={handleSubmit} 
+              isLoading={loading}
+            >
+              Save to database
+            </Button>
+            <div className="text-red-500">{error}</div>
         </div>
+        <br/>
         <Tabs aria-label="Options" className=" justify-center">
             <Tab key="form" title="Form">
               <Card>

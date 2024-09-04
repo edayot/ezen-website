@@ -4,6 +4,7 @@ import { getDocs, query, collection, limit, orderBy, QueryDocumentSnapshot} from
 import { db } from '@/utils/firebase';
 import React from "react";
 import { Element } from '@/components/ArticleCard';
+import { PlantData } from '@/utils/article';
 
 
 
@@ -17,7 +18,7 @@ export default async function Home({ params }: { params: HomeProps }) {
   // render all elements in the collection trought the Element function
   let elements = q.docs.map((doc) =>
     {
-      let data = doc.data()
+      let data: PlantData = doc.data() as PlantData
       return <Element key={data.date} data={data} lang={params.lang} id={doc.id}/>
   }
   )

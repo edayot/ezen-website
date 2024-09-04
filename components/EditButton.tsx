@@ -9,6 +9,7 @@ import { FiEdit } from "react-icons/fi";
 
 export function EditButton({id}: {id: string}) {
     const [user, setUser] = useState(auth.currentUser);
+    const router = useRouter()
     
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -22,7 +23,6 @@ export function EditButton({id}: {id: string}) {
         console.log("User is not logged in")
         return <></>
     }
-    const router = useRouter()
     const redirectToEdit = (event: any) => {
         console.log(`Redirecting to edit ${id}`);
         router.push(`/articles/edit/${id}`);

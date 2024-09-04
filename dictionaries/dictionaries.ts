@@ -3,7 +3,7 @@ import 'server-only'
 import { defaultLocale, locales } from "@/langs";
 
 export interface HomeProps {
-    lang: string;
+    lang: typeof locales[number];
     name: string;
 }
 

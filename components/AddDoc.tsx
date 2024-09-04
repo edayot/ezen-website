@@ -3,13 +3,15 @@
 import {Textarea, Input, Image, Card, CardBody} from "@nextui-org/react";
 import { useDropzone } from 'react-dropzone';
 import { FiUpload } from 'react-icons/fi';
+import { PlantData } from "@/utils/article";
+import { locales } from "@/langs";
 
 
 
 
 
 
-function CreateInput({all, setAll, lang}: {all: any, setAll: (value: any) => void, lang: string}) {
+function CreateInput({all, setAll, lang}: {all: PlantData, setAll: (value: any) => void, lang: typeof locales[number]}) {
     
     return (
         <>
@@ -58,7 +60,7 @@ function CreateInput({all, setAll, lang}: {all: any, setAll: (value: any) => voi
 }
 
 
-function CreateGlobalInput({all, setAll, lang}: {all: any, setAll: (value: any) => void, lang: string}) {
+function CreateGlobalInput({all, setAll, lang}: {all: PlantData, setAll: (value: any) => void, lang: string}) {
     const onDrop = (acceptedFiles: any) => {
         // convert to base64 and set to state + set filename
         const reader = new FileReader();
@@ -99,7 +101,7 @@ function CreateGlobalInput({all, setAll, lang}: {all: any, setAll: (value: any) 
 
 
 
-function AddItem({all, setAll}: {all: any, setAll: (value: any) => void}) {
+function AddItem({all, setAll}: {all: PlantData, setAll: (value: any) => void}) {
 
     return (
         <>

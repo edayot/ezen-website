@@ -3,10 +3,11 @@ import {Card, CardHeader, CardBody} from "@nextui-org/react";
 import { useRouter } from 'next/navigation'
 import {Image} from "@nextui-org/react";
 import { motion } from "framer-motion";
-import NextJSImage from "next/image";
+import { PlantData } from "@/utils/article";
+import { locales } from "@/langs";
 
 
-export function Element({data, id, lang}: {data: any, lang: string, id: string}) {
+export function Element({data, id, lang}: {data: PlantData, lang: typeof locales[number], id: string}) {
     const local_data = data[lang]
     const router = useRouter()
 

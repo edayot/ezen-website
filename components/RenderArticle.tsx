@@ -6,12 +6,14 @@
 
 import Markdown from 'react-markdown'
 import {Image} from "@nextui-org/react";
+import { PlantData } from '@/utils/article';
+import { locales } from '@/langs';
 
 
 
 
 export default function RenderArticle(
-    {data, lang}: {data: any, lang: string}
+    {data, lang}: {data: PlantData, lang: typeof locales[number]}
 ) {
     let name = `${data[lang].name} (${data.latin_name})`
     if (name === ' ()') {

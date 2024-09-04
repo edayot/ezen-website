@@ -6,14 +6,17 @@ import { Element } from "./ArticleCard";
 import RenderArticle from "./RenderArticle";
 import { db } from '@/utils/firebase';
 import { collection, addDoc } from "firebase/firestore"; 
+import { PlantData } from "@/utils/article";
+import { locales } from "@/langs";
 
 
 
-export function NewArticleView({lang}: {lang: string}) {
-    const [data, setData] = useState({
+export function NewArticleView({lang}: {lang: typeof locales[number]}) {
+    const [data, setData] = useState<PlantData>({
         latin_name: '',
         image: '',
         image_filename: '',
+        date: 0,
         fr: {
             name: '',
             place: '',
@@ -37,7 +40,7 @@ export function NewArticleView({lang}: {lang: string}) {
         setLoading(true);
         try {
             let timestamp = (new Date()).getTime()
-            const docRef = await addDoc(collection(db, "articles"), data);
+            const docRef = await addDoc(collection(db, "articles"), {...data, date: timestamp});
             console.log("Document written with ID: ", docRef.id);
         } catch (e: any) {
             console.error("Error adding document: ", e);

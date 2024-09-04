@@ -1,4 +1,4 @@
-import next from 'next';
+import next from "next";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {};

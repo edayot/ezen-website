@@ -1,19 +1,19 @@
 {
-    "products": {
-      "cart": "Carrello"
-    },
-    "navbar": {
-      "home": "Home",
-      "articles": "Articoli",
-      "contact": "Contatti",
-      "login": "Accedi"
-    },
-    "auth":{
-      "login": "Accedi",
-      "email": "Email",
-      "password": "Password"
-    },
-    "articles": {
-      "title": "Articoli"
-    }
+  "products": {
+    "cart": "Carrello"
+  },
+  "navbar": {
+    "home": "Home",
+    "articles": "Articoli",
+    "contact": "Contatti",
+    "login": "Accedi"
+  },
+  "auth": {
+    "login": "Accedi",
+    "email": "Email",
+    "password": "Password"
+  },
+  "articles": {
+    "title": "Articoli"
   }
+}

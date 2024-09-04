@@ -1,19 +1,19 @@
 {
-    "products": {
-      "cart": "Add to Cart"
-    },
-    "navbar": {
-      "home": "Home",
-      "articles": "Articles",
-      "contact": "Contact",
-      "login": "Login"
-    },
-    "auth": {
-      "login": "Log in",
-      "email": "Email",
-      "password": "Password"
-    },
-    "articles": {
-      "title": "Articles : "
-    }
+  "products": {
+    "cart": "Add to Cart"
+  },
+  "navbar": {
+    "home": "Home",
+    "articles": "Articles",
+    "contact": "Contact",
+    "login": "Login"
+  },
+  "auth": {
+    "login": "Log in",
+    "email": "Email",
+    "password": "Password"
+  },
+  "articles": {
+    "title": "Articles : "
   }
+}

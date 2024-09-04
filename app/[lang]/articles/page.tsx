@@ -26,10 +26,12 @@ export default async function Home({ params }: { params: HomeProps }) {
   return (
     <div className="flex flex-row min-h-screen justify-center">
       <div className="w-11/12 max-w-9xl">
-        <div className=' flex justify-center'><h1>{dict.articles.title}</h1></div>
-        <br/>
-        <div className='flex gap-4 flex-wrap content-start'>
-          {elements}
+        <div className=' flex flex-col justify-center items-center'>
+          <h1>{dict.articles.title}</h1>
+          <br/>
+          <div className='flex gap-4 flex-wrap content-start'>
+            {elements}
+          </div>
         </div>
       </div>
     </div>

@@ -8,6 +8,7 @@ import Markdown from 'react-markdown'
 import {Image} from "@nextui-org/react";
 import { PlantData } from '@/utils/article';
 import { locales } from '@/langs';
+import { defaultUrlTransform } from "react-markdown";
 
 
 
@@ -19,6 +20,12 @@ export default function RenderArticle(
     if (name === ' ()') {
         name = ''
     }
+    const urlTransform = (url: string) => {
+        if (url.startsWith('data:image')) {
+            return url;
+        }
+        return defaultUrlTransform(url);
+    }
     return (
     <div className="flex flex-row min-h-screen justify-center">
       <div className="w-5/6 max-w-xl">
@@ -29,7 +36,7 @@ export default function RenderArticle(
             </div>
             <h1>{name}</h1>
             <h2>{data[lang].place}</h2>
-            <Markdown className=" space-y-5">{data[lang].desc}</Markdown>
+            <Markdown className=" space-y-5" urlTransform={urlTransform}>{data[lang].desc}</Markdown>
         </div>
       </div>
     </div>

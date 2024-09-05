@@ -14,7 +14,8 @@ import { PlantData } from "@/utils/article";
 import { locales } from "@/langs";
 import { useState } from "react";
 import { useCallback } from "react";
-import { FiSearch, FiArrowDown, FiArrowUp } from "react-icons/fi";
+import { FiSearch, FiArrowDown, FiArrowUp} from "react-icons/fi";
+import { NewArticle } from "./RedirectButton";
 
 export function SearchBar({initValue, initSortDirection}: {initValue?: string, initSortDirection?: string}) {
   const [value, setValue] = useState(initValue || '');
@@ -87,7 +88,7 @@ export function Element({
     <Image
       removeWrapper
       alt="Woman listing to music"
-      className="z-0 w-72 object-cover"
+      className="z-0 w-72 object-cover h-44"
       src={imageSrc}
       fallbackSrc="https://nextui.org/images/hero-card-complete.jpeg"
     />
@@ -135,7 +136,13 @@ export function ArticlesViewer({elements_data, dict, lang}: {elements_data : any
 
   return (
       <>
+      <div className="flex flex-row justify-center items-center w-full">
+          <div className="w-full h-full"></div>
           <h1>{dict.articles.title}</h1>
+          <div className="w-full h-full flex flex-row justify-end items-center">
+            <NewArticle />
+          </div>
+      </div>
           <SearchBar initSortDirection={sortOrder} initValue={search}/>
           <div className="flex gap-4 flex-wrap content-start">{elements}</div>
       </>

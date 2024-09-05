@@ -4,7 +4,7 @@ import { db } from "@/utils/firebase";
 import RenderArticle from "@/components/RenderArticle";
 import { PlantData } from "@/utils/article";
 import { notFound } from "next/navigation";
-import { EditButton } from "@/components/EditButton";
+import { EditButton } from "@/components/RedirectButton";
 
 export default async function Home({ params }: { params: HomeProps }) {
   const dict = await getDictionary(params.lang);
@@ -18,8 +18,10 @@ export default async function Home({ params }: { params: HomeProps }) {
 
   return (
     <>
-      <div className="flex flex-col justify-end items-end">
-        <EditButton id={document.id} />
+      <div className="flex justify-center items-center">
+        <div className="flex flex-col justify-end items-end w-11/12">
+          <EditButton id={document.id} />
+        </div>
       </div>
       <RenderArticle data={data} lang={params.lang} />
     </>

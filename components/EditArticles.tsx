@@ -1,5 +1,5 @@
 "use client";
-import { Tabs, Tab, Card, CardBody, Button } from "@nextui-org/react";
+import { Tabs, Tab, Card, CardBody, Button, CircularProgress } from "@nextui-org/react";
 import AddDoc from "@/components/AddDoc";
 import { useState } from "react";
 import { Element } from "./ArticleCard";
@@ -8,6 +8,7 @@ import { db } from "@/utils/firebase";
 import { collection, setDoc, doc, addDoc } from "firebase/firestore";
 import { PlantData } from "@/utils/article";
 import { locales } from "@/langs";
+import { FiCheck, FiSave } from "react-icons/fi";
 
 export function ArticleEditor({
   lang,
@@ -40,6 +41,11 @@ export function ArticleEditor({
 }) {
   const [data, setData] = useState<PlantData>(initData);
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  let saveIcon = <FiSave size={25} />;
+  if (success) {
+    saveIcon = <FiCheck size={25} />;
+  }
   const [error, setError] = useState("");
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -51,9 +57,17 @@ export function ArticleEditor({
         const docRef = doc(colRef, id);
         await setDoc(docRef, { ...data, date: timestamp });
         console.log("Document edited with ID: ", docRef.id);
+        setSuccess(true);
+        setTimeout(() => {
+          setSuccess(false);
+        }, 1000);
       } else {
         const docRef = await addDoc(colRef, { ...data, date: timestamp });
         console.log("Document written with ID: ", docRef.id);
+        setSuccess(true);
+        setTimeout(() => {
+          setSuccess(false);
+        }, 1000);
       }
     } catch (e: any) {
       console.error("Error adding document: ", e);
@@ -66,11 +80,12 @@ export function ArticleEditor({
       <div className="flex flex-col justify-end items-end">
         <Button
           color="primary"
-          className="w-52"
+          variant="bordered"
           onClick={handleSubmit}
+          isIconOnly
           isLoading={loading}
         >
-          Save to database
+          {saveIcon}
         </Button>
         <div className="text-red-500">{error}</div>
       </div>

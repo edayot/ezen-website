@@ -10,7 +10,7 @@ import {
 } from "@nextui-org/react";
 import { ThemeSwitch } from "./themes/Switch";
 import React from "react";
-import { FiHome, FiBookOpen, FiInfo, FiUser } from "react-icons/fi";
+import { FiHome, FiBookOpen, FiInfo, FiUser, FiLogOut } from "react-icons/fi";
 import { usePathname } from "next/navigation";
 
 function NavBarLeftContent({ size }: { size: number }) {

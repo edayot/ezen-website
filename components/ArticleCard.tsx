@@ -5,12 +5,63 @@ import {
   CardBody,
   CardFooter,
   Button,
+  Input,
 } from "@nextui-org/react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Image } from "@nextui-org/react";
 import { motion } from "framer-motion";
 import { PlantData } from "@/utils/article";
 import { locales } from "@/langs";
+import { useState } from "react";
+import { useCallback } from "react";
+import { FiSearch, FiArrowDown, FiArrowUp } from "react-icons/fi";
+
+export function SearchBar({initValue, initSortDirection}: {initValue?: string, initSortDirection?: string}) {
+  const [value, setValue] = useState(initValue || '');
+  const [AscOrDesc, setAscOrDesc] = useState(initSortDirection || 'asc');
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString())
+      params.set(name, value)
+ 
+      return params.toString()
+    },
+    [searchParams]
+  )
+  const handleChange = (value: string) => {
+    setValue(value);
+    router.push(pathname + '?' + createQueryString('search', value))
+  };
+
+
+  return (
+    <div className="flex flex-row gap-2 justify-center items-center">
+      <div className="max-w-xl">
+        <Input
+          placeholder="Search ..."
+          value={value}
+          onValueChange={handleChange}
+          startContent={<FiSearch />}
+        />
+      </div>
+      <Button 
+        size="sm"
+        onPress={() => {
+          const newSort = (AscOrDesc === 'asc') ? 'desc' : 'asc';
+          setAscOrDesc(newSort);
+          router.push(pathname + '?' + createQueryString('sort', newSort))
+        }}
+      >
+        {(AscOrDesc === 'asc') ? <FiArrowDown /> : <FiArrowUp />}
+        Date
+      </Button>
+    </div>
+  )
+}
 
 export function Element({
   data,
@@ -63,4 +114,30 @@ export function Element({
       </motion.button>
     </div>
   );
+}
+
+
+
+export function ArticlesViewer({elements_data, dict, lang}: {elements_data : any, lang: (typeof locales)[number], dict: any}) {
+  const searchParams = useSearchParams();
+  let search = searchParams.get('search') || "";
+  let sortOrder = searchParams.get('sort');
+  if (!sortOrder) {sortOrder = "asc";}
+    
+  // render all elements in the collection trought the Element function
+  let elements = elements_data.map(({data, id}: {data: PlantData, id: string}) => {
+      return (
+      <Element key={data.date} data={data} lang={lang} id={id} />
+      );
+  });
+  // reverse the list if the sort is desc
+  if (sortOrder == "desc") {elements.reverse();}
+
+  return (
+      <>
+          <h1>{dict.articles.title}</h1>
+          <SearchBar initSortDirection={sortOrder} initValue={search}/>
+          <div className="flex gap-4 flex-wrap content-start">{elements}</div>
+      </>
+  )
 }

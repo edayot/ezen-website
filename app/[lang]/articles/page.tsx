@@ -14,6 +14,7 @@ import { PlantData } from "@/utils/article";
 interface searchParamsInterface {
   search: string;
   sort: "asc" | "desc";
+  page: number
 }
 
 
@@ -43,12 +44,18 @@ export default async function Home({ params, searchParams }: { params: HomeProps
       return found;
     });
   }
+  let page = 1;
+  if (searchParams.page) {page = searchParams.page}
+  const elementsPerPage = 3*5;
+  const numberOfPages = Math.ceil(elements_data.length/elementsPerPage);
+  elements_data = elements_data.slice((page-1)*elementsPerPage, page*elementsPerPage);
+
 
   return (
     <div className="flex flex-row min-h-screen justify-center">
       <div className="w-11/12 max-w-9xl">
         <div className=" flex flex-col justify-center items-center gap-2">
-          <ArticlesViewer elements_data={elements_data} dict={dict} lang={params.lang}/>
+          <ArticlesViewer elements_data={elements_data} dict={dict} lang={params.lang} initPage={page} lenghtPage={numberOfPages}/>
         </div>
       </div>
     </div>

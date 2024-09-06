@@ -6,6 +6,7 @@ import {
   CardFooter,
   Button,
   Input,
+  Pagination,
 } from "@nextui-org/react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Image } from "@nextui-org/react";
@@ -17,6 +18,16 @@ import { useCallback } from "react";
 import { FiSearch, FiArrowDown, FiArrowUp} from "react-icons/fi";
 import { NewArticle } from "./RedirectButton";
 
+
+function appplySearchParam(searchParams: URLSearchParams, name: string, value: string) {
+  const params = new URLSearchParams(searchParams.toString())
+  params.set(name, value)
+
+  return params.toString()
+}
+
+
+
 export function SearchBar({initValue, initSortDirection}: {initValue?: string, initSortDirection?: string}) {
   const [value, setValue] = useState(initValue || '');
   const [AscOrDesc, setAscOrDesc] = useState(initSortDirection || 'asc');
@@ -26,10 +37,7 @@ export function SearchBar({initValue, initSortDirection}: {initValue?: string, i
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
-      const params = new URLSearchParams(searchParams.toString())
-      params.set(name, value)
- 
-      return params.toString()
+      return appplySearchParam(searchParams, name, value)
     },
     [searchParams]
   )
@@ -119,8 +127,22 @@ export function Element({
 
 
 
-export function ArticlesViewer({elements_data, dict, lang}: {elements_data : any, lang: (typeof locales)[number], dict: any}) {
+export function ArticlesViewer({elements_data, dict, lang, initPage = 1, lenghtPage = 1}: {elements_data : any, lang: (typeof locales)[number], dict: any, initPage?: number, lenghtPage?: number}) {
   const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+  const [pageNumber, setPageNumber] = useState(initPage);
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      return appplySearchParam(searchParams, name, value)
+    },
+    [searchParams]
+  )
+  const handleChange = (value: number) => {
+    setPageNumber(value);
+    router.push(pathname + '?' + createQueryString('page', value.toString()))
+  };
+
   let search = searchParams.get('search') || "";
   let sortOrder = searchParams.get('sort');
   if (!sortOrder) {sortOrder = "asc";}
@@ -145,6 +167,13 @@ export function ArticlesViewer({elements_data, dict, lang}: {elements_data : any
       </div>
           <SearchBar initSortDirection={sortOrder} initValue={search}/>
           <div className="flex gap-4 flex-wrap content-start">{elements}</div>
+          <Pagination 
+            isCompact 
+            showControls 
+            total={lenghtPage} 
+            page={pageNumber}
+            onChange={handleChange}
+          />
       </>
   )
 }

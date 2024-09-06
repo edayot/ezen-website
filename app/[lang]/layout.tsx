@@ -29,9 +29,11 @@ export default async function RootLayout({
       <body className={inter.className}>
         <NextUIProvider>
           <NextThemesProvider attribute="class" defaultTheme="dark">
-            <SetLangComponent locale={params.lang} />
-            <NavBar {...dict} />
-            <div className="">{children}</div>
+            <div className="h-screen">
+              <SetLangComponent locale={params.lang} />
+              <NavBar {...dict} />
+              <div className="">{children}</div>
+            </div>
           </NextThemesProvider>
         </NextUIProvider>
       </body>

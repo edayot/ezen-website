@@ -1,5 +1,4 @@
 import { MapViewer } from "@/components/MapViewer";
-import Image from "next/image";
 import {
   getDocs,
   query,
@@ -17,7 +16,7 @@ export default async function Home() {
   let elements_data = q.docs.map((doc) => {
     return { data: doc.data(), id: doc.id } as {data: PlantData, id: string};
   });
-  return <div>
+  return <div className="flex justify-center items-center">
     <MapViewer />
   </div>;
 }

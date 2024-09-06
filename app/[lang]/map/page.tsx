@@ -1,4 +1,3 @@
-import { MapViewer } from "@/components/map/Default";
 import {
   getDocs,
   query,
@@ -8,6 +7,7 @@ import {
 } from "@firebase/firestore";
 import { db } from "@/utils/firebase";
 import { PlantData } from "@/utils/article";
+import { MapWithArticles } from "@/components/map/AllMarkers";
 
 export default async function Home() {
   const ref = collection(db, "articles");
@@ -18,8 +18,7 @@ export default async function Home() {
   });
   return (
     <div className="w-screen fixed top-16 bottom-0">
-      <MapViewer>
-      </MapViewer>
+      <MapWithArticles data={elements_data}/>
     </div>
   );
 }

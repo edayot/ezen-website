@@ -1,14 +1,40 @@
 "use client";
-import { useState } from "react";
-import { Image } from "@nextui-org/react";
+import { useState, useEffect } from "react";
+import { MapContainer, TileLayer, useMap, Marker, Popup, ImageOverlay} from 'react-leaflet'
+import "leaflet/dist/leaflet.css";
+import { constants } from "fs/promises";
+
+
 
 
 
 export function MapViewer() {
-    const [mouseX, setMouseX] = useState(0);
-    const [mouseY, setMouseY] = useState(0);
+    const [size, setSize] = useState<[number, number]>([-1, -1]);
+    const img_path = "/images/map.jpg"
+
+    useEffect(() => {
+      const img = new Image();
+      img.onload = () => {
+          const clamp = 50
+          setSize([clamp,img.width/img.height*clamp]);
+          console.log(size);
+      };
+      img.src = img_path;
+  }, [img_path]);
+    if (size[0] === -1 || size[1] === -1) {return <></>}
     
-    return <div className="">
-        <Image src="/images/map.jpg" alt="Map" className="h-52"/>
-    </div>
+    return (
+    <MapContainer
+        boxZoom
+        center={[0,0]}
+        bounds={[[0, 0], size]}
+        className="h-full w-full"
+      >
+        <ImageOverlay
+          bounds={[[0, 0], size]}
+          url={img_path}
+          className="map_main aspect-auto"
+        />
+    </MapContainer>
+    );
 }

@@ -25,14 +25,19 @@ export default async function RootLayout({
   const dict = await getDictionary(params.lang);
   return (
     <html>
-      <head />
+      <head>
+      </head>
       <body className={inter.className}>
         <NextUIProvider>
           <NextThemesProvider attribute="class" defaultTheme="dark">
-            <div className="h-screen">
+            <div className="flex flex-col min-h-screen">
               <SetLangComponent locale={params.lang} />
-              <NavBar {...dict} />
-              <div className="">{children}</div>
+              <div>
+                <NavBar {...dict} />
+              </div>
+              <div className="grow">
+                {children}
+              </div>
             </div>
           </NextThemesProvider>
         </NextUIProvider>

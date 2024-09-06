@@ -16,7 +16,9 @@ export default async function Home() {
   let elements_data = q.docs.map((doc) => {
     return { data: doc.data(), id: doc.id } as {data: PlantData, id: string};
   });
-  return <div className="flex justify-center items-center">
-    <MapViewer />
-  </div>;
+  return (
+    <div className="w-screen fixed top-16 bottom-0">
+      <MapViewer />
+    </div>
+  );
 }

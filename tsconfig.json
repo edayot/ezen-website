@@ -28,6 +28,6 @@
     ".next/types/**/*.ts",
     "build/types/**/*.ts",
     "middleware.ts"
-  ],
+, "components/MapViewer.jsx"  ],
   "exclude": ["node_modules"]
 }

@@ -49,7 +49,6 @@ function DrageableMarker({
         eventHandlers={eventHandlers}
         position={pos}
         ref={markerRef}
-        icon={"aaa"}
     >
     </Marker>
 }

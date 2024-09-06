@@ -1,4 +1,4 @@
-import { MapViewer } from "@/components/MapViewer";
+import { MapViewer } from "@/components/map/Default";
 import {
   getDocs,
   query,
@@ -18,7 +18,8 @@ export default async function Home() {
   });
   return (
     <div className="w-screen fixed top-16 bottom-0">
-      <MapViewer />
+      <MapViewer>
+      </MapViewer>
     </div>
   );
 }

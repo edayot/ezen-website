@@ -9,6 +9,7 @@ import { collection, setDoc, doc, addDoc } from "firebase/firestore";
 import { PlantData } from "@/utils/article";
 import { locales } from "@/langs";
 import { FiCheck, FiSave } from "react-icons/fi";
+import { EditMap } from "./map/EditMap";
 
 export function ArticleEditor({
   lang,
@@ -95,6 +96,17 @@ export function ArticleEditor({
           <Card>
             <CardBody>
               <AddDoc all={data} setAll={setData} />
+            </CardBody>
+          </Card>
+        </Tab>
+        <Tab key="map" title="Set map position">
+          <Card>
+            <CardBody>
+              <div className="flex items-center justify-center">
+                <div className="w-full h-96">
+                  <EditMap all={data} setAll={setData} />
+                </div>
+              </div>
             </CardBody>
           </Card>
         </Tab>

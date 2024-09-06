@@ -3,12 +3,12 @@ import { useState, useEffect } from "react";
 import { MapContainer, TileLayer, useMap, Marker, Popup, ImageOverlay} from 'react-leaflet'
 import "leaflet/dist/leaflet.css";
 import { constants } from "fs/promises";
+import React from "react";
 
 
 
 
-
-export function MapViewer() {
+export function MapViewer({children}: {children?: React.ReactNode}) {
     const [size, setSize] = useState<[number, number]>([-1, -1]);
     const img_path = "/images/map.jpg"
 
@@ -17,7 +17,6 @@ export function MapViewer() {
       img.onload = () => {
           const clamp = 50
           setSize([clamp,img.width/img.height*clamp]);
-          console.log(size);
       };
       img.src = img_path;
   }, [img_path]);
@@ -35,6 +34,7 @@ export function MapViewer() {
           url={img_path}
           className="map_main aspect-auto"
         />
+        {children}
     </MapContainer>
     );
 }

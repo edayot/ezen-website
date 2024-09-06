@@ -14,7 +14,7 @@ export default async function Home({ params }: { params: HomeProps }) {
     return notFound();
   }
   return (
-    <div className="flex flex-row min-h-screen justify-center">
+    <div className="flex flex-row justify-center">
       <div className=" w-5/6">
         <br />
         <ArticleEditor lang={params.lang} initData={data} id={document.id} />

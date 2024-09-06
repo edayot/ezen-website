@@ -24,7 +24,7 @@ export default function RenderArticle({
     return defaultUrlTransform(url);
   };
   return (
-    <div className="flex flex-row min-h-screen justify-center">
+    <div className="flex flex-row justify-center">
       <div className="w-5/6 max-w-xl">
         <div className="flex flex-col gap-2 w-full">
           <br />

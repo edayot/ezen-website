@@ -24,7 +24,7 @@ export default async function RootLayout({
 }) {
   const dict = await getDictionary(params.lang);
   return (
-    <html lang={params.lang}>
+    <html>
       <head />
       <body className={inter.className}>
         <NextUIProvider>

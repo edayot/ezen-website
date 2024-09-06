@@ -4,6 +4,11 @@ interface LanguageData {
   desc: string;
 }
 
+interface Position {
+  x: number;
+  y: number;
+}
+
 export interface PlantData {
   latin_name: string;
   image: string;
@@ -12,4 +17,5 @@ export interface PlantData {
   en: LanguageData;
   it: LanguageData;
   date: number;
+  position?: Position;
 }

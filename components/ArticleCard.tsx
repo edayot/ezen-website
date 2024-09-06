@@ -93,7 +93,7 @@ export function Element({
     <Image
       removeWrapper
       alt="Woman listing to music"
-      className="z-0 w-72 object-cover h-44"
+      className="z-0 object-cover aspect-video w-full h-44"
       src={imageSrc}
       fallbackSrc="https://nextui.org/images/hero-card-complete.jpeg"
     />
@@ -164,7 +164,9 @@ export function ArticlesViewer({elements_data, dict, lang, initPage = 1, lenghtP
           </div>
       </div>
           <SearchBar initSortDirection={sortOrder} initValue={search}/>
-          <div className="flex gap-4 flex-wrap content-start">{elements}</div>
+          <div className="flex gap-4 flex-wrap content-start items-center justify-center">
+            {elements}
+          </div>
           <Pagination 
             isCompact 
             showControls 

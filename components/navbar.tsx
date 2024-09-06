@@ -10,7 +10,7 @@ import {
 } from "@nextui-org/react";
 import { ThemeSwitch } from "./themes/Switch";
 import React from "react";
-import { FiHome, FiBookOpen, FiInfo, FiUser, FiLogOut } from "react-icons/fi";
+import { FiHome, FiBookOpen, FiMap, FiUser, FiLogOut } from "react-icons/fi";
 import { usePathname } from "next/navigation";
 
 function NavBarLeftContent({ size }: { size: number }) {
@@ -27,9 +27,9 @@ function NavBarLeftContent({ size }: { size: number }) {
           <FiBookOpen size={size} />
         </Link>
       </NavbarItem>
-      <NavbarItem isActive={path === "/contact"}>
-        <Link href="/contact">
-          <FiInfo size={size} />
+      <NavbarItem isActive={path === "/map"}>
+        <Link href="/map">
+          <FiMap size={size} />
         </Link>
       </NavbarItem>
     </>

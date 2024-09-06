@@ -38,7 +38,7 @@ export function LoginComponent({ dict }: { dict: any }) {
   };
 
   return (
-    <div className="flex flex-col gap-2 items-center border align-middle">
+    <div className="flex flex-col gap-2 items-center align-middle">
       <h1>{dict.auth.login}</h1>
       <br />
       <Input

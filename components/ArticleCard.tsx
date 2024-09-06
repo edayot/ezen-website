@@ -17,6 +17,7 @@ import { useState } from "react";
 import { useCallback } from "react";
 import { FiSearch, FiArrowDown, FiArrowUp} from "react-icons/fi";
 import { NewArticle } from "./RedirectButton";
+import Link from "next/link";
 
 
 function appplySearchParam(searchParams: URLSearchParams, name: string, value: string) {
@@ -84,10 +85,6 @@ export function Element({
   const local_data = data[lang];
   const router = useRouter();
 
-  const redirectToArticle = (event: any) => {
-    console.log(`Redirecting to article ${id}`);
-    router.push(`/article/${id}`);
-  };
   let imageSrc = data.image
     ? data.image
     : "https://nextui.org/images/hero-card-complete.jpeg";
@@ -103,25 +100,26 @@ export function Element({
   );
 
   return (
-    <div key={data.date} className="">
-      <motion.button
-        whileHover={{ scale: 1.025 }}
-        whileTap={{ scale: 0.95 }}
-        onClick={redirectToArticle}
-      >
-        <Card isFooterBlurred radius="lg" className="border-none">
-          <CardHeader className="absolute z-10 top-1 flex-col items-start">
-            <p className="text-tiny text-white/40 font-bold">
-              {data.latin_name}
-            </p>
-            <h4 className="text-white/90 font-medium text-2xl text-wrap text-left">
-              {data[lang].name}
-            </h4>
-          </CardHeader>
-          {imageComponent}
-        </Card>
-      </motion.button>
-    </div>
+    <Link href={`/article/${id}`}>
+      <div key={data.date} className="">
+        <motion.button
+          whileHover={{ scale: 1.025 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <Card isFooterBlurred radius="lg" className="border-none">
+            <CardHeader className="absolute z-10 top-1 flex-col items-start">
+              <p className="text-tiny text-white/40 font-bold">
+                {data.latin_name}
+              </p>
+              <h4 className="text-white/90 font-medium text-2xl text-wrap text-left">
+                {data[lang].name}
+              </h4>
+            </CardHeader>
+            {imageComponent}
+          </Card>
+        </motion.button>
+      </div>
+    </Link>
   );
 }
 

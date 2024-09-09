@@ -77,25 +77,28 @@ export function Element({
   data,
   id,
   lang,
+  size="44"
 }: {
   data: PlantData;
   lang: (typeof locales)[number];
   id: string;
+  size?: string;
 }) {
   const local_data = data[lang];
   const router = useRouter();
+  const fallback = "https://nextui.org/images/hero-card-complete.jpeg";
 
   let imageSrc = data.image
     ? data.image
-    : "https://nextui.org/images/hero-card-complete.jpeg";
+    : fallback
 
   let imageComponent = (
     <Image
       removeWrapper
       alt="Woman listing to music"
-      className="z-0 object-cover aspect-video w-full h-44"
+      className={`z-0 object-cover aspect-video w-full h-${size}`}
       src={imageSrc}
-      fallbackSrc="https://nextui.org/images/hero-card-complete.jpeg"
+      fallbackSrc={fallback}
     />
   );
 

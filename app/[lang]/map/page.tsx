@@ -8,8 +8,9 @@ import {
 import { db } from "@/utils/firebase";
 import { PlantData } from "@/utils/article";
 import { MapWithArticles } from "@/components/map/AllMarkers";
+import { HomeProps } from "@/dictionaries/dictionaries";
 
-export default async function Home() {
+export default async function Home({ params }: { params: HomeProps }) {
   const ref = collection(db, "articles");
 
   let q = await getDocs(query(ref, orderBy("date")));
@@ -18,7 +19,7 @@ export default async function Home() {
   });
   return (
     <div className="w-screen fixed top-16 bottom-0">
-      <MapWithArticles data={elements_data}/>
+      <MapWithArticles data={elements_data} lang={params.lang}/>
     </div>
   );
 }

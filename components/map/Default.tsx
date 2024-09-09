@@ -7,7 +7,7 @@ import React from "react";
 
 
 
-export function MapViewer({children}: {children?: React.ReactNode}) {
+export function MapViewer({children, setMap}: {children?: React.ReactNode, setMap?: (value: any) => void}) {
     const [size, setSize] = useState<[number, number]>([-1, -1]);
     const img_path = "/images/map.jpg"
 
@@ -27,6 +27,9 @@ export function MapViewer({children}: {children?: React.ReactNode}) {
         center={[0,0]}
         bounds={[[0, 0], size]}
         className="h-full w-full"
+        ref={(value: any) => {
+          if (setMap) {setMap(value)}
+        }}
         
       >
         <ImageOverlay

@@ -8,6 +8,7 @@ import { ThemeProvider as NextThemesProvider } from "next-themes";
 import NavBar from "@/components/navbar";
 import { getDictionary } from "@/dictionaries/dictionaries";
 import { SetLangComponent } from "../setLangComponent";
+import { LeafletProvider } from "@/components/LeafletProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -33,12 +34,14 @@ export default async function RootLayout({
           <NextThemesProvider attribute="class" defaultTheme="dark">
             <div className="flex flex-col min-h-screen">
               <SetLangComponent locale={params.lang} />
-              <div>
-                <NavBar {...dict} />
-              </div>
-              <div className="grow">
-                {children}
-              </div>
+              <LeafletProvider>
+                <div>
+                  <NavBar {...dict} />
+                </div>
+                <div className="grow">
+                  {children}
+                </div>
+              </LeafletProvider>
             </div>
           </NextThemesProvider>
         </NextUIProvider>

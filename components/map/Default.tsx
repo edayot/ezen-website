@@ -1,7 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
 import { MapContainer, TileLayer, useMap, Marker, Popup, ImageOverlay} from 'react-leaflet'
-import "leaflet/dist/leaflet.css";
 import { constants } from "fs/promises";
 import React from "react";
 
@@ -28,6 +27,7 @@ export function MapViewer({children}: {children?: React.ReactNode}) {
         center={[0,0]}
         bounds={[[0, 0], size]}
         className="h-full w-full"
+        
       >
         <ImageOverlay
           bounds={[[0, 0], size]}

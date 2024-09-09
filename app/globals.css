@@ -6,15 +6,21 @@
   /* Default theme */
   --background: rgb(221, 221, 255);
   --foreground: rgb(0, 0, 0);
+  --map-background: #ddd;
 }
 .dark {
   --background: rgb(0, 5, 20);
   --foreground: rgb(221, 221, 255);
+  --map-background: rgb(0, 5, 20);
 }
 
 body {
   color: var(--foreground);
   background-color: var(--background);
+}
+
+.leaflet-container {
+  background: var(--map-background) !important;
 }
 
 h1,

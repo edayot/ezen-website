@@ -9,12 +9,11 @@ import { Element } from "../ArticleCard";
 
 
 function ArticleMarker({element, lang}: {element: {data: PlantData, id: string}, lang: typeof locales[number]}) {
+    const [open, setOpen] = useState(false)
+    const [open2, setOpen2] = useState(false)
     if (!element.data.position) {
         return <></>
     }
-    const [open, setOpen] = useState(false)
-    const [open2, setOpen2] = useState(false)
-
     let delay = 1000;
     if(window.matchMedia("(pointer: coarse)").matches) {
         delay = 100;
@@ -72,7 +71,7 @@ function ArticleMarker({element, lang}: {element: {data: PlantData, id: string},
 
 
 export function MapWithArticles({data, lang}: {data: {data: PlantData, id: string}[], lang: (typeof locales)[number]}) {
-    let elements = data.map((element) => <ArticleMarker element={element} lang={lang}/>);
+    let elements = data.map((element) => <ArticleMarker element={element} lang={lang} key={element.id}/>);
     return <MapViewer>
         {elements}
       </MapViewer>

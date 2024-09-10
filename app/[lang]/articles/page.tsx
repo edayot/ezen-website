@@ -24,8 +24,11 @@ export default async function Home({ params, searchParams }: { params: HomeProps
 
   let q = await getDocs(query(ref, orderBy("date")));
   let elements_data = q.docs.map((doc) => {
-    return { data: doc.data(), id: doc.id };
+    return { data: doc.data() as PlantData, id: doc.id };
   });
+  elements_data = elements_data.filter(({ data }) => {
+    return !data.disable_in_search
+  })
   // filter the elements based on the search query
   if (searchParams.search) {
     elements_data = elements_data.filter(({ data }) => {
@@ -52,7 +55,7 @@ export default async function Home({ params, searchParams }: { params: HomeProps
 
 
   return (
-    <div className="flex flex-row justify-center">
+    <div className=" flex flex-col justify-center items-center">
       <div className="w-11/12 max-w-9xl">
         <div className=" flex flex-col justify-center items-center gap-2">
           <ArticlesViewer elements_data={elements_data} dict={dict} lang={params.lang} initPage={page} lenghtPage={numberOfPages}/>

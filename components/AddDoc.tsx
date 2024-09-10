@@ -9,6 +9,7 @@ import {
   CardFooter,
   Button,
   Divider,
+  Switch,
 } from "@nextui-org/react";
 import { useDropzone } from "react-dropzone";
 import { FiUpload, FiCopy } from "react-icons/fi";
@@ -191,16 +192,43 @@ function CreateGlobalInput({
   );
 }
 
-function AddItem({
+function DisableOption({
   all,
   setAll,
+  lang,
 }: {
   all: PlantData;
   setAll: (value: any) => void;
+  lang: string;
+}) {
+  return (
+    <>
+    <Switch isSelected={all.disable_map_position} onValueChange={(e) => setAll({ ...all, disable_map_position: Boolean(!all.disable_map_position) })} >
+      Disable map postion
+    </Switch>
+    <Divider orientation="vertical" />
+    <Switch isSelected={all.disable_in_search} onValueChange={(e) => setAll({ ...all, disable_in_search: Boolean(!all.disable_in_search) })} >
+      Disable article search
+    </Switch>
+    </>
+  ) 
+}
+
+function AddItem({
+  all,
+  setAll,
+  locale,
+}: {
+  all: PlantData;
+  setAll: (value: any) => void;
+  locale: string;
 }) {
   return (
     <>
       <div className="flex flex-col gap-2">
+        <div className="flex flex-row justify-center items-center gap-2">
+          <DisableOption all={all} setAll={setAll} lang={locale}/>
+        </div>
         <div className="flex flex-row justify-center">
           <div className="w-5/6 max-w-3xl flex flex-row gap-4 justify-center items-center">
             <div className="w-96">

@@ -17,6 +17,12 @@ export default function RenderArticle({
   if (name === " ()") {
     name = "";
   }
+  if (data.latin_name === "") {
+    name = data[lang].name
+  }
+  if (data[lang].name === "") {
+    name = data.latin_name
+  }
   const urlTransform = (url: string) => {
     if (url.startsWith("data:image")) {
       return url;
@@ -27,9 +33,8 @@ export default function RenderArticle({
     <div className="flex flex-row justify-center">
       <div className="w-5/6 max-w-xl">
         <div className="flex flex-col gap-2 w-full">
-          <br />
           <div className="flex justify-center items-center">
-            <Image src={data.image} alt={name} />
+            {(data.image !== "") ? <Image src={data.image} alt={name} />: <></>}
           </div>
           <h1>{name}</h1>
           <h2>{data[lang].place}</h2>

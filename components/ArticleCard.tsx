@@ -77,15 +77,13 @@ export function Element({
   data,
   id,
   lang,
-  size="44"
+  size,
 }: {
   data: PlantData;
   lang: (typeof locales)[number];
   id: string;
   size?: string;
 }) {
-  const local_data = data[lang];
-  const router = useRouter();
   const fallback = "https://nextui.org/images/hero-card-complete.jpeg";
 
   let imageSrc = data.image
@@ -96,7 +94,8 @@ export function Element({
     <Image
       removeWrapper
       alt="Woman listing to music"
-      className={`z-0 object-cover aspect-video w-full h-${size}`}
+      className="z-0 object-cover aspect-video h-full"
+      style={{ width: size ? size: "11rem" }}
       src={imageSrc}
       fallbackSrc={fallback}
     />
@@ -111,12 +110,14 @@ export function Element({
         >
           <Card isFooterBlurred radius="lg" className="border-none">
             <CardHeader className="absolute z-10 top-1 flex-col items-start">
-              <p className="text-tiny text-white/40 font-bold">
-                {data.latin_name}
-              </p>
-              <h4 className="text-white/90 font-medium text-2xl text-wrap text-left">
-                {data[lang].name}
-              </h4>
+              <div className="flex flex-col">
+                <div className="text-tiny text-white/40 font-bold text-left">
+                  {data.latin_name}
+                </div>
+                <h4 className="text-white/90 font-medium text-2xl text-wrap text-left">
+                  {data[lang].name}
+                </h4>
+              </div>
             </CardHeader>
             {imageComponent}
           </Card>
@@ -151,7 +152,7 @@ export function ArticlesViewer({elements_data, dict, lang, initPage = 1, lenghtP
   // render all elements in the collection trought the Element function
   let elements = elements_data.map(({data, id}: {data: PlantData, id: string}) => {
       return (
-      <Element key={data.date} data={data} lang={lang} id={id} />
+        <Element key={data.date} data={data} lang={lang} id={id} size={"15rem"}/>
       );
   });
   // reverse the list if the sort is desc

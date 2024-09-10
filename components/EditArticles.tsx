@@ -13,7 +13,16 @@ import { EditMap } from "./map/EditMap";
 
 export function ArticleEditor({
   lang,
-  initData = {
+  initData,
+  id = undefined,
+}: {
+  lang: (typeof locales)[number];
+  initData?: PlantData;
+  id?: string | undefined;
+}) {
+  const initDataPlaceHolder: PlantData = {
+    disable_in_search: false,
+    disable_map_position: false,
     latin_name: "",
     image: "",
     image_filename: "",
@@ -33,14 +42,9 @@ export function ArticleEditor({
       place: "",
       desc: "",
     },
-  },
-  id = undefined,
-}: {
-  lang: (typeof locales)[number];
-  initData?: PlantData;
-  id?: string | undefined;
-}) {
-  const [data, setData] = useState<PlantData>(initData);
+  }
+
+  const [data, setData] = useState<PlantData>({...initDataPlaceHolder, ...initData});
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   let saveIcon = <FiSave size={25} />;
@@ -95,7 +99,7 @@ export function ArticleEditor({
         <Tab key="form" title="Form">
           <Card>
             <CardBody>
-              <AddDoc all={data} setAll={setData} />
+              <AddDoc all={data} setAll={setData} locale={lang} />
             </CardBody>
           </Card>
         </Tab>

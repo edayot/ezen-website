@@ -1,3 +1,4 @@
+"use server";
 import { getDictionary, HomeProps } from "@/dictionaries/dictionaries";
 import { getDoc, collection, doc } from "@firebase/firestore";
 import { db } from "@/utils/firebase";

@@ -1,3 +1,4 @@
+"use server";
 import { HomeProps } from "@/dictionaries/dictionaries";
 import PageRender from "@/app/[lang]/article/[name]/page"
 

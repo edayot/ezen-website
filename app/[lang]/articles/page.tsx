@@ -56,7 +56,7 @@ export default async function Home({ params, searchParams }: { params: HomeProps
 
   return (
     <div className=" flex flex-col justify-center items-center">
-      <div className="w-11/12 max-w-9xl">
+      <div className="w-11/12">
         <div className=" flex flex-col justify-center items-center gap-2">
           <ArticlesViewer elements_data={elements_data} dict={dict} lang={params.lang} initPage={page} lenghtPage={numberOfPages}/>
         </div>

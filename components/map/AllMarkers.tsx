@@ -61,10 +61,7 @@ function ArticleMarker({element, lang}: {element: {data: PlantData, id: string},
             
             {(open || open2) ? 
                 <>
-                    <div className="flex gap-4 flex-wrap content-start items-center justify-center">
-                        <Element data={element.data} id={element.id} lang={lang} size={"15rem"}/>
-                    </div>
-                    <div className="w-96"></div>
+                    <Element data={element.data} id={element.id} lang={lang} size={"14rem"}/>
                 </>
                 : element.data[lang].name}
             

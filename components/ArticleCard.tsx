@@ -77,7 +77,7 @@ export function Element({
   data,
   id,
   lang,
-  size,
+  size = "11rem", // Default size
 }: {
   data: PlantData;
   lang: (typeof locales)[number];
@@ -86,40 +86,36 @@ export function Element({
 }) {
   const fallback = "https://nextui.org/images/hero-card-complete.jpeg";
 
-  let imageSrc = data.image
-    ? data.image
-    : fallback
-
-  let imageComponent = (
-    <Image
-      removeWrapper
-      alt="Woman listing to music"
-      className="z-0 object-cover aspect-video h-full"
-      style={{ width: size ? size: "11rem" }}
-      src={imageSrc}
-      fallbackSrc={fallback}
-    />
-  );
+  const imageSrc = data.image ? data.image : fallback;
 
   return (
     <Link href={`/article/${id}`}>
-      <div key={data.date} className="">
+      <div className="resizeable-card" style={{ width: size }}>
         <motion.button
           whileHover={{ scale: 1.025 }}
           whileTap={{ scale: 0.95 }}
+          className="w-full h-full"
         >
-          <Card isFooterBlurred radius="lg" className="border-none">
-            <CardHeader className="absolute z-10 top-1 flex-col items-start">
+          <Card isFooterBlurred radius="lg" className="border-none h-full">
+          <CardBody className="relative pb-[56.25%] overflow-hidden">
+              <Image
+                removeWrapper
+                alt="Plant"
+                className="absolute inset-0 w-full h-full object-cover"
+                src={imageSrc}
+                fallbackSrc={fallback}
+              />
+            </CardBody>
+            <CardHeader className="absolute top-1 flex-col items-start p-4">
               <div className="flex flex-col">
-                <div className="text-tiny text-white/40 font-bold text-left">
+                <div className="text-white/40 font-bold text-left line-clamp-1 text-xs">
                   {data.latin_name}
                 </div>
-                <h4 className="text-white/90 font-medium text-2xl text-wrap text-left">
+                <div className="text-white/90 font-medium text-wrap text-left mt-1 line-clamp-2 text-lg">
                   {data[lang].name}
-                </h4>
+                </div>
               </div>
             </CardHeader>
-            {imageComponent}
           </Card>
         </motion.button>
       </div>

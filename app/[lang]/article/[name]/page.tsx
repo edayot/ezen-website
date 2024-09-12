@@ -8,13 +8,16 @@ import { notFound } from "next/navigation";
 import { EditButton } from "@/components/RedirectButton";
 import { ExportButton } from "@/components/ExportButton";
 
-export default async function Home({ params }: { params: HomeProps }) {
+export default async function Home({ params, bypass = false }: { params: HomeProps, bypass?: boolean }) {
   const dict = await getDictionary(params.lang);
 
   const ref = collection(db, "articles");
   const document = await getDoc(doc(ref, params.name));
   const data: PlantData = document.data() as PlantData;
   if (!data) {
+    return notFound();
+  }
+  if (!bypass && (data.disable_in_search || data.disable_map_position)) {
     return notFound();
   }
 

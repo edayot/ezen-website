@@ -4,20 +4,51 @@ import { PlantData } from "@/utils/article";
 import { Marker, Popup, Tooltip } from "react-leaflet";
 import { Icon } from "leaflet";
 import { locales } from "@/langs";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Element } from "../ArticleCard";
 
 
 function ArticleMarker({element, lang}: {element: {data: PlantData, id: string}, lang: typeof locales[number]}) {
+    const [mouseOnMarker, setMouseOnMarker] = useState(false)
+    const [mouseOnPopup, setMouseOnPopup] = useState(false)
+
     const [open, setOpen] = useState(false)
-    const [open2, setOpen2] = useState(false)
-    if (!element.data.position) {
-        return <></>
-    }
+
     let delay = 1000;
     if(window.matchMedia("(pointer: coarse)").matches) {
         delay = 100;
     }
+
+    useEffect(() => {
+        if (mouseOnMarker) {
+            setOpen(true);
+        }
+        else {
+            setTimeout(() => {
+                if (!mouseOnPopup) {
+                    setOpen(false)
+                }
+            }, delay)
+        }
+    }, [mouseOnMarker])
+
+    useEffect(() => {
+        if (mouseOnPopup) {
+            setOpen(true);
+        }
+        else {
+            setTimeout(() => {
+                if (!mouseOnMarker) {
+                    setOpen(false)
+                }
+            }, delay)
+        }
+    }, [mouseOnPopup])
+
+    if (!element.data.position) {
+        return <></>
+    }
+    
     const icon = new Icon({
         iconUrl: "/images/leaf.svg",
         iconSize: [30, 30],
@@ -30,10 +61,10 @@ function ArticleMarker({element, lang}: {element: {data: PlantData, id: string},
         position={[element.data.position.x, element.data.position.y]}
         eventHandlers={{
             mouseover: (e) => {
-                setOpen(true);
+                setMouseOnMarker(true);
             },
             mouseout: (e) => {
-                setTimeout(() => {setOpen(false);}, delay)
+                setMouseOnMarker(false);
             },
           }}
         ref={ref => {
@@ -49,19 +80,19 @@ function ArticleMarker({element, lang}: {element: {data: PlantData, id: string},
             interactive
             eventHandlers={{
                 mouseover: (e) => {
-                    setOpen2(true);
+                    setMouseOnPopup(true);
                 },
                 mouseout: (e) => {
-                    setTimeout(() => {setOpen2(false);}, delay)
+                    setMouseOnPopup(false);
                 },
               }}
               className="none"
             
         >
             
-            {(open || open2) ? 
+            {(open) ? 
                 <>
-                    <Element data={element.data} id={element.id} lang={lang} size={"14rem"}/>
+                    <Element data={element.data} id={element.id} lang={lang} size={"10rem"}/>
                 </>
                 : element.data[lang].name}
             

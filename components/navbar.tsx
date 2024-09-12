@@ -40,7 +40,9 @@ function NavBarRightContent({ size }: { size: number }) {
   return (
     <>
       <NavbarItem className="lg:flex">
+        <div className=" relative bottom-[2px]">
         <ThemeSwitch props={{ size: size }} />
+        </div>
       </NavbarItem>
       <NavbarItem className="lg:flex">
         <Link href="/auth/login">
@@ -72,13 +74,13 @@ export default function NavbarComponent(dict: any) {
   return (
     <>
       <Navbar className="dark:bg-white/5 " isBlurred>
-        <NavbarContent className="flex" justify="start">
+        <NavbarContent justify="start">
           <NavBarLogo />
         </NavbarContent>
-        <NavbarContent justify="center" className="gap-6">
+        <NavbarContent justify="center">
           <NavBarLeftContent {...dict} />
         </NavbarContent>
-        <NavbarContent justify="end" className="gap-6">
+        <NavbarContent justify="end">
           <NavBarRightContent {...dict} />
         </NavbarContent>
       </Navbar>

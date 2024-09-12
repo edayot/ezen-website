@@ -24,7 +24,7 @@ export default async function Home({ params, bypass = false }: { params: HomePro
   return (
     <>
       <div className="flex justify-center items-center">
-        <div className="flex flex-col justify-end items-end w-11/12">
+        <div className="flex flex-row justify-end items-end w-11/12">
           <ExportButton id={document.id}/>
           <EditButton id={document.id} />
         </div>

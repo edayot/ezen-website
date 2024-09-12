@@ -4,6 +4,7 @@ import { MapViewer } from "./Default";
 import { PlantData } from "@/utils/article";
 import { useState, useMemo, useRef } from "react";
 import { Marker } from "react-leaflet";
+import { Icon } from "leaflet";
 
 
 
@@ -14,6 +15,15 @@ function DrageableMarker({
     all: PlantData;
     setAll: (value: PlantData) => void;}
 ) {
+
+    const icon = new Icon({
+        iconUrl: "/images/leaf.svg",
+        iconSize: [30, 30],
+        iconAnchor: [15, 30],
+        popupAnchor: [0, -30],
+        tooltipAnchor: [0, -30],
+    });
+
     let initPos = {
         lat: 50,
         lng: 50,
@@ -49,6 +59,7 @@ function DrageableMarker({
         eventHandlers={eventHandlers}
         position={pos}
         ref={markerRef}
+        icon={icon}
     >
     </Marker>
 }

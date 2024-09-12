@@ -15,7 +15,7 @@ export function MapViewer({children, setMap}: {children?: React.ReactNode, setMa
     useEffect(() => {
       const img = new Image();
       img.onload = () => {
-          const clamp = 50
+          const clamp = 25
           setSize([clamp,img.width/img.height*clamp]);
       };
       img.src = img_path;

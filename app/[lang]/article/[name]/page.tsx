@@ -8,7 +8,7 @@ import { EditButton } from "@/components/RedirectButton";
 import { ExportButton } from "@/components/ExportButton";
 import { NotFound } from "@/components/NotFoundComponent";
 
-export default async function Home({ params, bypass = false }: { params: HomeProps, bypass?: boolean }) {
+export default async function Home({ params }: { params: HomeProps }) {
   const dict = await getDictionary(params.lang);
 
   const ref = collection(db, "articles");
@@ -18,7 +18,7 @@ export default async function Home({ params, bypass = false }: { params: HomePro
   if (!data) {
     return <NotFound/>
   }
-  if (!bypass && (data.disable_in_search || data.disable_map_position)) {
+  if (!params.bypass && (data.disable_in_search || data.disable_map_position)) {
     return <NotFound id={document.id}/>
   }
 

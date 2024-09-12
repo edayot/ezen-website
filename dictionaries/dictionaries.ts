@@ -5,6 +5,7 @@ import { defaultLocale, locales } from "@/langs";
 export interface HomeProps {
   lang: (typeof locales)[number];
   name: string;
+  bypass: boolean;
 }
 
 function getDictionaryInternal(locale: string) {

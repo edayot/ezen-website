@@ -17,11 +17,6 @@ function NavBarLeftContent({ size }: { size: number }) {
   const path = "/" + usePathname().split("/").slice(2).join("/");
   return (
     <>
-      <NavbarItem isActive={path === "/"}>
-        <Link href="/">
-          <FiHome size={size} />
-        </Link>
-      </NavbarItem>
       <NavbarItem isActive={path === "/articles"}>
         <Link href="/articles">
           <FiBookOpen size={size} />
@@ -77,7 +72,7 @@ export default function NavbarComponent(dict: any) {
         <NavbarContent justify="start">
           <NavBarLogo />
         </NavbarContent>
-        <NavbarContent justify="center">
+        <NavbarContent justify="center" className="gap-6">
           <NavBarLeftContent {...dict} />
         </NavbarContent>
         <NavbarContent justify="end">

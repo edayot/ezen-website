@@ -105,16 +105,14 @@ export function ArticleEditor({
           </Card>
         </Tab>
         <Tab key="map" title="Set map position">
-          <SelectMarker all={data} setAll={setData}/>
-          <Card>
-            <CardBody>
-              <div className="flex items-center justify-center">
-                <div className="w-full h-96">
-                  <EditMap all={data} setAll={setData} />
-                </div>
+          <div className="flex flex-row">
+            <SelectMarker all={data} setAll={setData}/>
+            <div className="flex items-center justify-center grow">
+              <div className="w-full h-72">
+                <EditMap all={data} setAll={setData} />
               </div>
-            </CardBody>
-          </Card>
+            </div>
+          </div>
         </Tab>
         <Tab key="card" title="Small preview">
           <Card>

@@ -11,6 +11,11 @@ export function MapViewer({children, setMap}: {children?: React.ReactNode, setMa
     const [size, setSize] = useState<[number, number]>([-1, -1]);
     const img_path = "/images/map.jpg"
     const bounds: [number,number][]  = [[0, 0], size];
+    const bounds_factor = 10;
+    const maxBounds: [number,number][] = [
+      [bounds[0][0]-bounds_factor, bounds[0][1]-bounds_factor],
+       [bounds[1][0]+bounds_factor, bounds[1][1]+bounds_factor]
+    ];
 
     useEffect(() => {
       const img = new Image();
@@ -27,7 +32,7 @@ export function MapViewer({children, setMap}: {children?: React.ReactNode, setMa
         boxZoom
         center={[0,0]}
         bounds={bounds}
-        maxBounds={bounds}
+        maxBounds={maxBounds}
         className="h-full w-full"
         ref={(value: any) => {
           if (setMap) {setMap(value)}

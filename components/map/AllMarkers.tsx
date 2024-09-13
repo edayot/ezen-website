@@ -1,6 +1,6 @@
 "use client";
 import { MapViewer } from "@/components/map/Default";
-import { PlantData } from "@/utils/article";
+import { PlantData, markers } from "@/utils/article";
 import { Marker, Popup, Tooltip } from "react-leaflet";
 import { Icon } from "leaflet";
 import { locales } from "@/langs";
@@ -48,9 +48,13 @@ function ArticleMarker({element, lang}: {element: {data: PlantData, id: string},
     if (!element.data.position) {
         return <></>
     }
-    
+
+    let marker = element.data.map_marker ? element.data.map_marker : markers[0];
+    if (!markers.includes(marker)) {
+        marker = markers[0];
+    }
     const icon = new Icon({
-        iconUrl: "/images/leaf.svg",
+        iconUrl: `/images/markers/${marker}.png`,
         iconSize: [30, 30],
         iconAnchor: [15, 30],
         popupAnchor: [0, -30],

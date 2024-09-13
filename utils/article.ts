@@ -9,6 +9,8 @@ interface Position {
   y: number;
 }
 
+export const markers = ["bush", "tree1", "tree2"]
+
 export interface PlantData {
   latin_name: string;
   image: string;
@@ -20,5 +22,5 @@ export interface PlantData {
   position?: Position;
   disable_map_position?: boolean;
   disable_in_search?: boolean;
-  map_marker?: string;
+  map_marker?: (typeof markers)[number] ;
 }

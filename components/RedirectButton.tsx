@@ -29,7 +29,7 @@ export function EditButton({ id }: { id: string }) {
   return (
     <>
       <div className="h-2"></div>
-      <Tooltip content="Make a new article" placement="bottom">
+      <Tooltip content="Edit article" placement="bottom">
         <Button onClick={redirectToEdit} isIconOnly >
           <FiEdit />
         </Button>

@@ -10,6 +10,7 @@ import { PlantData } from "@/utils/article";
 import { locales } from "@/langs";
 import { FiCheck, FiSave } from "react-icons/fi";
 import { EditMap } from "./map/EditMap";
+import { SelectMarker } from "./map/MarkerSelector";
 
 export function ArticleEditor({
   lang,
@@ -104,6 +105,7 @@ export function ArticleEditor({
           </Card>
         </Tab>
         <Tab key="map" title="Set map position">
+          <SelectMarker all={data} setAll={setData}/>
           <Card>
             <CardBody>
               <div className="flex items-center justify-center">

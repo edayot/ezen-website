@@ -23,4 +23,5 @@ export interface PlantData {
   disable_map_position?: boolean;
   disable_in_search?: boolean;
   map_marker?: (typeof markers)[number] ;
+  protected?: boolean;
 }

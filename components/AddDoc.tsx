@@ -210,6 +210,9 @@ function DisableOption({
     <Switch isSelected={all.disable_in_search} onValueChange={(e) => setAll({ ...all, disable_in_search: Boolean(!all.disable_in_search) })} >
       Disable article search
     </Switch>
+    <Switch isSelected={all.protected} onValueChange={(e) => setAll({ ...all, protected: Boolean(!all.protected) })} >
+      Protect article from delete
+    </Switch>
     </>
   ) 
 }

@@ -49,7 +49,7 @@ export default async function Home({ params, searchParams }: { params: HomeProps
   }
   let page = 1;
   if (searchParams.page) {page = searchParams.page}
-  const elementsPerPage = 3*5;
+  const elementsPerPage = 3*5+1;
   const numberOfPages = Math.ceil(elements_data.length/elementsPerPage);
   elements_data = elements_data.slice((page-1)*elementsPerPage, page*elementsPerPage);
 

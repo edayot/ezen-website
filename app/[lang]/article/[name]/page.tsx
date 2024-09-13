@@ -7,6 +7,7 @@ import { PlantData } from "@/utils/article";
 import { EditButton } from "@/components/RedirectButton";
 import { ExportButton } from "@/components/ExportButton";
 import { NotFound } from "@/components/NotFoundComponent";
+import { DeleteButton } from "@/components/DeleteButton";
 
 export default async function Home({ params }: { params: HomeProps }) {
   const dict = await getDictionary(params.lang);
@@ -26,6 +27,7 @@ export default async function Home({ params }: { params: HomeProps }) {
     <>
       <div className="flex justify-center items-center">
         <div className="flex flex-row justify-end items-end w-11/12">
+          {data.protected ? <></> : <DeleteButton id={document.id} />}
           <ExportButton id={document.id}/>
           <EditButton id={document.id} />
         </div>

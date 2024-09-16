@@ -1,7 +1,7 @@
 "use client";
 import { FiX } from "react-icons/fi";
 import { Tooltip } from "@nextui-org/react";
-import { db } from "@/utils/firebase";
+import { collectionRef } from "@/utils/firebase";
 import { collection, deleteDoc, doc } from "firebase/firestore";
 import { toast, Bounce } from "react-toastify";
 import { useTheme } from "next-themes";

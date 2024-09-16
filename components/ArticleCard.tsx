@@ -7,6 +7,9 @@ import {
   Button,
   Input,
   Pagination,
+  PaginationItemRenderProps,
+  PaginationItem,
+  PaginationItemType,
 } from "@nextui-org/react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Image } from "@nextui-org/react";
@@ -22,12 +25,11 @@ import Link from "next/link";
 import {
   getDocs,
   query,
-  collection,
   orderBy,
   limit,
   startAfter,
   where,
-  endAt,
+  getCountFromServer,
   QueryDocumentSnapshot,
 } from "@firebase/firestore";
 import { collectionRef } from "@/utils/firebase";
@@ -139,22 +141,47 @@ export function Element({
 
 
 export function ArticlesViewer({ dict, lang }: { lang: (typeof locales)[number], dict: any }) {
-  const [offset, setOffset] = useState(0)
+  const [page, setPage] = useState(1);
+  const [maxPage, setMaxPage] = useState(1);
+  const [startValue, setStartValue] = useState<number | undefined>(0)
+  const [endValue, setEndValue] = useState<number | undefined>(undefined)
   const [elements_data, set_elements_data] = useState<{ data: PlantData, id: string }[]>([])
-  const elementsPerPage = 24;
+  const elementsPerPage = 12;
 
   useEffect(() => {
-    getDocs(query(
-      collectionRef, 
+    let q = undefined;
+    let reverse = false;
+    if (startValue !== undefined) {
+      q = query(
+        collectionRef, 
         orderBy("date"), 
         limit(elementsPerPage), 
-        startAfter(offset),
+        startAfter(startValue),
         where("disable_in_search", "==", false)
       )
-    ).then((q) => {
-      set_elements_data(q.docs.map((doc) => {
+    } else if (endValue !== undefined) {
+      q = query(
+        collectionRef, 
+        orderBy("date", "desc"), 
+        limit(elementsPerPage), 
+        startAfter(endValue),
+        where("disable_in_search", "==", false)
+      )
+      reverse = true;
+    }
+    if (q === undefined) { return}
+    getDocs(q).then((q) => {
+      let ele = q.docs.map((doc) => {
         return { data: doc.data() as PlantData, id: doc.id };
-      }))
+      })
+      if (reverse) { ele = ele.reverse() }
+      set_elements_data(ele)
+    })
+  }, [page])
+
+  useEffect(() => {
+    getCountFromServer(query(collectionRef, where("disable_in_search", "==", false))).then((count) => {
+      setMaxPage(Math.ceil(count.data().count / elementsPerPage))
     })
   }, [])
     
@@ -168,6 +195,32 @@ export function ArticlesViewer({ dict, lang }: { lang: (typeof locales)[number],
   if (elements_data.length > 0) {
     last_element_date = elements_data[elements_data.length - 1].data.date;
   }
+  let first_element_date = 0;
+  if (elements_data.length > 0) {
+    first_element_date = elements_data[0].data.date;
+  }
+
+  const handlePagination = (newPage : number) => {
+    if (newPage > page) {
+      setStartValue(last_element_date);
+      setEndValue(undefined);
+      setPage(newPage);
+      console.log({
+        start: last_element_date,
+        end: undefined,
+        newPage: newPage
+      })
+    } else if (newPage < page) {
+      setStartValue(undefined);
+      setEndValue(first_element_date);
+      setPage(newPage);
+      console.log({
+        start: undefined,
+        end: first_element_date,
+        newPage: newPage
+      })
+    }
+  }
   
   return (
       <>
@@ -178,9 +231,25 @@ export function ArticlesViewer({ dict, lang }: { lang: (typeof locales)[number],
             <NewArticle />
           </div>
       </div>
-          <div className="flex gap-4 flex-wrap content-start items-center justify-center">
-            {elements}
-          </div>
+      <div className="flex gap-4 flex-wrap content-start items-center justify-center">
+        {elements}
+      </div>
+      <Pagination
+        total={maxPage}
+        page={page}
+        onChange={handlePagination}
+        showControls={true}
+        isDisabled={false}
+        renderItem={({ ...props }: PaginationItemRenderProps) => {
+          const isDisabled = (
+            (props.value == PaginationItemType.DOTS) ||
+            (typeof props.value === 'number')
+          )
+          return (<>
+            <PaginationItem {...props} isDisabled={isDisabled}/>
+          </>)
+        }}
+      />
       </>
   )
 }

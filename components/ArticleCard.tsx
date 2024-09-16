@@ -13,11 +13,24 @@ import { Image } from "@nextui-org/react";
 import { motion } from "framer-motion";
 import { PlantData } from "@/utils/article";
 import { locales } from "@/langs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCallback } from "react";
 import { FiSearch, FiArrowDown, FiArrowUp} from "react-icons/fi";
 import { NewArticle } from "./RedirectButton";
 import Link from "next/link";
+
+import {
+  getDocs,
+  query,
+  collection,
+  orderBy,
+  limit,
+  startAfter,
+  where,
+  endAt,
+  QueryDocumentSnapshot,
+} from "@firebase/firestore";
+import { db } from "@/utils/firebase";
 
 
 function appplySearchParam(searchParams: URLSearchParams, name: string, value: string) {
@@ -125,25 +138,26 @@ export function Element({
 
 
 
-export function ArticlesViewer({elements_data, dict, lang, initPage = 1, lenghtPage = 1}: {elements_data : any, lang: (typeof locales)[number], dict: any, initPage?: number, lenghtPage?: number}) {
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const pathname = usePathname();
-  const [pageNumber, setPageNumber] = useState(initPage);
-  const createQueryString = useCallback(
-    (name: string, value: string) => {
-      return appplySearchParam(searchParams, name, value)
-    },
-    [searchParams]
-  )
-  const handleChange = (value: number) => {
-    setPageNumber(value);
-    router.push(pathname + '?' + createQueryString('page', value.toString()))
-  };
+export function ArticlesViewer({ dict, lang }: { lang: (typeof locales)[number], dict: any }) {
+  const [offset, setOffset] = useState(0)
+  const [elements_data, set_elements_data] = useState<{ data: PlantData, id: string }[]>([])
+  const ref = collection(db, "articles");
+  const elementsPerPage = 24;
 
-  let search = searchParams.get('search') || "";
-  let sortOrder = searchParams.get('sort');
-  if (!sortOrder) {sortOrder = "asc";}
+  useEffect(() => {
+    getDocs(query(
+        ref, 
+        orderBy("date"), 
+        limit(elementsPerPage), 
+        startAfter(offset),
+        where("disable_in_search", "==", false)
+      )
+    ).then((q) => {
+      set_elements_data(q.docs.map((doc) => {
+        return { data: doc.data() as PlantData, id: doc.id };
+      }))
+    })
+  }, [])
     
   // render all elements in the collection trought the Element function
   let elements = elements_data.map(({data, id}: {data: PlantData, id: string}) => {
@@ -151,8 +165,7 @@ export function ArticlesViewer({elements_data, dict, lang, initPage = 1, lenghtP
         <Element key={data.date} data={data} lang={lang} id={id} size={"15rem"}/>
       );
   });
-  // reverse the list if the sort is desc
-  if (sortOrder == "desc") {elements.reverse();}
+  // const last_element_date = elements_data[elements_data.length - 1].data.date;
 
   return (
       <>
@@ -163,17 +176,9 @@ export function ArticlesViewer({elements_data, dict, lang, initPage = 1, lenghtP
             <NewArticle />
           </div>
       </div>
-          <SearchBar initSortDirection={sortOrder} initValue={search}/>
           <div className="flex gap-4 flex-wrap content-start items-center justify-center">
             {elements}
           </div>
-          <Pagination 
-            isCompact 
-            showControls 
-            total={lenghtPage} 
-            page={pageNumber}
-            onChange={handleChange}
-          />
       </>
   )
 }

@@ -20,8 +20,8 @@ export interface PlantData {
   it: LanguageData;
   date: number;
   position?: Position;
-  disable_map_position?: boolean;
-  disable_in_search?: boolean;
+  disable_map_position: boolean;
+  disable_in_search: boolean;
   map_marker?: (typeof markers)[number] ;
   protected?: boolean;
 }

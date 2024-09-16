@@ -30,7 +30,7 @@ import {
   endAt,
   QueryDocumentSnapshot,
 } from "@firebase/firestore";
-import { db } from "@/utils/firebase";
+import { collectionRef } from "@/utils/firebase";
 
 
 function appplySearchParam(searchParams: URLSearchParams, name: string, value: string) {
@@ -141,12 +141,11 @@ export function Element({
 export function ArticlesViewer({ dict, lang }: { lang: (typeof locales)[number], dict: any }) {
   const [offset, setOffset] = useState(0)
   const [elements_data, set_elements_data] = useState<{ data: PlantData, id: string }[]>([])
-  const ref = collection(db, "articles");
   const elementsPerPage = 24;
 
   useEffect(() => {
     getDocs(query(
-        ref, 
+      collectionRef, 
         orderBy("date"), 
         limit(elementsPerPage), 
         startAfter(offset),

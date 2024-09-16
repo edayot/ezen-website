@@ -4,7 +4,7 @@ import AddDoc from "@/components/AddDoc";
 import { useState } from "react";
 import { Element } from "./ArticleCard";
 import RenderArticle from "./RenderArticle";
-import { db } from "@/utils/firebase";
+import { collectionRef } from "@/utils/firebase";
 import { collection, setDoc, doc, addDoc } from "firebase/firestore";
 import { PlantData } from "@/utils/article";
 import { locales } from "@/langs";
@@ -58,9 +58,8 @@ export function ArticleEditor({
     setLoading(true);
     try {
       let timestamp = new Date().getTime();
-      const colRef = collection(db, "articles");
       if (id) {
-        const docRef = doc(colRef, id);
+        const docRef = doc(collectionRef, id);
         await setDoc(docRef, { ...data, date: timestamp });
         console.log("Document edited with ID: ", docRef.id);
         setSuccess(true);
@@ -68,7 +67,7 @@ export function ArticleEditor({
           setSuccess(false);
         }, 1000);
       } else {
-        const docRef = await addDoc(colRef, { ...data, date: timestamp });
+        const docRef = await addDoc(collectionRef, { ...data, date: timestamp });
         console.log("Document written with ID: ", docRef.id);
         setSuccess(true);
         setTimeout(() => {

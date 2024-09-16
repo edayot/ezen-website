@@ -19,7 +19,7 @@ export function DeleteButton({id}: {id: string}) {
 
     const deleteArticle = async () => {
       setLoading(true)
-      const colRef = collection(db, "articles");
+      const colRef = collectionRef;
       const docRef = doc(colRef, id);
       await deleteDoc(docRef);
       setLoading(false)

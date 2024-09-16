@@ -11,9 +11,8 @@ import { MapWithArticles } from "@/components/map/AllMarkers";
 import { HomeProps } from "@/dictionaries/dictionaries";
 
 export default async function Home({ params }: { params: HomeProps }) {
-  const ref = collection(db, "articles");
 
-  let q = await getDocs(query(ref, orderBy("date")));
+  let q = await getDocs(query(collectionRef, orderBy("date")));
   let elements_data = q.docs.map((doc) => {
     return { data: doc.data(), id: doc.id } as {data: PlantData, id: string};
   });

@@ -1,7 +1,7 @@
 "use server";
 import { getDictionary, HomeProps } from "@/dictionaries/dictionaries";
-import { getDoc, collection, doc } from "@firebase/firestore";
-import { db } from "@/utils/firebase";
+import { getDoc, doc } from "@firebase/firestore";
+import { collectionRef } from "@/utils/firebase";
 import RenderArticle from "@/components/RenderArticle";
 import { PlantData } from "@/utils/article";
 import { EditButton } from "@/components/RedirectButton";
@@ -12,8 +12,7 @@ import { DeleteButton } from "@/components/DeleteButton";
 export default async function Home({ params }: { params: HomeProps }) {
   const dict = await getDictionary(params.lang);
 
-  const ref = collection(db, "articles");
-  const document = await getDoc(doc(ref, params.name));
+  const document = await getDoc(doc(collectionRef, params.name));
   const data: PlantData = document.data() as PlantData;
 
   if (!data) {

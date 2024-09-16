@@ -6,6 +6,12 @@ import { Icon } from "leaflet";
 import { locales } from "@/langs";
 import { useState, useEffect } from "react";
 import { Element } from "../ArticleCard";
+import {
+    getDocs,
+    query,
+    where,
+  } from "@firebase/firestore";
+import { collectionRef } from "@/utils/firebase";
 
 
 function ArticleMarker({element, lang}: {element: {data: PlantData, id: string}, lang: typeof locales[number]}) {
@@ -106,8 +112,20 @@ function ArticleMarker({element, lang}: {element: {data: PlantData, id: string},
 
 
 
-export function MapWithArticles({data, lang}: {data: {data: PlantData, id: string}[], lang: (typeof locales)[number]}) {
-    let elements = data.map((element) => <ArticleMarker element={element} lang={lang} key={element.id}/>);
+export function MapWithArticles({lang}: {lang: (typeof locales)[number]}) {
+    const [elements_data, set_elements_data] = useState<{ data: PlantData, id: string }[]>([])
+    useEffect(() => {
+        getDocs(query(
+            collectionRef, 
+            where("disable_map_position", "==", false)
+        )).then((q) => {
+            set_elements_data(q.docs.map((doc) => {
+                return { data: doc.data() as PlantData, id: doc.id };
+            }))
+        }
+        )
+    }, [])
+    let elements = elements_data.map((element) => <ArticleMarker element={element} lang={lang} key={element.id}/>);
     return <MapViewer>
         {elements}
       </MapViewer>

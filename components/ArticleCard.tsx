@@ -164,8 +164,11 @@ export function ArticlesViewer({ dict, lang }: { lang: (typeof locales)[number],
         <Element key={data.date} data={data} lang={lang} id={id} size={"15rem"}/>
       );
   });
-  // const last_element_date = elements_data[elements_data.length - 1].data.date;
-
+  let last_element_date = 0;
+  if (elements_data.length > 0) {
+    last_element_date = elements_data[elements_data.length - 1].data.date;
+  }
+  
   return (
       <>
       <div className="flex flex-row justify-center items-center w-full">

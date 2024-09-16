@@ -1,10 +1,12 @@
 import firebaseApp from "./firebaseConfig";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { getFirestore, collection } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
 
 export const auth = getAuth(firebaseApp);
 export const db = getFirestore(firebaseApp);
-export const collectionRef = collection(db, "articles")
+export const storage = getStorage(firebaseApp);
+export const collectionRef = collection(db, "articles_revamp")
 
 export const signInEmailPassword = async (email, password) => {
   let err = null;

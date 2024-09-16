@@ -3,7 +3,7 @@
 import {
   Textarea,
   Input,
-  Image,
+  Image as NextImage,
   Card,
   CardBody,
   CardFooter,
@@ -16,6 +16,9 @@ import { FiUpload, FiCopy } from "react-icons/fi";
 import { PlantData } from "@/utils/article";
 import { locales } from "@/langs";
 import { useState } from "react";
+import { storage } from "@/utils/firebase";
+import { uploadBytes, ref, getDownloadURL } from "firebase/storage";
+import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure, CircularProgress} from "@nextui-org/react";
 
 function CreateImageMarkdown() {
   const [image, setImage] = useState<string | null>(null);
@@ -145,17 +148,54 @@ function CreateGlobalInput({
   setAll: (value: any) => void;
   lang: string;
 }) {
+  const {isOpen, onOpen, onClose, onOpenChange} = useDisclosure();
+  const [error, setError] = useState("");
+
   const onDrop = (acceptedFiles: any) => {
-    // convert to base64 and set to state + set filename
-    const reader = new FileReader();
-    reader.onload = () => {
-      setAll({
-        ...all,
-        image_filename: acceptedFiles[0].name,
-        image: reader.result,
-      });
+    onOpen();
+    const timestamp = new Date().getTime();
+    const file = acceptedFiles[0];
+
+    // Create an image object to get the dimensions
+    const img = new Image();
+    img.onload = () => {
+      const { width, height } = img;
+
+      // Upload image to Firebase storage
+      const storageRef = ref(storage, `images/${file.name}_${timestamp}`);
+      uploadBytes(storageRef, file).then(
+        (snapshot) => {
+          console.log("Uploaded a blob or file!", snapshot);
+          getDownloadURL(snapshot.ref).then((url) => {
+            setAll({
+              ...all,
+              image: url,
+              image_filename: file.name,
+              image_height: height,
+              image_width: width,
+            });
+          });
+          setError("");
+          onClose();
+        })
+        .catch(
+        (error) => {
+          console.error("Error uploading file", error);
+          setError(`Error uploading file: ${error}`);
+          setTimeout(() => {
+            setError("");
+            onClose();
+          }, 1000);
+        }
+      );
     };
-    reader.readAsDataURL(acceptedFiles[0]);
+
+    // Read the file as a data URL to trigger the image load
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      img.src = e.target?.result as string;
+    };
+    reader.readAsDataURL(file);
   };
   let upload_text = "Drop or click to upload the primary image";
   if (all.image_filename) {
@@ -167,6 +207,15 @@ function CreateGlobalInput({
   });
   return (
     <div className="flex flex-col gap-2 w-full justify-center items-center">
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="xs" >
+        <ModalContent>
+            <ModalBody>
+              <div className=" flex justify-center items-center">
+              {error ? <div>{error}</div> : <CircularProgress size="lg"/>}
+              </div>
+            </ModalBody>
+        </ModalContent>
+      </Modal>
       <h3>Global inputs</h3>
       <Input
         className="w-1/2"
@@ -236,10 +285,6 @@ function AddItem({
           <div className="w-5/6 max-w-3xl flex flex-row gap-4 justify-center items-center">
             <div className="w-96">
               <CreateGlobalInput all={all} setAll={setAll} lang="(global)" />
-            </div>
-            <Divider orientation="vertical" />
-            <div className="w-96">
-              <CreateImageMarkdown />
             </div>
           </div>
         </div>

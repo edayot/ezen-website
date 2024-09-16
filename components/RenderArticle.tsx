@@ -34,7 +34,7 @@ export default function RenderArticle({
       <div className="w-5/6 max-w-xl">
         <div className="flex flex-col gap-2 w-full">
           <div className="flex justify-center items-center">
-            {(data.image !== "") ? <Image src={data.image} alt={name} />: <></>}
+            {(data.image !== "") ? <Image src={data.image} alt={name} width={data.image_width} height={data.image_height} />: <></>}
           </div>
           <h1>{name}</h1>
           <h2>{data[lang].place}</h2>

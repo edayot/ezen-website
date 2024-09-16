@@ -15,6 +15,8 @@ export interface PlantData {
   latin_name: string;
   image: string;
   image_filename: string;
+  image_height: number;
+  image_width: number;
   fr: LanguageData;
   en: LanguageData;
   it: LanguageData;

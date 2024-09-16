@@ -27,6 +27,8 @@ export function ArticleEditor({
     latin_name: "",
     image: "",
     image_filename: "",
+    image_height: -1,
+    image_width: -1,
     date: 0,
     fr: {
       name: "",

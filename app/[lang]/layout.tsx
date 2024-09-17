@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import "../globals.css";
 import "leaflet/dist/leaflet.css";
-import { HomeProps } from "@/dictionaries/dictionaries";
+import { getDictionary, HomeProps } from "@/dictionaries/dictionaries";
 import { NextUIProvider } from "@nextui-org/react";
 import NavBar from "@/components/navbar";
 import { SetLangComponent } from "../setLangComponent";
 import { LeafletProvider } from "@/components/LeafletProvider";
+import { TranslationProvider } from "@/dictionaries/client";
 
 
 export const metadata: Metadata = {
@@ -20,19 +21,22 @@ export default async function RootLayout({
   children: React.ReactNode;
   params: HomeProps;
 }) {
+  const dict = await getDictionary(params.lang);
   return (
         <NextUIProvider>
-            <div className="flex flex-col min-h-screen">
-              <SetLangComponent locale={params.lang} />
-              <LeafletProvider>
-                <div>
-                  <NavBar />
-                </div>
-                <div className="grow">
-                  {children}
-                </div>
-              </LeafletProvider>
-            </div>
+            <TranslationProvider dict={dict}>
+              <div className="flex flex-col min-h-screen">
+                <SetLangComponent locale={params.lang} />
+                <LeafletProvider>
+                  <div>
+                    <NavBar />
+                  </div>
+                  <div className="grow">
+                    {children}
+                  </div>
+                </LeafletProvider>
+              </div>
+            </TranslationProvider>
         </NextUIProvider>
       
   );

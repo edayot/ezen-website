@@ -92,12 +92,12 @@ export function Element({
   data,
   id,
   lang,
-  size = "11rem", // Default size
+  className,
 }: {
   data: PlantData;
   lang: (typeof locales)[number];
   id: string;
-  size?: string;
+  className?: string;
 }) {
   const fallback = "https://nextui.org/images/hero-card-complete.jpeg";
 
@@ -105,7 +105,7 @@ export function Element({
 
   return (
     <Link href={`/article/${id}`}>
-      <div className="resizeable-card" style={{ width: size }}>
+      <div className={"resizeable-card" + " " + className}>
         <motion.button
           whileHover={{ scale: 1.025 }}
           whileTap={{ scale: 0.95 }}
@@ -123,10 +123,10 @@ export function Element({
             </CardBody>
             <CardHeader className="absolute top-1 flex-col items-start p-4">
               <div className="flex flex-col">
-                <div className="text-white/40 font-bold text-left line-clamp-1 text-xs">
+                <div className="text-white/40 font-bold text-left line-clamp-1" style={{ fontSize: 'clamp(0.5rem, 1.5vw, 1rem)' }}>
                   {data.latin_name}
                 </div>
-                <div className="text-white/90 font-medium text-wrap text-left mt-1 line-clamp-2 text-lg">
+                <div className="text-white/90 font-medium text-wrap text-left mt-1 line-clamp-2" style={{ fontSize: 'clamp(0.75rem, 2.5vw, 1.25rem)' }}>
                   {data[lang].name}
                 </div>
               </div>
@@ -188,7 +188,7 @@ export function ArticlesViewer({ dict, lang }: { lang: (typeof locales)[number],
   // render all elements in the collection trought the Element function
   let elements = elements_data.map(({data, id}: {data: PlantData, id: string}) => {
       return (
-        <Element key={data.date} data={data} lang={lang} id={id} size={"15rem"}/>
+        <Element key={data.date} data={data} lang={lang} id={id} className="w-[8rem] md:w-[11rem] lg:w-[15rem] transition-all duration-500 ease-in-out"/>
       );
   });
   let last_element_date = 0;

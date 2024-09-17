@@ -102,7 +102,7 @@ function ArticleMarker({element, lang}: {element: {data: PlantData, id: string},
             
             {(open) ? 
                 <>
-                    <Element data={element.data} id={element.id} lang={lang} size={"10rem"}/>
+                    <Element data={element.data} id={element.id} lang={lang} className="w-[11rem]"/>
                 </>
                 : element.data[lang].name}
             

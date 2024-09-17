@@ -72,6 +72,7 @@ export function ArticleEditor({
         const docRef = await addDoc(collectionRef, { ...data, date: timestamp });
         console.log("Document written with ID: ", docRef.id);
         setSuccess(true);
+        setData(initDataPlaceHolder);
         setTimeout(() => {
           setSuccess(false);
         }, 1000);

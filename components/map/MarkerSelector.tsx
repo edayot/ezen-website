@@ -3,6 +3,7 @@
 import { PlantData, markers } from "@/utils/article";
 import { Select, SelectItem } from "@nextui-org/react";
 import { Image } from "@nextui-org/react";
+import { useTranslation } from "@/dictionaries/client";
 
 
 
@@ -30,10 +31,11 @@ export function SelectMarker({
     };
   
     const selectedKeys =new Set([defaultMarker]);
+    const t = useTranslation();
   
     return (
       <Select
-        label="Select a marker"
+        label={t["articles.new.map.marker.label"]}
         variant="bordered"
         selectedKeys={selectedKeys}
         className="max-w-xs"

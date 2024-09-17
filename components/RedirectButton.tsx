@@ -4,6 +4,7 @@ import { Button, Tooltip } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 import { FiEdit, FiPlus } from "react-icons/fi";
 import Link from "next/link";
+import { useTranslation } from "@/dictionaries/client";
 
 export function EditButton({ id }: { id: string }) {
   const [user, setUser] = useState(auth.currentUser);
@@ -39,6 +40,7 @@ export function EditButton({ id }: { id: string }) {
 
 export function NewArticle() {
   const [user, setUser] = useState(auth.currentUser);
+  const t = useTranslation();
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -56,7 +58,7 @@ export function NewArticle() {
   return (
     <>
       <div className="h-2"></div>
-      <Tooltip content="Make a new article" placement="bottom">
+      <Tooltip content={t["articles.new.tooltip"]} placement="bottom">
         <Link href={`/articles/new`}>
           <Button isIconOnly >
             <FiPlus size={30} />

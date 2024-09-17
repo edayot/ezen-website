@@ -1,5 +1,5 @@
 "use client";
-import { Tabs, Tab, Card, CardBody, Button, CircularProgress } from "@nextui-org/react";
+import { Tabs, Tab, Card, CardBody, Button, Tooltip } from "@nextui-org/react";
 import AddDoc from "@/components/AddDoc";
 import { useState } from "react";
 import { Element } from "./ArticleCard";
@@ -11,6 +11,7 @@ import { locales } from "@/langs";
 import { FiCheck, FiSave } from "react-icons/fi";
 import { EditMap } from "./map/EditMap";
 import { SelectMarker } from "./map/MarkerSelector";
+import { useTranslation } from "@/dictionaries/client";
 
 export function ArticleEditor({
   lang,
@@ -50,6 +51,7 @@ export function ArticleEditor({
   const [data, setData] = useState<PlantData>({...initDataPlaceHolder, ...initData});
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const t = useTranslation();
   let saveIcon = <FiSave size={25} />;
   if (success) {
     saveIcon = <FiCheck size={25} />;
@@ -86,27 +88,29 @@ export function ArticleEditor({
   return (
     <div className="flex flex-col">
       <div className="flex flex-col justify-end items-end">
-        <Button
-          color="primary"
-          variant="bordered"
-          onClick={handleSubmit}
-          isIconOnly
-          isLoading={loading}
-        >
-          {saveIcon}
-        </Button>
+        <Tooltip content={t["articles.new.global.save"]}>
+          <Button
+            color="primary"
+            variant="bordered"
+            onClick={handleSubmit}
+            isIconOnly
+            isLoading={loading}
+          >
+            {saveIcon}
+          </Button>
+        </Tooltip>
         <div className="text-red-500">{error}</div>
       </div>
       <br />
       <Tabs aria-label="Options" className=" justify-center">
-        <Tab key="form" title="Form">
+        <Tab key="form" title={t["articles.new.tabs.form"]}>
           <Card>
             <CardBody>
               <AddDoc all={data} setAll={setData} locale={lang} />
             </CardBody>
           </Card>
         </Tab>
-        <Tab key="map" title="Set map position">
+        <Tab key="map" title={t["articles.new.tabs.set_map_position"]}>
           <div className="flex flex-row">
             <SelectMarker all={data} setAll={setData}/>
             <div className="flex items-center justify-center grow">
@@ -116,16 +120,16 @@ export function ArticleEditor({
             </div>
           </div>
         </Tab>
-        <Tab key="card" title="Small preview">
+        <Tab key="card" title={t["articles.new.tabs.small_preview"]}>
           <Card>
             <CardBody>
               <div className="justify-center">
-                <Element data={data} lang={lang} id="1" />
+                <Element data={data} lang={lang} id="1" className="w-[15rem]" />
               </div>
             </CardBody>
           </Card>
         </Tab>
-        <Tab key="full" title="Full Article">
+        <Tab key="full" title={t["articles.new.tabs.full_article"]}>
           <RenderArticle data={data} lang={lang} />
         </Tab>
       </Tabs>

@@ -1,11 +1,6 @@
 {
-  "products": {
-    "cart": "Add to Cart"
-  },
   "navbar": {
-    "home": "Home",
-    "articles": "Articles",
-    "login": "Login"
+    "theme_switch": "Switch theme"
   },
   "auth": {
     "login": "Log in",
@@ -13,6 +8,10 @@
     "password": "Password"
   },
   "articles": {
-    "title": "Articles"
+    "title": "Articles",
+    "new": {
+      "tooltip": "Add new article"
+    },
+    "search": "Search"
   }
 }

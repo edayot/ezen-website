@@ -33,6 +33,7 @@ import {
   QueryDocumentSnapshot,
 } from "@firebase/firestore";
 import { collectionRef } from "@/utils/firebase";
+import { useTranslation } from "@/dictionaries/client";
 
 
 function appplySearchParam(searchParams: URLSearchParams, name: string, value: string) {
@@ -162,6 +163,7 @@ export function ArticlesViewer({ lang }: { lang: (typeof locales)[number]}) {
   const [date, setDate] = useState(0);
   const [infiniteScrollEnabled, setInfiniteScrollEnabled] = useState(true);
   const elementsPerPage = 12;
+  const t = useTranslation();
 
   const loadMoreRef = useRef<HTMLButtonElement | null>(null);
 
@@ -243,7 +245,7 @@ export function ArticlesViewer({ lang }: { lang: (typeof locales)[number]}) {
     <>
       <div className="flex flex-row justify-center items-center w-full">
         <div className="w-full h-full"></div>
-        <h1>dict.articles.title</h1>
+        <h1>{t["articles.title"]}</h1>
         <div className="w-full h-full flex flex-row justify-end items-center">
           <NewArticle />
         </div>
@@ -252,7 +254,6 @@ export function ArticlesViewer({ lang }: { lang: (typeof locales)[number]}) {
         <Input
           value={search}
           onValueChange={setSearch}
-          label="Search"
           isClearable
           radius="lg"
           classNames={{
@@ -276,7 +277,7 @@ export function ArticlesViewer({ lang }: { lang: (typeof locales)[number]}) {
               "!cursor-text",
             ],
           }}
-          placeholder="Type to search..."
+          placeholder={t["articles.search"]}
           startContent={
             <FiSearch className="text-black/50 mb-0.5 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0" />
           }
@@ -291,7 +292,7 @@ export function ArticlesViewer({ lang }: { lang: (typeof locales)[number]}) {
         disabled={!infiniteScrollEnabled}
         className=" invisible"
       >
-        Load More
+        {t["articles.load_more"]}
       </Button>
     </>
   );

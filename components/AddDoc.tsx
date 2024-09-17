@@ -19,6 +19,7 @@ import { useState } from "react";
 import { storage } from "@/utils/firebase";
 import { uploadBytes, ref, getDownloadURL } from "firebase/storage";
 import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure, CircularProgress} from "@nextui-org/react";
+import { useTranslation } from "@/dictionaries/client";
 
 function CreateImageMarkdown() {
   const [image, setImage] = useState<string | null>(null);
@@ -96,14 +97,15 @@ function CreateInput({
   setAll: (value: any) => void;
   lang: (typeof locales)[number];
 }) {
+  const t = useTranslation();
   return (
     <>
       <div className="flex flex-col gap-2 w-full">
         <div>{lang}</div>
         <Input
-          className="w-1/2"
-          label="Name"
-          placeholder={lang}
+          className="w-2/3"
+          label={t["articles.new.local_input.name"]}
+          placeholder={t["articles.new.placeholder.name"]}
           value={all[lang].name}
           onChange={(e) => {
             let newAll = { ...all };
@@ -113,8 +115,8 @@ function CreateInput({
         />
         <Input
           className="w-2/3"
-          label="Place"
-          placeholder={lang}
+          label={t["articles.new.label.place"]}
+          placeholder={t["articles.new.placeholder.place"]}
           value={all[lang].place}
           onChange={(e) => {
             let newAll = { ...all };
@@ -123,8 +125,8 @@ function CreateInput({
           }}
         />
         <Textarea
-          label="Desc"
-          placeholder={lang}
+          label={t["articles.new.label.desc"]}
+          placeholder={t["articles.new.placeholder.desc"]}
           value={all[lang].desc}
           onChange={(e) => {
             let newAll = { ...all };
@@ -197,9 +199,10 @@ function CreateGlobalInput({
     };
     reader.readAsDataURL(file);
   };
-  let upload_text = "Drop or click to upload the primary image";
+  const t = useTranslation();
+  let upload_text = t["articles.new.global.drop_image"];
   if (all.image_filename) {
-    upload_text = `Click to change image, current: ${all.image_filename}`;
+    upload_text = t["articles.new.global.drop_image_filename"].replace("%s", all.image_filename);
   }
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
@@ -211,16 +214,16 @@ function CreateGlobalInput({
         <ModalContent>
             <ModalBody>
               <div className=" flex justify-center items-center">
-              {error ? <div>{error}</div> : <CircularProgress size="lg"/>}
+                {error ? <div>{error}</div> : <CircularProgress size="lg"/>}
               </div>
             </ModalBody>
         </ModalContent>
       </Modal>
-      <h3>Global inputs</h3>
+      <h3>{t["articles.new.global.title"]}</h3>
       <Input
         className="w-1/2"
-        label="Latin Name"
-        placeholder={lang}
+        label={t["articles.new.global.label.latin_name"]}
+        placeholder={t["articles.new.placeholder.latin_name"]}
         value={all.latin_name}
         onChange={(e) => setAll({ ...all, latin_name: e.target.value })}
       />
@@ -250,17 +253,18 @@ function DisableOption({
   setAll: (value: any) => void;
   lang: string;
 }) {
+  const t = useTranslation();
   return (
     <>
     <Switch isSelected={all.disable_map_position} onValueChange={(e) => setAll({ ...all, disable_map_position: Boolean(!all.disable_map_position) })} >
-      Disable map postion
+      {t["articles.new.switch.disable_map_position"]}
     </Switch>
     <Divider orientation="vertical" />
     <Switch isSelected={all.disable_in_search} onValueChange={(e) => setAll({ ...all, disable_in_search: Boolean(!all.disable_in_search) })} >
-      Disable article search
+      {t["articles.new.switch.disable_in_search"]}
     </Switch>
     <Switch isSelected={all.protected} onValueChange={(e) => setAll({ ...all, protected: Boolean(!all.protected) })} >
-      Protect article from delete
+      {t["articles.new.switch.protected"]}
     </Switch>
     </>
   ) 

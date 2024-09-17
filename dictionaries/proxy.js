@@ -4,7 +4,12 @@ export function createProxy(dictionary) {
       const recursive_prop = prop.split(".");
       let value = target;
       for (let i = 0; i < recursive_prop.length; i++) {
-        value = value[recursive_prop[i]];
+        try {
+          value = value[recursive_prop[i]];
+        }
+        catch (e) {
+          return prop;
+        }
       }
       if (typeof value === "object" || !value) {
         return prop;

@@ -16,7 +16,7 @@ import { Image } from "@nextui-org/react";
 import { motion } from "framer-motion";
 import { PlantData } from "@/utils/article";
 import { locales } from "@/langs";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useCallback } from "react";
 import { FiSearch, FiArrowDown, FiArrowUp} from "react-icons/fi";
 import { NewArticle } from "./RedirectButton";
@@ -140,116 +140,117 @@ export function Element({
 
 
 
+function throttle(mainFunction: (...args: any[]) => void, delay: number) {
+  let timerFlag: NodeJS.Timeout | null = null; // Timer flag to check if there is a timer running
+
+  // Returning a throttled version 
+  return (...args: any[]) => {
+    if (timerFlag === null) { // If there is no timer currently running
+      mainFunction(...args); // Execute the main function 
+      timerFlag = setTimeout(() => { // Set a timer to clear the timerFlag after the specified delay
+        timerFlag = null; // Clear the timerFlag to allow the main function to be executed again
+      }, delay);
+    }
+  };
+}
+
+
+// Implement Infinite scroll
 export function ArticlesViewer({ dict, lang }: { lang: (typeof locales)[number], dict: any }) {
-  const [page, setPage] = useState(1);
-  const [maxPage, setMaxPage] = useState(1);
-  const [startValue, setStartValue] = useState<number | undefined>(0)
-  const [endValue, setEndValue] = useState<number | undefined>(undefined)
-  const [elements_data, set_elements_data] = useState<{ data: PlantData, id: string }[]>([])
+  const [elements_data, set_elements_data] = useState<{ data: PlantData, id: string }[]>([]);
+  const [date, setDate] = useState(0);
+  const [infiniteScrollEnabled, setInfiniteScrollEnabled] = useState(true);
   const elementsPerPage = 12;
 
-  useEffect(() => {
-    let q = undefined;
-    let reverse = false;
-    if (startValue !== undefined) {
-      q = query(
+  const loadMoreRef = useRef<HTMLButtonElement | null>(null);
+
+  const infiniteScroll = useCallback(throttle(() => {
+    if (!infiniteScrollEnabled) return;
+
+    getDocs(
+      query(
         collectionRef, 
-        orderBy("date"), 
-        limit(elementsPerPage), 
-        startAfter(startValue),
+        orderBy("date"),
+        startAfter(date),
+        limit(elementsPerPage),
         where("disable_in_search", "==", false)
       )
-    } else if (endValue !== undefined) {
-      q = query(
-        collectionRef, 
-        orderBy("date", "desc"), 
-        limit(elementsPerPage), 
-        startAfter(endValue),
-        where("disable_in_search", "==", false)
-      )
-      reverse = true;
-    }
-    if (q === undefined) { return}
-    getDocs(q).then((q) => {
-      let ele = q.docs.map((doc) => {
-        return { data: doc.data() as PlantData, id: doc.id };
-      })
-      if (reverse) { ele = ele.reverse() }
-      set_elements_data(ele)
-    })
-  }, [page])
+    ).then((q) => {
+      let ele = q.docs.map((doc) => ({
+        data: doc.data() as PlantData,
+        id: doc.id
+      }));
+      if (ele.length === 0) {
+        setInfiniteScrollEnabled(false);
+        return;
+      }
+      set_elements_data((prevElements) => {
+        const newElements = [...prevElements];
+        ele.forEach((e) => {
+          if (!newElements.map((ele) => ele.data.date).includes(e.data.date)) {
+            newElements.push(e);
+          }
+        });
+        return newElements;
+      });
+      setDate(ele[ele.length - 1].data.date);
+    });
+  }, 2000), [date, infiniteScrollEnabled]);
 
   useEffect(() => {
-    getCountFromServer(query(collectionRef, where("disable_in_search", "==", false))).then((count) => {
-      setMaxPage(Math.ceil(count.data().count / elementsPerPage))
-    })
-  }, [])
-    
-  // render all elements in the collection trought the Element function
-  let elements = elements_data.map(({data, id}: {data: PlantData, id: string}) => {
-      return (
-        <Element key={data.date} data={data} lang={lang} id={id} className="w-[8rem] md:w-[11rem] lg:w-[15rem] transition-all duration-500 ease-in-out"/>
-      );
-  });
-  let last_element_date = 0;
-  if (elements_data.length > 0) {
-    last_element_date = elements_data[elements_data.length - 1].data.date;
-  }
-  let first_element_date = 0;
-  if (elements_data.length > 0) {
-    first_element_date = elements_data[0].data.date;
-  }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          infiniteScroll();
+        }
+      },
+      {
+        root: null,
+        rootMargin: "0px",
+        threshold: 0.5,
+      }
+    );
 
-  const handlePagination = (newPage : number) => {
-    if (newPage > page) {
-      setStartValue(last_element_date);
-      setEndValue(undefined);
-      setPage(newPage);
-      console.log({
-        start: last_element_date,
-        end: undefined,
-        newPage: newPage
-      })
-    } else if (newPage < page) {
-      setStartValue(undefined);
-      setEndValue(first_element_date);
-      setPage(newPage);
-      console.log({
-        start: undefined,
-        end: first_element_date,
-        newPage: newPage
-      })
+    if (loadMoreRef.current) {
+      observer.observe(loadMoreRef.current);
     }
-  }
-  
+
+    return () => {
+      if (loadMoreRef.current) {
+        observer.unobserve(loadMoreRef.current);
+      }
+    };
+  }, [infiniteScroll]);
+
+  const elements = elements_data.map(({ data, id }: { data: PlantData, id: string }) => (
+    <Element
+      key={data.date}
+      data={data}
+      lang={lang}
+      id={id}
+      className="w-[8rem] md:w-[11rem] lg:w-[15rem] transition-all duration-500 ease-in-out"
+    />
+  ));
+
   return (
-      <>
+    <>
       <div className="flex flex-row justify-center items-center w-full">
-          <div className="w-full h-full"></div>
-          <h1>{dict.articles.title}</h1>
-          <div className="w-full h-full flex flex-row justify-end items-center">
-            <NewArticle />
-          </div>
+        <div className="w-full h-full"></div>
+        <h1>{dict.articles.title}</h1>
+        <div className="w-full h-full flex flex-row justify-end items-center">
+          <NewArticle />
+        </div>
       </div>
       <div className="flex gap-4 flex-wrap content-start items-center justify-center">
         {elements}
       </div>
-      <Pagination
-        total={maxPage}
-        page={page}
-        onChange={handlePagination}
-        showControls={true}
-        isDisabled={false}
-        renderItem={({ ...props }: PaginationItemRenderProps) => {
-          const isDisabled = (
-            (props.value == PaginationItemType.DOTS) ||
-            (typeof props.value === 'number')
-          )
-          return (<>
-            <PaginationItem {...props} isDisabled={isDisabled}/>
-          </>)
-        }}
-      />
-      </>
-  )
+      <Button
+        ref={loadMoreRef}
+        onPress={infiniteScroll}
+        disabled={!infiniteScrollEnabled}
+      >
+        Load More
+      </Button>
+    </>
+  );
 }

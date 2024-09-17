@@ -248,7 +248,7 @@ export function ArticlesViewer({ dict, lang }: { lang: (typeof locales)[number],
           <NewArticle />
         </div>
       </div>
-      <div className="w-1/4">
+      <div>
         <Input
           value={search}
           onValueChange={setSearch}
@@ -289,6 +289,7 @@ export function ArticlesViewer({ dict, lang }: { lang: (typeof locales)[number],
         ref={loadMoreRef}
         onPress={infiniteScroll}
         disabled={!infiniteScrollEnabled}
+        className=" invisible"
       >
         Load More
       </Button>

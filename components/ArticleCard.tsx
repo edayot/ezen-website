@@ -156,7 +156,7 @@ function throttle(mainFunction: (...args: any[]) => void, delay: number) {
 
 
 // Implement Infinite scroll
-export function ArticlesViewer({ dict, lang }: { lang: (typeof locales)[number], dict: any }) {
+export function ArticlesViewer({ lang }: { lang: (typeof locales)[number]}) {
   const [search, setSearch] = useState('');
   const [elements_data, set_elements_data] = useState<{ data: PlantData, id: string }[]>([]);
   const [date, setDate] = useState(0);
@@ -243,7 +243,7 @@ export function ArticlesViewer({ dict, lang }: { lang: (typeof locales)[number],
     <>
       <div className="flex flex-row justify-center items-center w-full">
         <div className="w-full h-full"></div>
-        <h1>{dict.articles.title}</h1>
+        <h1>dict.articles.title</h1>
         <div className="w-full h-full flex flex-row justify-end items-center">
           <NewArticle />
         </div>

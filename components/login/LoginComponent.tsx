@@ -7,7 +7,7 @@ import { signInEmailPassword } from "@/utils/firebase";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-export function LoginComponent({ dict }: { dict: any }) {
+export function LoginComponent() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [error, setError] = React.useState("");
@@ -39,7 +39,7 @@ export function LoginComponent({ dict }: { dict: any }) {
 
   return (
     <div className="flex flex-col gap-2 items-center align-middle">
-      <h1>{dict.auth.login}</h1>
+      <h1>dict.auth.login</h1>
       <br />
       <Input
         type="email"

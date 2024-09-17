@@ -63,9 +63,8 @@ function NavBarLogo() {
   );
 }
 
-export default function NavbarComponent(dict: any) {
+export default function NavbarComponent() {
   const size = 28;
-  dict = { ...dict, size };
   return (
     <>
       <Navbar className="dark:bg-white/5 " isBlurred>
@@ -73,10 +72,10 @@ export default function NavbarComponent(dict: any) {
           <NavBarLogo />
         </NavbarContent>
         <NavbarContent justify="center" className="gap-6">
-          <NavBarLeftContent {...dict} />
+          <NavBarLeftContent size={size} />
         </NavbarContent>
         <NavbarContent justify="end">
-          <NavBarRightContent {...dict} />
+          <NavBarRightContent size={size} />
         </NavbarContent>
       </Navbar>
     </>

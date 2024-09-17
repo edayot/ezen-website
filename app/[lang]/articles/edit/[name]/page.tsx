@@ -1,4 +1,4 @@
-import { getDictionary, HomeProps } from "@/dictionaries/dictionaries";
+import { HomeProps } from "@/dictionaries/dictionaries";
 import { getDoc, collection, doc } from "@firebase/firestore";
 import { collectionRef } from "@/utils/firebase";
 import { ArticleEditor } from "@/components/EditArticles";
@@ -6,7 +6,6 @@ import { PlantData } from "@/utils/article";
 import { notFound } from "next/navigation";
 
 export default async function Home({ params }: { params: HomeProps }) {
-  const dict = await getDictionary(params.lang);
   const document = await getDoc(doc(collectionRef, params.name));
   const data: PlantData = document.data() as PlantData;
   if (!data) {

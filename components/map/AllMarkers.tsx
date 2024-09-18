@@ -8,7 +8,10 @@ import { useState, useEffect } from "react";
 import { Element } from "../ArticleCard";
 import {
     getDocs,
+    limit,
+    orderBy,
     query,
+    startAfter,
     where,
   } from "@firebase/firestore";
 import { collectionRef } from "@/utils/firebase";
@@ -114,17 +117,25 @@ function ArticleMarker({element, lang}: {element: {data: PlantData, id: string},
 
 export function MapWithArticles({lang}: {lang: (typeof locales)[number]}) {
     const [elements_data, set_elements_data] = useState<{ data: PlantData, id: string }[]>([])
+    const [date, setDate] = useState(0)
+    const element_per_batch = 10;
     useEffect(() => {
         getDocs(query(
             collectionRef, 
-            where("disable_map_position", "==", false)
+            where("disable_map_position", "==", false),
+            limit(element_per_batch),
+            orderBy("date"),
+            startAfter(date),
         )).then((q) => {
-            set_elements_data(q.docs.map((doc) => {
+            const ele = q.docs.map((doc) => {
                 return { data: doc.data() as PlantData, id: doc.id };
-            }))
+            })
+            if (ele.length === 0) { return }
+            set_elements_data([...elements_data, ...ele])
+            setDate(ele[ele.length - 1].data.date);
         }
         )
-    }, [])
+    }, [date])
     let elements = elements_data.map((element) => <ArticleMarker element={element} lang={lang} key={element.id}/>);
     return <MapViewer>
         {elements}

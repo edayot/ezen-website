@@ -21,6 +21,7 @@ import { useCallback } from "react";
 import { FiSearch, FiArrowDown, FiArrowUp} from "react-icons/fi";
 import { NewArticle, IsUserLoggedIn } from "./RedirectButton";
 import Link from "next/link";
+import { throttle } from "@/utils/function";
 
 import {
   getDocs,
@@ -140,20 +141,6 @@ export function Element({
 }
 
 
-
-function throttle(mainFunction: (...args: any[]) => void, delay: number) {
-  let timerFlag: NodeJS.Timeout | null = null; // Timer flag to check if there is a timer running
-
-  // Returning a throttled version 
-  return (...args: any[]) => {
-    if (timerFlag === null) { // If there is no timer currently running
-      mainFunction(...args); // Execute the main function 
-      timerFlag = setTimeout(() => { // Set a timer to clear the timerFlag after the specified delay
-        timerFlag = null; // Clear the timerFlag to allow the main function to be executed again
-      }, delay);
-    }
-  };
-}
 
 
 // Implement Infinite scroll

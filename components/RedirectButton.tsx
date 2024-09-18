@@ -6,26 +6,32 @@ import { FiEdit, FiPlus } from "react-icons/fi";
 import Link from "next/link";
 import { useTranslation } from "@/dictionaries/client";
 
-export function EditButton({ id }: { id: string }) {
+
+export function IsUserLoggedIn({children}: {children: React.ReactNode}) {
   const [user, setUser] = useState(auth.currentUser);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setUser(user);
     });
-
     return () => unsubscribe();
   }, [auth.currentUser]);
 
   if (!user) {
-    console.log("User is not logged in");
     return <></>;
   }
+  return <>{children}</>
+}
 
+
+
+
+export function EditButton({ id }: { id: string }) {
+  const t = useTranslation();
   return (
     <>
       <div className="h-2"></div>
-      <Tooltip content="Edit article" placement="bottom">
+      <Tooltip content={t["articles.edit"]} placement="bottom">
         <Link href={`/articles/edit/${id}`}>
           <Button isIconOnly >
             <FiEdit />
@@ -39,21 +45,7 @@ export function EditButton({ id }: { id: string }) {
 
 
 export function NewArticle() {
-  const [user, setUser] = useState(auth.currentUser);
   const t = useTranslation();
-
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      setUser(user);
-    });
-
-    return () => unsubscribe();
-  }, [auth.currentUser]);
-
-  if (!user) {
-    console.log("User is not logged in");
-    return <></>;
-  }
 
   return (
     <>

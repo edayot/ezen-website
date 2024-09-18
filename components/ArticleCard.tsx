@@ -19,7 +19,7 @@ import { locales } from "@/langs";
 import { useEffect, useState, useRef } from "react";
 import { useCallback } from "react";
 import { FiSearch, FiArrowDown, FiArrowUp} from "react-icons/fi";
-import { NewArticle } from "./RedirectButton";
+import { NewArticle, IsUserLoggedIn } from "./RedirectButton";
 import Link from "next/link";
 
 import {
@@ -247,7 +247,9 @@ export function ArticlesViewer({ lang }: { lang: (typeof locales)[number]}) {
         <div className="w-full h-full"></div>
         <h1>{t["articles.title"]}</h1>
         <div className="w-full h-full flex flex-row justify-end items-center">
-          <NewArticle />
+          <IsUserLoggedIn>
+            <NewArticle />
+          </IsUserLoggedIn>
         </div>
       </div>
       <div>

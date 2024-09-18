@@ -14,6 +14,7 @@
   "articles": {
       "title": "Articoli",
       "search": "Cerca",
+      "edit": "Modificare l'articolo",
       "new": {
           "tooltip": "Aggiungi nuovo articolo",
           "tabs": {

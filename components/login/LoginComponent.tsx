@@ -6,6 +6,7 @@ import React from "react";
 import { signInEmailPassword } from "@/utils/firebase";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { useTranslation } from "@/dictionaries/client";
 
 export function LoginComponent() {
   const [email, setEmail] = React.useState("");
@@ -36,14 +37,15 @@ export function LoginComponent() {
       setLoading(false);
     }
   };
+  const t = useTranslation()
 
   return (
     <div className="flex flex-col gap-2 items-center align-middle">
-      <h1>dict.auth.login</h1>
+      <h1>{t["auth.login.title"]}</h1>
       <br />
       <Input
         type="email"
-        label="Email"
+        label={t["auth.login.email"]}
         className="max-w-xs justify-center"
         value={email}
         onValueChange={setEmail}
@@ -56,7 +58,7 @@ export function LoginComponent() {
         size="lg"
         onPress={(e) => onLogin()}
       >
-        Login
+        {t["auth.login.button"]}
       </Button>
       <div className=" text-red-600">{error}</div>
     </div>

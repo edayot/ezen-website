@@ -11,7 +11,7 @@ export function createProxy(dictionary) {
           return prop;
         }
       }
-      if (typeof value === "object" || !value) {
+      if (typeof value === "object" || value === undefined) {
         return prop;
       }
       return value;

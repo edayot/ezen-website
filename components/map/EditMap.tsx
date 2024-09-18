@@ -36,7 +36,6 @@ function DrageableMarker({
         initPos.lat = all.position.x;
         initPos.lng = all.position.y;
     }
-    console.log(initPos.lat, initPos.lng, all.position, all.map_marker);
     const [pos, setPos] = useState(initPos);
     const markerRef = useRef(null)
 

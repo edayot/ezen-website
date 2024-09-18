@@ -2,6 +2,14 @@ import "server-only";
 
 import { defaultLocale, locales } from "@/langs";
 
+import {readFile} from 'fs/promises'
+import JSON5 from 'json5'
+
+async function loadJSON5(filename: string) {
+  const json5 = await readFile(process.cwd() + filename, 'utf8')
+  return JSON5.parse(json5)
+}
+
 export interface HomeProps {
   lang: (typeof locales)[number];
   name: string;
@@ -10,14 +18,10 @@ export interface HomeProps {
 
 function getDictionaryInternal(locale: string) {
   try {
-    return import(`@/dictionaries/${locale}.json`).then(
-      (module) => module.default,
-    );
+    return loadJSON5(`/dictionaries/${locale}.jsonc`)
   } catch (e) {
     console.warn(`File ${locale} not found, falling back to ${defaultLocale}`);
-    return import(`@/dictionaries/${defaultLocale}.json`).then(
-      (module) => module.default,
-    );
+    return loadJSON5(`/dictionaries/${defaultLocale}.json`)
   }
 }
 

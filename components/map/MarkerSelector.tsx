@@ -15,7 +15,6 @@ export function SelectMarker({
     setAll: (value: PlantData) => void;
   }) {
     let defaultMarker = all.map_marker ? all.map_marker : markers[0];
-    console.log(all.map_marker, defaultMarker);
   
     const MarkerImage = ({marker}: {marker: string}) => {
       return (
@@ -35,7 +34,7 @@ export function SelectMarker({
   
     return (
       <Select
-        label={t["articles.new.map.marker.label"]}
+        label={t["articles.new.map.label.marker"]}
         variant="bordered"
         selectedKeys={selectedKeys}
         className="max-w-xs"

@@ -1,0 +1,60 @@
+{
+    "navbar": {
+        "theme_switch": "Switch theme"
+    },
+    "auth": {
+        "login": {
+          "title": "Sign in",
+          "button": "Login",
+          "email": "Email",
+          "password": "Password",
+          "password_placeholder": "Enter your password"
+        }
+    },
+    "articles": {
+        "title": "Articles",
+        "search": "Search",
+        "new": {
+            "tooltip": "Add new article",
+            "tabs": {
+                "form": "Form",
+                "set_map_position": "Set map position",
+                "small_preview": "Small preview",
+                "full_article": "Full article"
+            },
+            "switch": {
+                "disable_map_position": "Disable map position",
+                "disable_in_search": "Disable in search results",
+                "protected": "Protecte article from being deleted"
+            },
+            "global": {
+              "title": "Global inputs",
+              "label": {
+                "latin_name": "Latin Name"
+              },
+              "placeholder": {
+                "latin_name": "Lorem ipsus"
+              },
+              "drop_image": "Drop or click to upload an image",
+              "drop_image_filename": "Drop or click to replace the %s image"
+            },
+            "local_input":{
+              "label": {
+                "name": "Name",
+                "place": "Place in the garden",
+                "desc": "Description"
+              },
+              "placeholder": {
+                "name": "Garden rose",
+                "place": "Outside",
+                "desc": "Garden roses are predominantly hybrid roses that are grown ..."
+              }
+            },
+            "map": {
+              "label": {
+                "marker": "Marker icon"
+              }
+            }
+        }
+    }
+}

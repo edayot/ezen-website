@@ -1,5 +1,5 @@
 import firebaseApp from "./firebaseConfig";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { getFirestore, collection } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
@@ -20,9 +20,9 @@ export const signInEmailPassword = async (email, password) => {
   }
 };
 
-export const signOut = async () => {
+export const signOutGlobal = async () => {
   try {
-    await firebase.auth().signOut();
+    await signOut(auth)
   } catch (error) {
     throw new Error(error);
   }

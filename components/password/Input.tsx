@@ -2,6 +2,7 @@ import React from "react";
 import { Input } from "@nextui-org/react";
 import { EyeFilledIcon } from "./EyeIcon";
 import { EyeSlashFilledIcon } from "./EyeSlashIcon";
+import { useTranslation } from "@/dictionaries/client";
 
 export function PasswordInput({
   value,
@@ -14,13 +15,15 @@ export function PasswordInput({
 
   const toggleVisibility = () => setIsVisible(!isVisible);
 
+  const t = useTranslation()
+
   return (
     <Input
-      label="Password"
+      label={t["auth.login.password"]}
       value={value}
       onValueChange={onChange}
       variant="bordered"
-      placeholder="Enter your password"
+      placeholder={t["auth.login.password_placeholder"]}
       endContent={
         <button
           className="focus:outline-none"

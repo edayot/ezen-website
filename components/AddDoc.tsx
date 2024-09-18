@@ -104,8 +104,8 @@ function CreateInput({
         <div>{lang}</div>
         <Input
           className="w-2/3"
-          label={t["articles.new.local_input.name"]}
-          placeholder={t["articles.new.placeholder.name"]}
+          label={t["articles.new.local_input.label.name"]}
+          placeholder={t["articles.new.local_input.placeholder.name"]}
           value={all[lang].name}
           onChange={(e) => {
             let newAll = { ...all };
@@ -115,8 +115,8 @@ function CreateInput({
         />
         <Input
           className="w-2/3"
-          label={t["articles.new.label.place"]}
-          placeholder={t["articles.new.placeholder.place"]}
+          label={t["articles.new.local_input.label.place"]}
+          placeholder={t["articles.new.local_input.placeholder.place"]}
           value={all[lang].place}
           onChange={(e) => {
             let newAll = { ...all };
@@ -125,8 +125,8 @@ function CreateInput({
           }}
         />
         <Textarea
-          label={t["articles.new.label.desc"]}
-          placeholder={t["articles.new.placeholder.desc"]}
+          label={t["articles.new.local_input.label.desc"]}
+          placeholder={t["articles.new.local_input.placeholder.desc"]}
           value={all[lang].desc}
           onChange={(e) => {
             let newAll = { ...all };
@@ -223,7 +223,7 @@ function CreateGlobalInput({
       <Input
         className="w-1/2"
         label={t["articles.new.global.label.latin_name"]}
-        placeholder={t["articles.new.placeholder.latin_name"]}
+        placeholder={t["articles.new.global.placeholder.latin_name"]}
         value={all.latin_name}
         onChange={(e) => setAll({ ...all, latin_name: e.target.value })}
       />

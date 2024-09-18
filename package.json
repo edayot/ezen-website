@@ -16,6 +16,7 @@
     "firebase": "^10.13.0",
     "formatjs": "^0.1.1",
     "framer-motion": "^11.3.30",
+    "json5": "^2.2.3",
     "leaflet": "^1.9.4",
     "negotiator": "^0.6.3",
     "next": "14.2.6",
@@ -31,6 +32,7 @@
     "sharp": "^0.33.5"
   },
   "devDependencies": {
+    "@types/json5": "^0.0.30",
     "@types/leaflet": "^1.9.12",
     "@types/negotiator": "^0.6.3",
     "@types/node": "^20",

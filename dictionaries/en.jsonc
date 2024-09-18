@@ -1,6 +1,11 @@
 {
     "navbar": {
-        "theme_switch": "Switch theme"
+        "theme_switch": "Switch theme",
+        "lang_switch": {
+            "en": "English",
+            "it": "Italian",
+            "fr": "French"
+        }
     },
     "auth": {
         "login": {

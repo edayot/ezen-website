@@ -17,13 +17,15 @@ export function ThemeSwitch(props: any) {
   }, []);
 
   const { Component, slots, getBaseProps, getInputProps, getWrapperProps } =
-    useSwitch(props);
+    useSwitch({});
 
   if (!mounted) return null;
 
   const handleThemeChange = () => {
     setTheme(theme === "dark" ? "light" : "dark");
   };
+
+  console.log(props, "aaaa");
 
   return (
     <Tooltip content={t["navbar.theme_switch"]} placement="bottom">
@@ -43,7 +45,7 @@ export function ThemeSwitch(props: any) {
             })}
             onClick={handleThemeChange}
           >
-            {theme === "dark" ? <MoonIcon /> : <SunIcon />}
+            {theme === "dark" ? <MoonIcon size={props.size} /> : <SunIcon size={props.size} />}
           </div>
         </Component>
       </div>

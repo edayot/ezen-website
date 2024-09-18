@@ -10,8 +10,12 @@ import {
 } from "@nextui-org/react";
 import { ThemeSwitch } from "./themes/Switch";
 import React from "react";
-import { FiHome, FiBookOpen, FiMap, FiUser, FiLogOut } from "react-icons/fi";
-import { usePathname } from "next/navigation";
+import { FiHome, FiBookOpen, FiMap, FiUser, FiLogOut, FiGlobe} from "react-icons/fi";
+import { usePathname, useRouter } from "next/navigation";
+import {Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button, Avatar, AvatarGroup} from "@nextui-org/react";
+import type { Selection } from "@nextui-org/react";
+import { locales } from "@/langs";
+import { useTranslation } from "@/dictionaries/client";
 
 function NavBarLeftContent({ size }: { size: number }) {
   const path = "/" + usePathname().split("/").slice(2).join("/");
@@ -31,9 +35,58 @@ function NavBarLeftContent({ size }: { size: number }) {
   );
 }
 
-function NavBarRightContent({ size }: { size: number }) {
+function NavBarRightContent({ size, lang }: { size: number, lang: (typeof locales)[number] }) {
+  const [selectedKeys, setSelectedKeys] = React.useState<Selection>(new Set([lang]));
+
+  const langToFlag: Record<string, JSX.Element> = {
+    en: <Avatar alt="en" size="sm" src="https://flagcdn.com/gb.svg"/>,
+    fr: <Avatar alt="fr" size="sm" src="https://flagcdn.com/fr.svg"/>,
+    it: <Avatar alt="it" size="sm" src="https://flagcdn.com/it.svg"/>,
+  };
+
+  const t = useTranslation();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const handleClick = (lang: string) => {
+    const pathWitoutLocale = pathname.split("/").slice(2).join("/");
+    const newPath = `/${lang}/${pathWitoutLocale}`;
+    router.push(newPath);
+  }
+
   return (
     <>
+      <NavbarItem className="lg:flex">
+        <div className=" relative bottom-[2px]">
+          <Dropdown>
+            <DropdownTrigger>
+              <Button 
+                size="sm"
+                variant="bordered" 
+                isIconOnly
+                className="flex items-center justify-center rounded-lg bg-default-100 hover:bg-default-200 cursor-pointer border-2 size-4"
+              >
+                <FiGlobe size={20} />
+              </Button>
+            </DropdownTrigger>
+            <DropdownMenu 
+              aria-label="Static Actions" 
+              selectionMode="single"
+              selectedKeys={selectedKeys}
+              onSelectionChange={setSelectedKeys}
+              onAction={(key) => handleClick(key.toString())}
+            >
+              {locales.map((lang) => (
+                <DropdownItem key={lang}>
+                  <div className="flex flex-row items-center gap-4">
+                  {langToFlag[lang]} {t[`navbar.lang_switch.${lang}`]}
+                  </div>
+                </DropdownItem>
+              ))}
+            </DropdownMenu>
+          </Dropdown>
+        </div>
+      </NavbarItem>
       <NavbarItem className="lg:flex">
         <div className=" relative bottom-[2px]">
         <ThemeSwitch props={{ size: size }} />
@@ -63,7 +116,7 @@ function NavBarLogo() {
   );
 }
 
-export default function NavbarComponent() {
+export default function NavbarComponent({lang}: {lang: (typeof locales)[number]}) {
   const size = 28;
   return (
     <>
@@ -75,7 +128,7 @@ export default function NavbarComponent() {
           <NavBarLeftContent size={size} />
         </NavbarContent>
         <NavbarContent justify="end">
-          <NavBarRightContent size={size} />
+          <NavBarRightContent size={size} lang={lang} />
         </NavbarContent>
       </Navbar>
     </>

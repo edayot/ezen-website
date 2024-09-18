@@ -29,7 +29,7 @@ export default async function RootLayout({
                 <SetLangComponent locale={params.lang} />
                 <LeafletProvider>
                   <div>
-                    <NavBar />
+                    <NavBar lang={params.lang} />
                   </div>
                   <div className="grow">
                     {children}

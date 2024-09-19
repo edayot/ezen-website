@@ -7,11 +7,20 @@ import { signOutGlobal } from "@/utils/firebase";
 import { redirect } from "next/navigation"
 import { auth } from "@/utils/firebase";
 import {Snippet} from "@nextui-org/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Home({ params }: { params: HomeProps }) {
   const t = useTranslation();
   const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState(auth.currentUser);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setUser(user);
+    });
+    return () => unsubscribe();
+  }, []);
+
   return (
     <>
       <div className="flex flex-row justify-center">
@@ -19,8 +28,8 @@ export default function Home({ params }: { params: HomeProps }) {
           <IsUserLoggedIn fallback={<RedirectComponent/>} >
             <div className="flex flex-col gap-2">
               <h1>{t["auth.account.title"]}</h1>
-              <p>{t["auth.account.email"]} {auth.currentUser?.email}</p>
-              <p>{t["auth.account.uid"]} <Snippet symbol="" size="sm">{auth.currentUser?.uid}</Snippet></p>
+              <p>{t["auth.account.email"]} {user?.email}</p>
+              <p>{t["auth.account.uid"]} <Snippet symbol="" size="sm">{user?.uid}</Snippet></p>
               <br/>
               <div>
                 <Button

@@ -125,10 +125,10 @@ export function Element({
             </CardBody>
             <CardHeader className="absolute top-1 flex-col items-start p-4">
               <div className="flex flex-col">
-                <div className="text-white/40 font-bold text-left line-clamp-1" style={{ fontSize: 'clamp(0.5rem, 1.5vw, 1rem)' }}>
+                <div className="text-white/40 font-bold text-left line-clamp-1 " style={{ fontSize: 'clamp(0.5rem, 1.25vw, 1rem)', textShadow: '1px 1px 4px rgba(0, 0, 0, 0.8)' }}>
                   {data.latin_name}
                 </div>
-                <div className="text-white/90 font-medium text-wrap text-left mt-1 line-clamp-2" style={{ fontSize: 'clamp(0.75rem, 2.5vw, 1.25rem)' }}>
+                <div className="text-white/70 font-medium text-wrap text-left mt-1 line-clamp-2" style={{ fontSize: 'clamp(0.75rem, 2.5vw, 1.25rem)', textShadow: '1px 1px 4px rgba(0, 0, 0, 0.8)' }}>
                   {data[lang].name}
                 </div>
               </div>

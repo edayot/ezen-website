@@ -5,22 +5,30 @@ import { useEffect, useState } from "react";
 import { FiEdit, FiPlus } from "react-icons/fi";
 import Link from "next/link";
 import { useTranslation } from "@/dictionaries/client";
+import { redirect } from "next/navigation";
 
 
-export function IsUserLoggedIn({children}: {children: React.ReactNode}) {
+export function IsUserLoggedIn({children, fallback}: {children?: React.ReactNode, fallback?: React.ReactNode}) {
   const [user, setUser] = useState(auth.currentUser);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setUser(user);
+      setLoading(false);
     });
     return () => unsubscribe();
-  }, [auth.currentUser]);
+  }, []);
+
+  if (loading) {
+    return null;
+  }
 
   if (!user) {
-    return <></>;
+    return <> {fallback || null} </>
   }
-  return <>{children}</>
+
+  return <>{children || null}</>
 }
 
 
@@ -60,4 +68,14 @@ export function NewArticle() {
       <div className="h-2"></div>
     </>
   );
+}
+
+
+
+
+export function RedirectComponent({href}: {href?: string}) {
+	useEffect(() => {
+    redirect(href || "/")
+	})
+	return <></>
 }

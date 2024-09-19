@@ -14,6 +14,12 @@
           "email": "Email",
           "password": "Mot de passe",
           "password_placeholder": "Entrez votre mot de passe"
+      },
+      "account":{
+        "title": "Informations du compte",
+        "email": "Email : ",
+        "uid": "UID : ",
+        "signout": "Déconnexion"
       }
   },
   "articles": {

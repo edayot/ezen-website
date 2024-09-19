@@ -16,6 +16,7 @@ import {Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button, Avatar, A
 import type { Selection } from "@nextui-org/react";
 import { locales } from "@/langs";
 import { useTranslation } from "@/dictionaries/client";
+import { IsUserLoggedIn } from "./RedirectButton";
 
 function NavBarLeftContent({ size }: { size: number }) {
   const path = "/" + usePathname().split("/").slice(2).join("/");
@@ -103,9 +104,15 @@ function NavBarRightContent({ size, lang}: { size: number, lang: (typeof locales
         </div>
       </NavbarItem>
       <NavbarItem className="lg:flex">
-        <Link href="/auth/login">
-          <FiUser size={size} />
-        </Link>
+        <IsUserLoggedIn fallback={
+          <Link href="/auth/login">
+            <FiUser size={size} />
+          </Link>
+        } >
+          <Link href="/auth/account">
+            <FiUser size={size} />
+          </Link>
+        </IsUserLoggedIn>
       </NavbarItem>
     </>
   );

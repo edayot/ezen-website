@@ -25,8 +25,6 @@ export function ThemeSwitch(props: any) {
     setTheme(theme === "dark" ? "light" : "dark");
   };
 
-  console.log(props, "aaaa");
-
   return (
     <Tooltip content={t["navbar.theme_switch"]} placement="bottom">
       <div className="flex flex-col gap-2">

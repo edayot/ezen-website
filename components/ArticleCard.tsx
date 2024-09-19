@@ -224,7 +224,7 @@ export function ArticlesViewer({ lang }: { lang: (typeof locales)[number]}) {
       data={data}
       lang={lang}
       id={id}
-      className="w-[8rem] md:w-[11rem] lg:w-[15rem] transition-all duration-500 ease-in-out"
+      className="min-w-[8rem] md:min-w-[11rem] lg:min-w-[15rem] w-full transition-all duration-500 ease-in-out"
     />
   ));
 
@@ -272,7 +272,7 @@ export function ArticlesViewer({ lang }: { lang: (typeof locales)[number]}) {
           }
         />
       </div>
-      <div className="flex gap-4 flex-wrap content-start items-center justify-center">
+      <div className="flex flex-row flex-auto flex-wrap w-full gap-4 items-center justify-center">
         {elements}
       </div>
       <Button

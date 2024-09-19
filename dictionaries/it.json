@@ -34,6 +34,7 @@
               "protected": "Proteggi l'articolo dalla cancellazione"
           },
           "global": {
+              "change_article_lang": "Cambia la lingua dell'articolo (attuale: %s)",
               "title": "Input globali",
               "label": {
                   "latin_name": "Nome latino"

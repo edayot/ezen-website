@@ -12,6 +12,7 @@ import { FiCheck, FiSave } from "react-icons/fi";
 import { EditMap } from "./map/EditMap";
 import { SelectMarker } from "./map/MarkerSelector";
 import { useTranslation } from "@/dictionaries/client";
+import { LangSwitch, langToFlag } from "./navbar";
 
 export function ArticleEditor({
   lang,
@@ -49,6 +50,7 @@ export function ArticleEditor({
   }
 
   const [data, setData] = useState<PlantData>({...initDataPlaceHolder, ...initData});
+  const [articleLang, setArticleLang] = useState(lang);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const t = useTranslation();
@@ -87,18 +89,24 @@ export function ArticleEditor({
   };
   return (
     <div className="flex flex-col">
-      <div className="flex flex-col justify-end items-end">
-        <Tooltip content={t["articles.new.global.save"]}>
-          <Button
-            color="primary"
-            variant="bordered"
-            onClick={handleSubmit}
-            isIconOnly
-            isLoading={loading}
-          >
-            {saveIcon}
-          </Button>
-        </Tooltip>
+      <div className="flex flex-row justify-center">
+        <div className="flex flex-row justify-start w-full gap-3 items-center">
+          {t["articles.new.global.change_article_lang"].replace("%s", articleLang)}
+          <LangSwitch size={20} lang={articleLang} handleClick={(lang: string) => setArticleLang(lang as (typeof locales)[number])} />
+        </div>
+        <div className="flex flex-row justify-end w-full">
+          <Tooltip content={t["articles.new.global.save"]}>
+            <Button
+              color="primary"
+              variant="bordered"
+              onClick={handleSubmit}
+              isIconOnly
+              isLoading={loading}
+            >
+              {saveIcon}
+            </Button>
+          </Tooltip>
+        </div>
         <div className="text-red-500">{error}</div>
       </div>
       <br />
@@ -124,13 +132,13 @@ export function ArticleEditor({
           <Card>
             <CardBody>
               <div className="justify-center">
-                <Element data={data} lang={lang} id="1" className="w-[15rem]" />
+                <Element data={data} lang={articleLang} id="1" className="w-[15rem]" />
               </div>
             </CardBody>
           </Card>
         </Tab>
         <Tab key="full" title={t["articles.new.tabs.full_article"]}>
-          <RenderArticle data={data} lang={lang} />
+          <RenderArticle data={data} lang={articleLang} />
         </Tab>
       </Tabs>
     </div>

@@ -34,6 +34,7 @@
               "protected": "Protéger l'article contre la suppression"
           },
           "global": {
+              "change_article_lang": "Changer la langue de l'article (actuel: %s)",
               "title": "Entrées globales",
               "label": {
                   "latin_name": "Nom latin"

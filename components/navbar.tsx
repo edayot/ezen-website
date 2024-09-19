@@ -35,16 +35,52 @@ function NavBarLeftContent({ size }: { size: number }) {
   );
 }
 
-function NavBarRightContent({ size, lang }: { size: number, lang: (typeof locales)[number] }) {
+export const langToFlag: Record<string, JSX.Element> = {
+  en: <Avatar alt="en" size="sm" src="https://flagcdn.com/gb.svg"/>,
+  fr: <Avatar alt="fr" size="sm" src="https://flagcdn.com/fr.svg"/>,
+  it: <Avatar alt="it" size="sm" src="https://flagcdn.com/it.svg"/>,
+};
+
+export function LangSwitch({ size, lang, handleClick}: { size: number, lang: (typeof locales)[number], handleClick: (lang: string) => void }) {
   const [selectedKeys, setSelectedKeys] = React.useState<Selection>(new Set([lang]));
-
-  const langToFlag: Record<string, JSX.Element> = {
-    en: <Avatar alt="en" size="sm" src="https://flagcdn.com/gb.svg"/>,
-    fr: <Avatar alt="fr" size="sm" src="https://flagcdn.com/fr.svg"/>,
-    it: <Avatar alt="it" size="sm" src="https://flagcdn.com/it.svg"/>,
-  };
-
   const t = useTranslation();
+  return (
+    <Dropdown>
+      <DropdownTrigger>
+        <Button 
+          size="sm"
+          variant="bordered" 
+          isIconOnly
+          className="flex items-center justify-center rounded-lg bg-default-100 hover:bg-default-200 cursor-pointer border-2 size-4"
+        >
+          <FiGlobe size={20} />
+        </Button>
+      </DropdownTrigger>
+      <DropdownMenu 
+        aria-label="Static Actions" 
+        selectionMode="single"
+        selectedKeys={selectedKeys}
+        onSelectionChange={setSelectedKeys}
+        onAction={(key) => handleClick(key.toString())}
+      >
+        {locales.map((lang) => (
+          <DropdownItem key={lang}>
+            <div className="flex flex-row items-center gap-4">
+            {langToFlag[lang]} {t[`navbar.lang_switch.${lang}`]}
+            </div>
+          </DropdownItem>
+        ))}
+      </DropdownMenu>
+    </Dropdown>
+  )
+}
+
+
+
+
+function NavBarRightContent({ size, lang}: { size: number, lang: (typeof locales)[number] }) {
+
+  
   const router = useRouter();
   const pathname = usePathname();
 
@@ -58,33 +94,7 @@ function NavBarRightContent({ size, lang }: { size: number, lang: (typeof locale
     <>
       <NavbarItem className="lg:flex">
         <div className=" relative bottom-[2px]">
-          <Dropdown>
-            <DropdownTrigger>
-              <Button 
-                size="sm"
-                variant="bordered" 
-                isIconOnly
-                className="flex items-center justify-center rounded-lg bg-default-100 hover:bg-default-200 cursor-pointer border-2 size-4"
-              >
-                <FiGlobe size={20} />
-              </Button>
-            </DropdownTrigger>
-            <DropdownMenu 
-              aria-label="Static Actions" 
-              selectionMode="single"
-              selectedKeys={selectedKeys}
-              onSelectionChange={setSelectedKeys}
-              onAction={(key) => handleClick(key.toString())}
-            >
-              {locales.map((lang) => (
-                <DropdownItem key={lang}>
-                  <div className="flex flex-row items-center gap-4">
-                  {langToFlag[lang]} {t[`navbar.lang_switch.${lang}`]}
-                  </div>
-                </DropdownItem>
-              ))}
-            </DropdownMenu>
-          </Dropdown>
+          <LangSwitch size={size} lang={lang} handleClick={handleClick}/>
         </div>
       </NavbarItem>
       <NavbarItem className="lg:flex">

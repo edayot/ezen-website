@@ -34,6 +34,7 @@
                 "protected": "Protecte article from being deleted"
             },
             "global": {
+              "change_article_lang": "Change article language (current: %s)",
               "title": "Global inputs",
               "label": {
                 "latin_name": "Latin Name"

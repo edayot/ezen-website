@@ -1,64 +1,85 @@
 
 
-import { PlantData, markers } from "@/utils/article";
+import { PlantData } from "@/utils/article";
 import { Select, SelectItem } from "@nextui-org/react";
 import { Image } from "@nextui-org/react";
 import { useTranslation } from "@/dictionaries/client";
-
+import { storage } from "@/utils/firebase";
+import { ref, listAll, getDownloadURL } from "firebase/storage";
+import { useEffect, useState } from "react";
 
 
 export function SelectMarker({
-    all,
-    setAll,
+  all,
+  setAll,
   }: {
-    all: PlantData;
-    setAll: (value: PlantData) => void;
+  all: PlantData;
+  setAll: (value: PlantData) => void;
   }) {
-    let defaultMarker = all.map_marker ? all.map_marker : markers[0];
+  const [markers, setMarkers] = useState<{ [filename: string]: string }>({})
+  useEffect(() => {
+    const storageRef = ref(storage, "markers/")
+    listAll(storageRef).then((value) => {
+    Promise.all(value.items.map((v) => 
+      getDownloadURL(v).then((url) => ({ [v.name]: url }))
+    )).then((urls) => {
+      const markersMap = Object.assign({}, ...urls);
+      setMarkers(markersMap);
+    });
+    })
+  }, [])
+
+  if (Object.keys(markers).length === 0) { return }
+  let defaultMarker = all.map_marker ? all.map_marker : Object.values(markers)[0]
   
-    const MarkerImage = ({marker}: {marker: string}) => {
-      return (
-        <div className="flex flex-row gap-4 items-center justify-center h-10 w-full" key={marker}>
-          <Image
-            src={`/images/markers/${marker}.png`}
-            alt={marker}
-            style={{ objectFit: "contain" }}
-          />
-          {marker}
-        </div>
-      );
-    };
-  
-    const selectedKeys =new Set([defaultMarker]);
-    const t = useTranslation();
-  
+  const MarkerImage = ({marker, url}: {marker: string, url: string}) => {
     return (
-      <Select
-        label={t["articles.new.map.label.marker"]}
-        variant="bordered"
-        selectedKeys={selectedKeys}
-        className="max-w-xs"
-        onSelectionChange={(keys) => {
-          
-          const keysArray = Array.from(keys);
-          if (keysArray.length === 0) { return; }
-          const newAll = { ...all };
-          newAll.map_marker = keysArray[0].toString();
-          setAll(newAll);
-        }}
-        renderValue={(items) => {
-          return items.map((item) => {
-            const marker = item.textValue; // Extract the text value from the item object
-            return <MarkerImage key={marker} marker={marker || defaultMarker} />;
-          });
-        }}
-          >
-        {markers.map((marker) => (
-          <SelectItem key={marker} textValue={marker}>
-            <MarkerImage marker={marker} />
-          </SelectItem>
-        ))}
-      </Select>
+    <div className="flex flex-row gap-4 items-center justify-center h-10 w-full" key={marker}>
+      <Image
+      src={url}
+      alt={marker}
+      style={{ objectFit: "contain" }}
+      />
+      {marker}
+    </div>
     );
+  };
+  
+  const selectedKeys = new Set(defaultMarker ? [defaultMarker] : [])
+  const t = useTranslation();
+  
+  return (
+    <Select
+    label={t["articles.new.map.label.marker"]}
+    variant="bordered"
+    selectedKeys={selectedKeys}
+    className="max-w-xs"
+    onSelectionChange={(keys) => {
+      
+      const keysArray = Array.from(keys);
+      if (keysArray.length === 0) { return; }
+      const newAll = { ...all };
+      newAll.map_marker = markers[keysArray[0].toString()];
+      setAll(newAll);
+    }}
+    renderValue={(items) => {
+      return (
+        <>
+          {items.map((item) => {
+            const marker = item.textValue; // Extract the text value from the item object
+            if (!marker) return null;
+            return <MarkerImage key={marker} marker={marker} url={markers[marker]} />;
+          })}
+        </>
+      );
+    }}
+      >
+    {Object.entries(markers).map(([filename, url]) => (
+      <SelectItem key={filename} textValue={filename}>
+        <MarkerImage marker={filename} url={url} />
+      </SelectItem>
+    ))}
+    </Select>
+  );
   }
   

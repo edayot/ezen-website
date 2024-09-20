@@ -1,7 +1,7 @@
 "use client";
 
 import { MapViewer } from "./Default";
-import { PlantData, markers } from "@/utils/article";
+import { PlantData } from "@/utils/article";
 import { useState, useMemo, useRef } from "react";
 import { Marker } from "react-leaflet";
 import { Icon } from "leaflet";
@@ -16,12 +16,11 @@ function DrageableMarker({
     setAll: (value: PlantData) => void;}
 ) {
 
-    let marker = all.map_marker ? all.map_marker : markers[0];
-    if (!markers.includes(marker)) {
-        marker = markers[0];
-    }
+    let marker = all.map_marker ? all.map_marker : "";
+    if (!marker) {return null}
+
     const icon = new Icon({
-        iconUrl: `/images/markers/${marker}.png`,
+        iconUrl: marker,
         iconSize: [30, 30],
         iconAnchor: [15, 30],
         popupAnchor: [0, -30],

@@ -1,6 +1,6 @@
 "use client";
 import { MapViewer } from "@/components/map/Default";
-import { PlantData, markers } from "@/utils/article";
+import { PlantData } from "@/utils/article";
 import { Marker, Popup, Tooltip } from "react-leaflet";
 import { Icon } from "leaflet";
 import { locales } from "@/langs";
@@ -15,9 +15,11 @@ import {
     where,
   } from "@firebase/firestore";
 import { collectionRef } from "@/utils/firebase";
+import { ref, listAll, getDownloadURL } from "firebase/storage";
+import { storage } from "@/utils/firebase";
 
 
-function ArticleMarker({element, lang}: {element: {data: PlantData, id: string}, lang: typeof locales[number]}) {
+function ArticleMarker({element, lang, markers}: {element: {data: PlantData, id: string}, lang: typeof locales[number], markers: { [filename: string]: string }}) {
     const [mouseOnMarker, setMouseOnMarker] = useState(false)
     const [mouseOnPopup, setMouseOnPopup] = useState(false)
 
@@ -58,12 +60,13 @@ function ArticleMarker({element, lang}: {element: {data: PlantData, id: string},
         return <></>
     }
 
-    let marker = element.data.map_marker ? element.data.map_marker : markers[0];
-    if (!markers.includes(marker)) {
-        marker = markers[0];
+    let marker = element.data.map_marker ? element.data.map_marker : markers["bush.png"]
+    // if the value is not in the map, use the default marker
+    if (!markers[marker]) {
+        marker = markers["bush.png"]
     }
     const icon = new Icon({
-        iconUrl: `/images/markers/${marker}.png`,
+        iconUrl: marker,
         iconSize: [30, 30],
         iconAnchor: [15, 30],
         popupAnchor: [0, -30],
@@ -116,6 +119,18 @@ function ArticleMarker({element, lang}: {element: {data: PlantData, id: string},
 
 
 export function MapWithArticles({lang}: {lang: (typeof locales)[number]}) {
+    const [markers, setMarkers] = useState<{ [filename: string]: string }>({})
+    useEffect(() => {
+        const storageRef = ref(storage, "markers/")
+        listAll(storageRef).then((value) => {
+        Promise.all(value.items.map((v) => 
+        getDownloadURL(v).then((url) => ({ [v.name]: url }))
+        )).then((urls) => {
+        const markersMap = Object.assign({}, ...urls);
+        setMarkers(markersMap);
+        });
+        })
+    }, [])
     const [elements_data, set_elements_data] = useState<{ data: PlantData, id: string }[]>([])
     const [date, setDate] = useState(0)
     const element_per_batch = 10;
@@ -136,7 +151,9 @@ export function MapWithArticles({lang}: {lang: (typeof locales)[number]}) {
         }
         )
     }, [date])
-    let elements = elements_data.map((element) => <ArticleMarker element={element} lang={lang} key={element.id}/>);
+    let elements = elements_data.map((element) => <ArticleMarker element={element} lang={lang} key={element.id} markers={markers}/>);
+
+    
     return <MapViewer>
         {elements}
       </MapViewer>

@@ -29,8 +29,8 @@ function DrageableMarker({
     });
 
     let initPos = {
-        lat: 50,
-        lng: 50,
+        lat: 20,
+        lng: 20,
     }
     if (all.position) {
         initPos.lat = all.position.x;

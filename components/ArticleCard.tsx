@@ -107,7 +107,7 @@ export function Element({
 
   return (
     <Link href={`/article/${id}`}>
-      <div className={"resizeable-card" + " " + className}>
+      <div className={" " + className}>
         <motion.button
           whileHover={{ scale: 1.025 }}
           whileTap={{ scale: 0.95 }}
@@ -123,7 +123,7 @@ export function Element({
                 fallbackSrc={fallback}
               />
             </CardBody>
-            <CardHeader className="absolute top-1 flex-col items-start p-4">
+            <CardHeader className="absolute top-0 flex-col items-start p-4">
               <div className="flex flex-col">
                 <div className="text-white/40 font-bold text-left line-clamp-1 " style={{ fontSize: 'clamp(0.5rem, 1.25vw, 1rem)', textShadow: '1px 1px 4px rgba(0, 0, 0, 0.8)' }}>
                   {data.latin_name}
@@ -224,7 +224,7 @@ export function ArticlesViewer({ lang }: { lang: (typeof locales)[number]}) {
       data={data}
       lang={lang}
       id={id}
-      className="min-w-[8rem] md:min-w-[11rem] lg:min-w-[15rem] w-full transition-all duration-500 ease-in-out"
+      className="min-w-[8rem] md:min-w-[11rem] lg:min-w-[15rem] w-full transition-all duration-500 ease-in-out "
     />
   ));
 
@@ -258,7 +258,7 @@ export function ArticlesViewer({ lang }: { lang: (typeof locales)[number]}) {
               "bg-default-200/50",
               "dark:bg-default/60",
               "backdrop-blur-xl",
-              "backdrop-saturate-200",
+              "backdrop-saturate-500",
               "hover:bg-default-200/70",
               "dark:hover:bg-default/70",
               "group-data-[focus=true]:bg-default-200/50",

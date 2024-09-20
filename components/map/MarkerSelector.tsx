@@ -18,7 +18,7 @@ export function SelectMarker({
   
     const MarkerImage = ({marker}: {marker: string}) => {
       return (
-        <div className="flex flex-row gap-4 items-center justify-center h-10" key={marker}>
+        <div className="flex flex-row gap-4 items-center justify-center h-10 w-full" key={marker}>
           <Image
             src={`/images/markers/${marker}.png`}
             alt={marker}

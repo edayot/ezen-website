@@ -119,8 +119,10 @@ export function ArticleEditor({
           </Card>
         </Tab>
         <Tab key="map" title={t["articles.new.tabs.set_map_position"]}>
-          <div className="flex flex-row">
-            <SelectMarker all={data} setAll={setData}/>
+          <div className="flex flex-row gap-4">
+            <div className="min-w-36">
+              <SelectMarker all={data} setAll={setData}/>
+            </div>
             <div className="flex items-center justify-center grow">
               <div className="w-full h-72">
                 <EditMap all={data} setAll={setData} />

@@ -141,10 +141,10 @@ export default function NavbarComponent({lang}: {lang: (typeof locales)[number]}
         <NavbarContent justify="start">
           <NavBarLogo />
         </NavbarContent>
-        <NavbarContent justify="center" className="gap-6">
+        <NavbarContent justify="center" className="gap-1 sm:gap-4">
           <NavBarLeftContent size={size} />
         </NavbarContent>
-        <NavbarContent justify="end">
+        <NavbarContent justify="end" className="gap-1 sm:gap-4">
           <NavBarRightContent size={size} lang={lang} />
         </NavbarContent>
       </Navbar>

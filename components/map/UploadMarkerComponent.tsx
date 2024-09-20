@@ -35,7 +35,6 @@ export function UploadMarker({
       // Create an image object to get the dimensions
       const img = new Image();
       img.onload = () => {
-        const { width, height } = img;
   
         // Upload image to Firebase storage
         const storageRef = ref(storage, `markers/${file.name}`);
@@ -72,9 +71,6 @@ export function UploadMarker({
     };
     const t = useTranslation();
     let upload_text = t["articles.new.global.drop_image"];
-    if (all.image_filename) {
-      upload_text = t["articles.new.global.drop_image_filename"].replace("%s", all.image_filename);
-    }
     const { getRootProps, getInputProps } = useDropzone({
       onDrop,
       multiple: false,

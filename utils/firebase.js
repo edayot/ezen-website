@@ -6,7 +6,7 @@ import { getStorage } from "firebase/storage";
 export const auth = getAuth(firebaseApp);
 export const db = getFirestore(firebaseApp);
 export const storage = getStorage(firebaseApp);
-export const collectionRef = collection(db, "articles_revamp")
+export const collectionRef = collection(db, "articles_revamp");
 
 export const signInEmailPassword = async (email, password) => {
   let err = null;
@@ -22,7 +22,7 @@ export const signInEmailPassword = async (email, password) => {
 
 export const signOutGlobal = async () => {
   try {
-    await signOut(auth)
+    await signOut(auth);
   } catch (error) {
     throw new Error(error);
   }

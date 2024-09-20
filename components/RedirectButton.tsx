@@ -7,8 +7,13 @@ import Link from "next/link";
 import { useTranslation } from "@/dictionaries/client";
 import { redirect } from "next/navigation";
 
-
-export function IsUserLoggedIn({children, fallback}: {children?: React.ReactNode, fallback?: React.ReactNode}) {
+export function IsUserLoggedIn({
+  children,
+  fallback,
+}: {
+  children?: React.ReactNode;
+  fallback?: React.ReactNode;
+}) {
   const [user, setUser] = useState(auth.currentUser);
   const [loading, setLoading] = useState(true);
 
@@ -25,14 +30,11 @@ export function IsUserLoggedIn({children, fallback}: {children?: React.ReactNode
   }
 
   if (!user) {
-    return <> {fallback || null} </>
+    return <> {fallback || null} </>;
   }
 
-  return <>{children || null}</>
+  return <>{children || null}</>;
 }
-
-
-
 
 export function EditButton({ id }: { id: string }) {
   const t = useTranslation();
@@ -41,7 +43,7 @@ export function EditButton({ id }: { id: string }) {
       <div className="h-2"></div>
       <Tooltip content={t["articles.edit"]} placement="bottom">
         <Link href={`/articles/edit/${id}`}>
-          <Button isIconOnly >
+          <Button isIconOnly>
             <FiEdit />
           </Button>
         </Link>
@@ -51,7 +53,6 @@ export function EditButton({ id }: { id: string }) {
   );
 }
 
-
 export function NewArticle() {
   const t = useTranslation();
 
@@ -60,7 +61,7 @@ export function NewArticle() {
       <div className="h-2"></div>
       <Tooltip content={t["articles.new.tooltip"]} placement="bottom">
         <Link href={`/articles/new`}>
-          <Button isIconOnly >
+          <Button isIconOnly>
             <FiPlus size={30} />
           </Button>
         </Link>
@@ -70,12 +71,9 @@ export function NewArticle() {
   );
 }
 
-
-
-
-export function RedirectComponent({href}: {href?: string}) {
-	useEffect(() => {
-    redirect(href || "/")
-	})
-	return <></>
+export function RedirectComponent({ href }: { href?: string }) {
+  useEffect(() => {
+    redirect(href || "/");
+  });
+  return <></>;
 }

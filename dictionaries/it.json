@@ -1,73 +1,73 @@
 {
   "navbar": {
-      "theme_switch": "Cambia tema",
-      "lang_switch": {
-        "en": "Inglese",
-        "it": "Italiano",
-        "fr": "Francese"
+    "theme_switch": "Cambia tema",
+    "lang_switch": {
+      "en": "Inglese",
+      "it": "Italiano",
+      "fr": "Francese"
     }
   },
   "auth": {
-      "login": {
-          "title": "Accedi",
-          "button": "Login",
-          "email": "Email",
-          "password": "Password",
-          "password_placeholder": "Inserisci la tua password"
-      },
-      "account":{
-        "title": "Informazioni account",
-        "email": "Email : ",
-        "uid": "UID : ",
-        "signout": "Esci"
-      }
+    "login": {
+      "title": "Accedi",
+      "button": "Login",
+      "email": "Email",
+      "password": "Password",
+      "password_placeholder": "Inserisci la tua password"
+    },
+    "account": {
+      "title": "Informazioni account",
+      "email": "Email : ",
+      "uid": "UID : ",
+      "signout": "Esci"
+    }
   },
   "articles": {
-      "title": "Articoli",
-      "search": "Cerca",
-      "edit": "Modificare l'articolo",
-      "new": {
-          "tooltip": "Aggiungi nuovo articolo",
-          "tabs": {
-              "form": "Modulo",
-              "set_map_position": "Imposta la posizione sulla mappa",
-              "small_preview": "Anteprima piccola",
-              "full_article": "Articolo completo"
-          },
-          "switch": {
-              "disable_map_position": "Disattiva la posizione sulla mappa",
-              "disable_in_search": "Disattiva nei risultati di ricerca",
-              "protected": "Proteggi l'articolo dalla cancellazione"
-          },
-          "global": {
-              "change_article_lang": "Cambia la lingua dell'articolo (attuale: %s)",
-              "title": "Input globali",
-              "label": {
-                  "latin_name": "Nome latino"
-              },
-              "placeholder": {
-                  "latin_name": "Lorem ipsus"
-              },
-              "drop_image": "Trascina o clicca per caricare un'immagine",
-              "drop_image_filename": "Trascina o clicca per sostituire l'immagine %s"
-          },
-          "local_input": {
-              "label": {
-                  "name": "Nome",
-                  "place": "Posizione nel giardino",
-                  "desc": "Descrizione"
-              },
-              "placeholder": {
-                  "name": "Rosa da giardino",
-                  "place": "Esterno",
-                  "desc": "Le rose da giardino sono prevalentemente ibridi coltivati ..."
-              }
-          },
-          "map": {
-              "label": {
-                  "marker": "Icona del marcatore"
-              }
-          }
+    "title": "Articoli",
+    "search": "Cerca",
+    "edit": "Modificare l'articolo",
+    "new": {
+      "tooltip": "Aggiungi nuovo articolo",
+      "tabs": {
+        "form": "Modulo",
+        "set_map_position": "Imposta la posizione sulla mappa",
+        "small_preview": "Anteprima piccola",
+        "full_article": "Articolo completo"
+      },
+      "switch": {
+        "disable_map_position": "Disattiva la posizione sulla mappa",
+        "disable_in_search": "Disattiva nei risultati di ricerca",
+        "protected": "Proteggi l'articolo dalla cancellazione"
+      },
+      "global": {
+        "change_article_lang": "Cambia la lingua dell'articolo (attuale: %s)",
+        "title": "Input globali",
+        "label": {
+          "latin_name": "Nome latino"
+        },
+        "placeholder": {
+          "latin_name": "Lorem ipsus"
+        },
+        "drop_image": "Trascina o clicca per caricare un'immagine",
+        "drop_image_filename": "Trascina o clicca per sostituire l'immagine %s"
+      },
+      "local_input": {
+        "label": {
+          "name": "Nome",
+          "place": "Posizione nel giardino",
+          "desc": "Descrizione"
+        },
+        "placeholder": {
+          "name": "Rosa da giardino",
+          "place": "Esterno",
+          "desc": "Le rose da giardino sono prevalentemente ibridi coltivati ..."
+        }
+      },
+      "map": {
+        "label": {
+          "marker": "Icona del marcatore"
+        }
       }
+    }
   }
 }

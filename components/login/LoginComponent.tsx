@@ -37,7 +37,7 @@ export function LoginComponent() {
       setLoading(false);
     }
   };
-  const t = useTranslation()
+  const t = useTranslation();
 
   return (
     <div className="flex flex-col gap-2 items-center align-middle">

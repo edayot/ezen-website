@@ -15,7 +15,7 @@ export function PasswordInput({
 
   const toggleVisibility = () => setIsVisible(!isVisible);
 
-  const t = useTranslation()
+  const t = useTranslation();
 
   return (
     <Input

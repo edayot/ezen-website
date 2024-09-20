@@ -8,7 +8,7 @@ const TranslationContext = createContext({} as any);
 // useTranslation hook to access the dictionary from the context
 export function useTranslation() {
   const dict = useContext(TranslationContext);
-  return createProxy(dict);  // Use the createProxy function with the dictionary
+  return createProxy(dict); // Use the createProxy function with the dictionary
 }
 
 // TranslationProvider component to provide the dictionary via context

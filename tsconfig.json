@@ -27,7 +27,9 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "build/types/**/*.ts",
-    "middleware.ts"
-, "components/MapViewer.jsx", "components/LeafletProvider.tsx"  ],
+    "middleware.ts",
+    "components/MapViewer.jsx",
+    "components/LeafletProvider.tsx"
+  ],
   "exclude": ["node_modules"]
 }

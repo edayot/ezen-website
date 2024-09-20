@@ -22,7 +22,9 @@ body {
 .leaflet-container {
   background: var(--map-background) !important;
 }
-.leaflet-popup-content { width:auto !important; } 
+.leaflet-popup-content {
+  width: auto !important;
+}
 
 h1,
 h2,

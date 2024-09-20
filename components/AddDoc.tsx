@@ -18,7 +18,15 @@ import { locales } from "@/langs";
 import { useState } from "react";
 import { storage } from "@/utils/firebase";
 import { uploadBytes, ref, getDownloadURL } from "firebase/storage";
-import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure, CircularProgress} from "@nextui-org/react";
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  useDisclosure,
+  CircularProgress,
+} from "@nextui-org/react";
 import { useTranslation } from "@/dictionaries/client";
 
 function CreateImageMarkdown() {
@@ -150,7 +158,7 @@ function CreateGlobalInput({
   setAll: (value: any) => void;
   lang: string;
 }) {
-  const {isOpen, onOpen, onClose, onOpenChange} = useDisclosure();
+  const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
   const [error, setError] = useState("");
 
   const onDrop = (acceptedFiles: any) => {
@@ -165,8 +173,8 @@ function CreateGlobalInput({
 
       // Upload image to Firebase storage
       const storageRef = ref(storage, `images/${file.name}_${timestamp}`);
-      uploadBytes(storageRef, file).then(
-        (snapshot) => {
+      uploadBytes(storageRef, file)
+        .then((snapshot) => {
           console.log("Uploaded a blob or file!", snapshot);
           getDownloadURL(snapshot.ref).then((url) => {
             setAll({
@@ -180,16 +188,14 @@ function CreateGlobalInput({
           setError("");
           onClose();
         })
-        .catch(
-        (error) => {
+        .catch((error) => {
           console.error("Error uploading file", error);
           setError(`Error uploading file: ${error}`);
           setTimeout(() => {
             setError("");
             onClose();
           }, 1000);
-        }
-      );
+        });
     };
 
     // Read the file as a data URL to trigger the image load
@@ -202,7 +208,10 @@ function CreateGlobalInput({
   const t = useTranslation();
   let upload_text = t["articles.new.global.drop_image"];
   if (all.image_filename) {
-    upload_text = t["articles.new.global.drop_image_filename"].replace("%s", all.image_filename);
+    upload_text = t["articles.new.global.drop_image_filename"].replace(
+      "%s",
+      all.image_filename,
+    );
   }
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
@@ -210,13 +219,13 @@ function CreateGlobalInput({
   });
   return (
     <div className="flex flex-col gap-2 w-full justify-center items-center">
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="xs" >
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="xs">
         <ModalContent>
-            <ModalBody>
-              <div className=" flex justify-center items-center">
-                {error ? <div>{error}</div> : <CircularProgress size="lg"/>}
-              </div>
-            </ModalBody>
+          <ModalBody>
+            <div className=" flex justify-center items-center">
+              {error ? <div>{error}</div> : <CircularProgress size="lg" />}
+            </div>
+          </ModalBody>
         </ModalContent>
       </Modal>
       <h3>{t["articles.new.global.title"]}</h3>
@@ -256,18 +265,36 @@ function DisableOption({
   const t = useTranslation();
   return (
     <>
-    <Switch isSelected={all.disable_map_position} onValueChange={(e) => setAll({ ...all, disable_map_position: Boolean(!all.disable_map_position) })} >
-      {t["articles.new.switch.disable_map_position"]}
-    </Switch>
-    <Divider orientation="vertical" />
-    <Switch isSelected={all.disable_in_search} onValueChange={(e) => setAll({ ...all, disable_in_search: Boolean(!all.disable_in_search) })} >
-      {t["articles.new.switch.disable_in_search"]}
-    </Switch>
-    <Switch isSelected={all.protected} onValueChange={(e) => setAll({ ...all, protected: Boolean(!all.protected) })} >
-      {t["articles.new.switch.protected"]}
-    </Switch>
+      <Switch
+        isSelected={all.disable_map_position}
+        onValueChange={(e) =>
+          setAll({
+            ...all,
+            disable_map_position: Boolean(!all.disable_map_position),
+          })
+        }
+      >
+        {t["articles.new.switch.disable_map_position"]}
+      </Switch>
+      <Divider orientation="vertical" />
+      <Switch
+        isSelected={all.disable_in_search}
+        onValueChange={(e) =>
+          setAll({ ...all, disable_in_search: Boolean(!all.disable_in_search) })
+        }
+      >
+        {t["articles.new.switch.disable_in_search"]}
+      </Switch>
+      <Switch
+        isSelected={all.protected}
+        onValueChange={(e) =>
+          setAll({ ...all, protected: Boolean(!all.protected) })
+        }
+      >
+        {t["articles.new.switch.protected"]}
+      </Switch>
     </>
-  ) 
+  );
 }
 
 function AddItem({
@@ -283,7 +310,7 @@ function AddItem({
     <>
       <div className="flex flex-col gap-2">
         <div className="flex flex-row justify-center items-center gap-2">
-          <DisableOption all={all} setAll={setAll} lang={locale}/>
+          <DisableOption all={all} setAll={setAll} lang={locale} />
         </div>
         <div className="flex flex-row justify-center">
           <div className="w-5/6 max-w-3xl flex flex-row gap-4 justify-center items-center">

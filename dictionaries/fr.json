@@ -1,73 +1,73 @@
 {
   "navbar": {
-      "theme_switch": "Changer de thème",
-      "lang_switch": {
-        "en": "Anglais",
-        "it": "Italien",
-        "fr": "Français"
+    "theme_switch": "Changer de thème",
+    "lang_switch": {
+      "en": "Anglais",
+      "it": "Italien",
+      "fr": "Français"
     }
   },
   "auth": {
-      "login": {
-          "title": "Se connecter",
-          "button": "Connexion",
-          "email": "Email",
-          "password": "Mot de passe",
-          "password_placeholder": "Entrez votre mot de passe"
-      },
-      "account":{
-        "title": "Informations du compte",
-        "email": "Email : ",
-        "uid": "UID : ",
-        "signout": "Déconnexion"
-      }
+    "login": {
+      "title": "Se connecter",
+      "button": "Connexion",
+      "email": "Email",
+      "password": "Mot de passe",
+      "password_placeholder": "Entrez votre mot de passe"
+    },
+    "account": {
+      "title": "Informations du compte",
+      "email": "Email : ",
+      "uid": "UID : ",
+      "signout": "Déconnexion"
+    }
   },
   "articles": {
-      "title": "Articles",
-      "search": "Rechercher",
-      "edit": "Modifier l'article",
-      "new": {
-          "tooltip": "Ajouter un nouvel article",
-          "tabs": {
-              "form": "Formulaire",
-              "set_map_position": "Définir la position sur la carte",
-              "small_preview": "Petite prévisualisation",
-              "full_article": "Article complet"
-          },
-          "switch": {
-              "disable_map_position": "Désactiver la position sur la carte",
-              "disable_in_search": "Désactiver dans les résultats de recherche",
-              "protected": "Protéger l'article contre la suppression"
-          },
-          "global": {
-              "change_article_lang": "Changer la langue de l'article (actuel: %s)",
-              "title": "Entrées globales",
-              "label": {
-                  "latin_name": "Nom latin"
-              },
-              "placeholder": {
-                  "latin_name": "Lorem ipsus"
-              },
-              "drop_image": "Déposez ou cliquez pour télécharger une image",
-              "drop_image_filename": "Déposez ou cliquez pour remplacer l'image %s"
-          },
-          "local_input": {
-              "label": {
-                  "name": "Nom",
-                  "place": "Emplacement dans le jardin",
-                  "desc": "Description"
-              },
-              "placeholder": {
-                  "name": "Rose de jardin",
-                  "place": "Extérieur",
-                  "desc": "Les roses de jardin sont principalement des hybrides qui sont cultivées ..."
-              }
-          },
-          "map": {
-              "label": {
-                  "marker": "Icône du marqueur"
-              }
-          }
+    "title": "Articles",
+    "search": "Rechercher",
+    "edit": "Modifier l'article",
+    "new": {
+      "tooltip": "Ajouter un nouvel article",
+      "tabs": {
+        "form": "Formulaire",
+        "set_map_position": "Définir la position sur la carte",
+        "small_preview": "Petite prévisualisation",
+        "full_article": "Article complet"
+      },
+      "switch": {
+        "disable_map_position": "Désactiver la position sur la carte",
+        "disable_in_search": "Désactiver dans les résultats de recherche",
+        "protected": "Protéger l'article contre la suppression"
+      },
+      "global": {
+        "change_article_lang": "Changer la langue de l'article (actuel: %s)",
+        "title": "Entrées globales",
+        "label": {
+          "latin_name": "Nom latin"
+        },
+        "placeholder": {
+          "latin_name": "Lorem ipsus"
+        },
+        "drop_image": "Déposez ou cliquez pour télécharger une image",
+        "drop_image_filename": "Déposez ou cliquez pour remplacer l'image %s"
+      },
+      "local_input": {
+        "label": {
+          "name": "Nom",
+          "place": "Emplacement dans le jardin",
+          "desc": "Description"
+        },
+        "placeholder": {
+          "name": "Rose de jardin",
+          "place": "Extérieur",
+          "desc": "Les roses de jardin sont principalement des hybrides qui sont cultivées ..."
+        }
+      },
+      "map": {
+        "label": {
+          "marker": "Icône du marqueur"
+        }
       }
+    }
   }
 }

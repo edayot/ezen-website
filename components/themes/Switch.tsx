@@ -43,7 +43,11 @@ export function ThemeSwitch(props: any) {
             })}
             onClick={handleThemeChange}
           >
-            {theme === "dark" ? <MoonIcon size={props.size} /> : <SunIcon size={props.size} />}
+            {theme === "dark" ? (
+              <MoonIcon size={props.size} />
+            ) : (
+              <SunIcon size={props.size} />
+            )}
           </div>
         </Component>
       </div>

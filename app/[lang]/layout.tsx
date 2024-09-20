@@ -8,7 +8,6 @@ import { SetLangComponent } from "../setLangComponent";
 import { LeafletProvider } from "@/components/LeafletProvider";
 import { TranslationProvider } from "@/dictionaries/client";
 
-
 export const metadata: Metadata = {
   title: "Ezen Garden",
   description: "An interactive website to discover the Ezen Garden",
@@ -23,21 +22,18 @@ export default async function RootLayout({
 }) {
   const dict = await getDictionary(params.lang);
   return (
-        <NextUIProvider>
-            <TranslationProvider dict={dict}>
-              <div className="flex flex-col min-h-screen">
-                <SetLangComponent locale={params.lang} />
-                <LeafletProvider>
-                  <div>
-                    <NavBar lang={params.lang} />
-                  </div>
-                  <div className="grow">
-                    {children}
-                  </div>
-                </LeafletProvider>
-              </div>
-            </TranslationProvider>
-        </NextUIProvider>
-      
+    <NextUIProvider>
+      <TranslationProvider dict={dict}>
+        <div className="flex flex-col min-h-screen">
+          <SetLangComponent locale={params.lang} />
+          <LeafletProvider>
+            <div>
+              <NavBar lang={params.lang} />
+            </div>
+            <div className="grow">{children}</div>
+          </LeafletProvider>
+        </div>
+      </TranslationProvider>
+    </NextUIProvider>
   );
 }

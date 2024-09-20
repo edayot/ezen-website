@@ -6,8 +6,7 @@ export function createProxy(dictionary) {
       for (let i = 0; i < recursive_prop.length; i++) {
         try {
           value = value[recursive_prop[i]];
-        }
-        catch (e) {
+        } catch (e) {
           return prop;
         }
       }
@@ -15,6 +14,6 @@ export function createProxy(dictionary) {
         return prop;
       }
       return value;
-    }
+    },
   });
 }

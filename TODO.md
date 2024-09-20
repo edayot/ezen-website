@@ -1,5 +1,2 @@
-
-
-
-* Finir les traductions
-* Ajouter la carte
+- Finir les traductions
+- Ajouter la carte

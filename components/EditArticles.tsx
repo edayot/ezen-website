@@ -48,9 +48,12 @@ export function ArticleEditor({
       place: "",
       desc: "",
     },
-  }
+  };
 
-  const [data, setData] = useState<PlantData>({...initDataPlaceHolder, ...initData});
+  const [data, setData] = useState<PlantData>({
+    ...initDataPlaceHolder,
+    ...initData,
+  });
   const [articleLang, setArticleLang] = useState(lang);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -74,7 +77,10 @@ export function ArticleEditor({
           setSuccess(false);
         }, 1000);
       } else {
-        const docRef = await addDoc(collectionRef, { ...data, date: timestamp });
+        const docRef = await addDoc(collectionRef, {
+          ...data,
+          date: timestamp,
+        });
         console.log("Document written with ID: ", docRef.id);
         setSuccess(true);
         setData(initDataPlaceHolder);
@@ -92,8 +98,17 @@ export function ArticleEditor({
     <div className="flex flex-col">
       <div className="flex flex-row justify-center">
         <div className="flex flex-row justify-start w-full gap-3 items-center">
-          {t["articles.new.global.change_article_lang"].replace("%s", articleLang)}
-          <LangSwitch size={20} lang={articleLang} handleClick={(lang: string) => setArticleLang(lang as (typeof locales)[number])} />
+          {t["articles.new.global.change_article_lang"].replace(
+            "%s",
+            articleLang,
+          )}
+          <LangSwitch
+            size={20}
+            lang={articleLang}
+            handleClick={(lang: string) =>
+              setArticleLang(lang as (typeof locales)[number])
+            }
+          />
         </div>
         <div className="flex flex-row justify-end w-full">
           <Tooltip content={t["articles.new.global.save"]}>
@@ -122,7 +137,7 @@ export function ArticleEditor({
         <Tab key="map" title={t["articles.new.tabs.set_map_position"]}>
           <div className="flex flex-row gap-4">
             <div className="min-w-36">
-              <SelectMarker all={data} setAll={setData}/>
+              <SelectMarker all={data} setAll={setData} />
               <UploadMarker all={data} setAll={setData} />
             </div>
             <div className="flex items-center justify-center grow">
@@ -136,7 +151,12 @@ export function ArticleEditor({
           <Card>
             <CardBody>
               <div className="justify-center">
-                <Element data={data} lang={articleLang} id="1" className="w-[15rem]" />
+                <Element
+                  data={data}
+                  lang={articleLang}
+                  id="1"
+                  className="w-[15rem]"
+                />
               </div>
             </CardBody>
           </Card>

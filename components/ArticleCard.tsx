@@ -18,7 +18,7 @@ import { PlantData } from "@/utils/article";
 import { locales } from "@/langs";
 import { useEffect, useState, useRef } from "react";
 import { useCallback } from "react";
-import { FiSearch, FiArrowDown, FiArrowUp} from "react-icons/fi";
+import { FiSearch, FiArrowDown, FiArrowUp } from "react-icons/fi";
 import { NewArticle, IsUserLoggedIn } from "./RedirectButton";
 import Link from "next/link";
 import { throttle } from "@/utils/function";
@@ -36,34 +36,40 @@ import {
 import { collectionRef } from "@/utils/firebase";
 import { useTranslation } from "@/dictionaries/client";
 
+function appplySearchParam(
+  searchParams: URLSearchParams,
+  name: string,
+  value: string,
+) {
+  const params = new URLSearchParams(searchParams.toString());
+  params.set(name, value);
 
-function appplySearchParam(searchParams: URLSearchParams, name: string, value: string) {
-  const params = new URLSearchParams(searchParams.toString())
-  params.set(name, value)
-
-  return params.toString()
+  return params.toString();
 }
 
-
-
-export function SearchBar({initValue, initSortDirection}: {initValue?: string, initSortDirection?: string}) {
-  const [value, setValue] = useState(initValue || '');
-  const [AscOrDesc, setAscOrDesc] = useState(initSortDirection || 'asc');
+export function SearchBar({
+  initValue,
+  initSortDirection,
+}: {
+  initValue?: string;
+  initSortDirection?: string;
+}) {
+  const [value, setValue] = useState(initValue || "");
+  const [AscOrDesc, setAscOrDesc] = useState(initSortDirection || "asc");
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
-      return appplySearchParam(searchParams, name, value)
+      return appplySearchParam(searchParams, name, value);
     },
-    [searchParams]
-  )
+    [searchParams],
+  );
   const handleChange = (value: string) => {
     setValue(value);
-    router.push(pathname + '?' + createQueryString('search', value))
+    router.push(pathname + "?" + createQueryString("search", value));
   };
-
 
   return (
     <div className="flex flex-row gap-2 justify-center items-center">
@@ -75,19 +81,19 @@ export function SearchBar({initValue, initSortDirection}: {initValue?: string, i
           startContent={<FiSearch />}
         />
       </div>
-      <Button 
+      <Button
         size="sm"
         onPress={() => {
-          const newSort = (AscOrDesc === 'asc') ? 'desc' : 'asc';
+          const newSort = AscOrDesc === "asc" ? "desc" : "asc";
           setAscOrDesc(newSort);
-          router.push(pathname + '?' + createQueryString('sort', newSort))
+          router.push(pathname + "?" + createQueryString("sort", newSort));
         }}
       >
-        {(AscOrDesc === 'asc') ? <FiArrowDown /> : <FiArrowUp />}
+        {AscOrDesc === "asc" ? <FiArrowDown /> : <FiArrowUp />}
         Date
       </Button>
     </div>
-  )
+  );
 }
 
 export function Element({
@@ -114,7 +120,7 @@ export function Element({
           className="w-full h-full"
         >
           <Card isFooterBlurred radius="lg" className="border-none h-full">
-          <CardBody className="relative pb-[56.25%] overflow-hidden">
+            <CardBody className="relative pb-[56.25%] overflow-hidden">
               <Image
                 removeWrapper
                 alt="Plant"
@@ -125,10 +131,22 @@ export function Element({
             </CardBody>
             <CardHeader className="absolute top-0 flex-col items-start p-4">
               <div className="flex flex-col">
-                <div className="text-white/40 font-bold text-left line-clamp-1 " style={{ fontSize: 'clamp(0.5rem, 1.25vw, 1rem)', textShadow: '1px 1px 4px rgba(0, 0, 0, 0.8)' }}>
+                <div
+                  className="text-white/40 font-bold text-left line-clamp-1 "
+                  style={{
+                    fontSize: "clamp(0.5rem, 1.25vw, 1rem)",
+                    textShadow: "1px 1px 4px rgba(0, 0, 0, 0.8)",
+                  }}
+                >
                   {data.latin_name}
                 </div>
-                <div className="text-white/70 font-medium text-wrap text-left mt-1 line-clamp-2" style={{ fontSize: 'clamp(0.75rem, 2.5vw, 1.25rem)', textShadow: '1px 1px 4px rgba(0, 0, 0, 0.8)' }}>
+                <div
+                  className="text-white/70 font-medium text-wrap text-left mt-1 line-clamp-2"
+                  style={{
+                    fontSize: "clamp(0.75rem, 2.5vw, 1.25rem)",
+                    textShadow: "1px 1px 4px rgba(0, 0, 0, 0.8)",
+                  }}
+                >
                   {data[lang].name}
                 </div>
               </div>
@@ -140,13 +158,12 @@ export function Element({
   );
 }
 
-
-
-
 // Implement Infinite scroll
-export function ArticlesViewer({ lang }: { lang: (typeof locales)[number]}) {
-  const [search, setSearch] = useState('');
-  const [elements_data, set_elements_data] = useState<{ data: PlantData, id: string }[]>([]);
+export function ArticlesViewer({ lang }: { lang: (typeof locales)[number] }) {
+  const [search, setSearch] = useState("");
+  const [elements_data, set_elements_data] = useState<
+    { data: PlantData; id: string }[]
+  >([]);
   const [date, setDate] = useState(0);
   const [infiniteScrollEnabled, setInfiniteScrollEnabled] = useState(true);
   const elementsPerPage = 12;
@@ -154,38 +171,43 @@ export function ArticlesViewer({ lang }: { lang: (typeof locales)[number]}) {
 
   const loadMoreRef = useRef<HTMLButtonElement | null>(null);
 
-  const infiniteScroll = useCallback(throttle(() => {
-    if (!infiniteScrollEnabled) return;
+  const infiniteScroll = useCallback(
+    throttle(() => {
+      if (!infiniteScrollEnabled) return;
 
-    getDocs(
-      query(
-        collectionRef, 
-        orderBy("date"),
-        startAfter(date),
-        limit(elementsPerPage),
-        where("disable_in_search", "==", false)
-      )
-    ).then((q) => {
-      let ele = q.docs.map((doc) => ({
-        data: doc.data() as PlantData,
-        id: doc.id
-      }));
-      if (ele.length === 0) {
-        setInfiniteScrollEnabled(false);
-        return;
-      }
-      set_elements_data((prevElements) => {
-        const newElements = [...prevElements];
-        ele.forEach((e) => {
-          if (!newElements.map((ele) => ele.data.date).includes(e.data.date)) {
-            newElements.push(e);
-          }
+      getDocs(
+        query(
+          collectionRef,
+          orderBy("date"),
+          startAfter(date),
+          limit(elementsPerPage),
+          where("disable_in_search", "==", false),
+        ),
+      ).then((q) => {
+        let ele = q.docs.map((doc) => ({
+          data: doc.data() as PlantData,
+          id: doc.id,
+        }));
+        if (ele.length === 0) {
+          setInfiniteScrollEnabled(false);
+          return;
+        }
+        set_elements_data((prevElements) => {
+          const newElements = [...prevElements];
+          ele.forEach((e) => {
+            if (
+              !newElements.map((ele) => ele.data.date).includes(e.data.date)
+            ) {
+              newElements.push(e);
+            }
+          });
+          return newElements;
         });
-        return newElements;
+        setDate(ele[ele.length - 1].data.date);
       });
-      setDate(ele[ele.length - 1].data.date);
-    });
-  }, 2000), [date, infiniteScrollEnabled]);
+    }, 2000),
+    [date, infiniteScrollEnabled],
+  );
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -198,7 +220,7 @@ export function ArticlesViewer({ lang }: { lang: (typeof locales)[number]}) {
         root: null,
         rootMargin: "0px",
         threshold: 0.5,
-      }
+      },
     );
 
     if (loadMoreRef.current) {
@@ -212,21 +234,23 @@ export function ArticlesViewer({ lang }: { lang: (typeof locales)[number]}) {
     };
   }, [infiniteScroll]);
 
-  const elements = elements_data.filter((ele) => {
-      if (search === '') return true;
+  const elements = elements_data
+    .filter((ele) => {
+      if (search === "") return true;
       return (
-        ele.data[lang].name.toLowerCase().includes(search.toLowerCase()) || 
+        ele.data[lang].name.toLowerCase().includes(search.toLowerCase()) ||
         ele.data.latin_name.toLowerCase().includes(search.toLowerCase())
       );
-    }).map(({ data, id }: { data: PlantData, id: string }) => (
-    <Element
-      key={data.date}
-      data={data}
-      lang={lang}
-      id={id}
-      className="min-w-[8rem] md:min-w-[11rem] lg:min-w-[15rem] w-full transition-all duration-500 ease-in-out "
-    />
-  ));
+    })
+    .map(({ data, id }: { data: PlantData; id: string }) => (
+      <Element
+        key={data.date}
+        data={data}
+        lang={lang}
+        id={id}
+        className="min-w-[8rem] md:min-w-[11rem] lg:min-w-[15rem] w-full transition-all duration-500 ease-in-out "
+      />
+    ));
 
   return (
     <>

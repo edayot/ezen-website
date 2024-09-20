@@ -28,7 +28,7 @@ export function SelectMarker({
       setMarkers(markersMap);
     });
     })
-  }, [])
+  }, [all.map_marker])
   useEffect(() => {
     if (!all.map_marker) {
       setAll({ ...all, map_marker: Object.values(markers)[0] })

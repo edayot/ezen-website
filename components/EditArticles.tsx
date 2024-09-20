@@ -13,6 +13,7 @@ import { EditMap } from "./map/EditMap";
 import { SelectMarker } from "./map/MarkerSelector";
 import { useTranslation } from "@/dictionaries/client";
 import { LangSwitch, langToFlag } from "./navbar";
+import { UploadMarker } from "./map/UploadMarkerComponent";
 
 export function ArticleEditor({
   lang,
@@ -122,6 +123,7 @@ export function ArticleEditor({
           <div className="flex flex-row gap-4">
             <div className="min-w-36">
               <SelectMarker all={data} setAll={setData}/>
+              <UploadMarker all={data} setAll={setData} />
             </div>
             <div className="flex items-center justify-center grow">
               <div className="w-full h-72">

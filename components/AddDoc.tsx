@@ -309,7 +309,7 @@ function AddItem({
   return (
     <>
       <div className="flex flex-col gap-2">
-        <div className="flex flex-row justify-center items-center gap-2">
+        <div className="flex flex-col md:flex-row justify-center items-start md:items-center gap-2">
           <DisableOption all={all} setAll={setAll} lang={locale} />
         </div>
         <div className="flex flex-row justify-center">
@@ -319,7 +319,7 @@ function AddItem({
             </div>
           </div>
         </div>
-        <div className=" flex flex-row gap-2">
+        <div className=" flex flex-col lg:flex-row gap-2">
           <CreateInput all={all} setAll={setAll} lang="fr" />
           <CreateInput all={all} setAll={setAll} lang="en" />
           <CreateInput all={all} setAll={setAll} lang="it" />

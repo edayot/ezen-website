@@ -37,7 +37,7 @@
       "switch": {
         "disable_map_position": "Disable map position",
         "disable_in_search": "Disable in search results",
-        "protected": "Protecte article from being deleted"
+        "protected": "Protect article from being deleted"
       },
       "global": {
         "change_article_lang": "Change article language (current: %s)",

@@ -16,6 +16,7 @@ export function SelectMarker({
   all: PlantData;
   setAll: (value: PlantData) => void;
   }) {
+    const t = useTranslation();
   const [markers, setMarkers] = useState<{ [filename: string]: string }>({})
   useEffect(() => {
     const storageRef = ref(storage, "markers/")
@@ -28,10 +29,15 @@ export function SelectMarker({
     });
     })
   }, [])
+  useEffect(() => {
+    if (!all.map_marker) {
+      setAll({ ...all, map_marker: Object.values(markers)[0] })
+    }
+  }, [markers])
 
   if (Object.keys(markers).length === 0) { return }
   let defaultMarker = all.map_marker ? all.map_marker : Object.values(markers)[0]
-  
+
   const MarkerImage = ({marker, url}: {marker: string, url: string}) => {
     return (
     <div className="flex flex-row gap-4 items-center justify-center h-10 w-full" key={marker}>
@@ -46,8 +52,8 @@ export function SelectMarker({
   };
   
   const selectedKeys = new Set(defaultMarker ? [defaultMarker] : [])
-  const t = useTranslation();
-  
+
+
   return (
     <Select
     label={t["articles.new.map.label.marker"]}
@@ -59,7 +65,7 @@ export function SelectMarker({
       const keysArray = Array.from(keys);
       if (keysArray.length === 0) { return; }
       const newAll = { ...all };
-      newAll.map_marker = markers[keysArray[0].toString()];
+      newAll.map_marker = keysArray[0].toString();
       setAll(newAll);
     }}
     renderValue={(items) => {
@@ -67,15 +73,17 @@ export function SelectMarker({
         <>
           {items.map((item) => {
             const marker = item.textValue; // Extract the text value from the item object
+            const url = item.key?.toString();
+            if (!url) return null;
             if (!marker) return null;
-            return <MarkerImage key={marker} marker={marker} url={markers[marker]} />;
+            return <MarkerImage key={marker} marker={marker} url={url} />;
           })}
         </>
       );
     }}
       >
     {Object.entries(markers).map(([filename, url]) => (
-      <SelectItem key={filename} textValue={filename}>
+      <SelectItem key={url} textValue={filename}>
         <MarkerImage marker={filename} url={url} />
       </SelectItem>
     ))}

@@ -15,7 +15,17 @@ function DrageableMarker({
     all: PlantData;
     setAll: (value: PlantData) => void;}
 ) {
+    let initPos = {
+        lat: 20,
+        lng: 20,
+    }
+    if (all.position) {
+        initPos.lat = all.position.x;
+        initPos.lng = all.position.y;
+    }
 
+    const [pos, setPos] = useState(initPos);
+    const markerRef = useRef(null)
     let marker = all.map_marker ? all.map_marker : "";
     if (!marker) {return null}
 
@@ -26,17 +36,7 @@ function DrageableMarker({
         popupAnchor: [0, -30],
         tooltipAnchor: [0, -30],
     });
-
-    let initPos = {
-        lat: 20,
-        lng: 20,
-    }
-    if (all.position) {
-        initPos.lat = all.position.x;
-        initPos.lng = all.position.y;
-    }
-    const [pos, setPos] = useState(initPos);
-    const markerRef = useRef(null)
+ 
 
     const eventHandlers = () => ({
         dragend() {

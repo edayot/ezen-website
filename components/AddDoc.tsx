@@ -109,7 +109,7 @@ function CreateInput({
   return (
     <>
       <div className="flex flex-col gap-2 w-full">
-        <div>{lang}</div>
+        <div>{t[`navbar.lang_switch.${lang}`]}</div>
         <Input
           className="w-2/3"
           label={t["articles.new.local_input.label.name"]}

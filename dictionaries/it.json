@@ -49,7 +49,8 @@
           "latin_name": "Lorem ipsus"
         },
         "drop_image": "Trascina o clicca per caricare un'immagine",
-        "drop_image_filename": "Trascina o clicca per sostituire l'immagine %s"
+        "drop_image_filename": "Trascina o clicca per sostituire l'immagine %s",
+        "save": "Salva l'articolo nel database"
       },
       "local_input": {
         "label": {

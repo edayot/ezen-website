@@ -100,7 +100,7 @@ export function ArticleEditor({
         <div className="flex flex-row justify-start w-full gap-3 items-center">
           {t["articles.new.global.change_article_lang"].replace(
             "%s",
-            articleLang,
+            t[`navbar.lang_switch.${articleLang}`],
           )}
           <LangSwitch
             size={20}

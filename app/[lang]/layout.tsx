@@ -5,7 +5,6 @@ import { getDictionary, HomeProps } from "@/dictionaries/dictionaries";
 import { NextUIProvider } from "@nextui-org/react";
 import NavBar from "@/components/navbar";
 import { SetLangComponent } from "../setLangComponent";
-import { LeafletProvider } from "@/components/LeafletProvider";
 import { TranslationProvider } from "@/dictionaries/client";
 
 export const metadata: Metadata = {
@@ -26,12 +25,10 @@ export default async function RootLayout({
       <TranslationProvider dict={dict}>
         <div className="flex flex-col min-h-screen">
           <SetLangComponent locale={params.lang} />
-          <LeafletProvider>
             <div>
               <NavBar lang={params.lang} />
             </div>
             <div className="grow">{children}</div>
-          </LeafletProvider>
         </div>
       </TranslationProvider>
     </NextUIProvider>

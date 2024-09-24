@@ -17,6 +17,7 @@ import {
 import { collectionRef } from "@/utils/firebase";
 import { ref, listAll, getDownloadURL } from "firebase/storage";
 import { storage } from "@/utils/firebase";
+import { Position } from "@/utils/article";
 
 function ArticleMarker({
   element,
@@ -128,7 +129,7 @@ function ArticleMarker({
   );
 }
 
-export function MapWithArticles({ lang }: { lang: (typeof locales)[number] }) {
+export function MapWithArticles({ lang, initPosition}: { lang: (typeof locales)[number], initPosition?: Position}) {
   const [markers, setMarkers] = useState<{ [filename: string]: string }>({});
   useEffect(() => {
     const storageRef = ref(storage, "markers/");
@@ -176,6 +177,12 @@ export function MapWithArticles({ lang }: { lang: (typeof locales)[number] }) {
       markers={markers}
     />
   ));
+  if (initPosition) {
+    return <MapViewer
+    initPosition={initPosition}
+    
+    >{elements}</MapViewer>;
+  }
 
   return <MapViewer>{elements}</MapViewer>;
 }

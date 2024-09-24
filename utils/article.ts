@@ -4,7 +4,7 @@ interface LanguageData {
   desc: string;
 }
 
-interface Position {
+export interface Position {
   x: number;
   y: number;
 }

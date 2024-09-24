@@ -6,6 +6,8 @@ import { FiEdit, FiPlus } from "react-icons/fi";
 import Link from "next/link";
 import { useTranslation } from "@/dictionaries/client";
 import { redirect } from "next/navigation";
+import { Position } from "@/utils/article";
+import { FiMap } from "react-icons/fi";
 
 export function IsUserLoggedIn({
   children,
@@ -63,6 +65,24 @@ export function NewArticle() {
         <Link href={`/articles/new`}>
           <Button isIconOnly>
             <FiPlus size={30} />
+          </Button>
+        </Link>
+      </Tooltip>
+      <div className="h-2"></div>
+    </>
+  );
+}
+
+export function ToMapButton( {pos} : {pos: Position} ) {
+  const t = useTranslation();
+
+  return (
+    <>
+      <div className="h-2"></div>
+      <Tooltip content={t["articles.map_button.tooltip"]} placement="bottom">
+        <Link href={`/map?pos_x=${pos.x}&pos_y=${pos.y}`}>
+          <Button isIconOnly>
+            <FiMap size={30} />
           </Button>
         </Link>
       </Tooltip>

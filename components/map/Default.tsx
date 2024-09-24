@@ -2,14 +2,8 @@
 import { useState, useEffect } from "react";
 import {
   MapContainer,
-  TileLayer,
-  useMap,
-  Marker,
-  Popup,
   ImageOverlay,
-  Rectangle,
 } from "react-leaflet";
-import { constants } from "fs/promises";
 import React from "react";
 import { Position } from "@/utils/article";
 
@@ -56,6 +50,7 @@ export function MapViewer({
     <MapContainer
       boxZoom
       bounds={bounds}
+      maxBounds={maxBounds}
       className="h-full w-full"
       ref={(value: any) => {
         if (setMap) {

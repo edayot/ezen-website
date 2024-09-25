@@ -25,29 +25,29 @@ export function ThemeSwitch(props: any) {
   };
 
   return (
-      <div className="flex flex-col gap-2">
-        <Component {...getBaseProps()}>
-          <VisuallyHidden>
-            <input {...getInputProps()} />
-          </VisuallyHidden>
-          <div
-            {...getWrapperProps()}
-            className={slots.wrapper({
-              class: [
-                "w-8 h-8",
-                "flex items-center justify-center",
-                "rounded-lg bg-default-100 hover:bg-default-200 cursor-pointer border-2",
-              ],
-            })}
-            onClick={handleThemeChange}
-          >
-            {theme === "dark" ? (
-              <MoonIcon size={props.size} />
-            ) : (
-              <SunIcon size={props.size} />
-            )}
-          </div>
-        </Component>
-      </div>
+    <div className="flex flex-col gap-2">
+      <Component {...getBaseProps()}>
+        <VisuallyHidden>
+          <input {...getInputProps()} />
+        </VisuallyHidden>
+        <div
+          {...getWrapperProps()}
+          className={slots.wrapper({
+            class: [
+              "w-8 h-8",
+              "flex items-center justify-center",
+              "rounded-lg bg-default-100 hover:bg-default-200 cursor-pointer border-2",
+            ],
+          })}
+          onClick={handleThemeChange}
+        >
+          {theme === "dark" ? (
+            <MoonIcon size={props.size} />
+          ) : (
+            <SunIcon size={props.size} />
+          )}
+        </div>
+      </Component>
+    </div>
   );
 }

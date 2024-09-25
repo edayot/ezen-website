@@ -4,7 +4,11 @@ import { getDoc, doc } from "@firebase/firestore";
 import { collectionRef } from "@/utils/firebase";
 import RenderArticle from "@/components/RenderArticle";
 import { PlantData } from "@/utils/article";
-import { EditButton, IsUserLoggedIn, ToMapButton } from "@/components/RedirectButton";
+import {
+  EditButton,
+  IsUserLoggedIn,
+  ToMapButton,
+} from "@/components/RedirectButton";
 import { ExportButton } from "@/components/ExportButton";
 import { NotFound } from "@/components/NotFoundComponent";
 import { DeleteButton } from "@/components/DeleteButton";
@@ -29,7 +33,11 @@ export default async function Home({ params }: { params: HomeProps }) {
             <ExportButton id={document.id} />
             <EditButton id={document.id} />
           </IsUserLoggedIn>
-          {(data.position && !data.disable_map_position) ? <ToMapButton pos={data.position} lang={params.lang}/> : <></>}
+          {data.position && !data.disable_map_position ? (
+            <ToMapButton pos={data.position} lang={params.lang} />
+          ) : (
+            <></>
+          )}
         </div>
       </div>
       <RenderArticle data={data} lang={params.lang} />

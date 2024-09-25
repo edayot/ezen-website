@@ -25,10 +25,10 @@ export default async function RootLayout({
       <TranslationProvider dict={dict}>
         <div className="flex flex-col min-h-screen">
           <SetLangComponent locale={params.lang} />
-            <div>
-              <NavBar lang={params.lang} />
-            </div>
-            <div className="grow">{children}</div>
+          <div>
+            <NavBar lang={params.lang} />
+          </div>
+          <div className="grow">{children}</div>
         </div>
       </TranslationProvider>
     </NextUIProvider>

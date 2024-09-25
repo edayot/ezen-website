@@ -1,13 +1,8 @@
 "use client";
 import { useState, useEffect } from "react";
-import {
-  MapContainer,
-  ImageOverlay,
-} from "react-leaflet";
+import { MapContainer, ImageOverlay } from "react-leaflet";
 import React from "react";
 import { Position } from "@/utils/article";
-
-
 
 export function MapViewer({
   children,
@@ -16,7 +11,7 @@ export function MapViewer({
 }: {
   children?: React.ReactNode;
   setMap?: (value: any) => void;
-  initPosition?: Position
+  initPosition?: Position;
 }) {
   const [size, setSize] = useState<[number, number]>([-1, -1]);
   const img_path = "/images/map.jpg";
@@ -25,8 +20,8 @@ export function MapViewer({
     const factor = 4;
     bounds = [
       [initPosition.x - factor, initPosition.y - factor],
-      [initPosition.x + factor, initPosition.y + factor]
-    ]
+      [initPosition.x + factor, initPosition.y + factor],
+    ];
   }
   const bounds_factor = 30;
   const maxBounds: [number, number][] = [

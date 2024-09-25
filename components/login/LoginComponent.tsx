@@ -21,12 +21,12 @@ export function LoginComponent() {
     if (!email || !password) {
       setError("Please fill in all fields");
       setLoading(false);
-      return
+      return;
     }
     if (!email.includes("@")) {
       setError("Invalid email");
       setLoading(false);
-      return
+      return;
     }
     try {
       let [res, err] = await signInEmailPassword(email, password);

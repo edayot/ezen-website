@@ -8,7 +8,15 @@ import { useTranslation } from "@/dictionaries/client";
 import { redirect } from "next/navigation";
 import { Position } from "@/utils/article";
 import { FiMap } from "react-icons/fi";
-import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure} from "@nextui-org/react";
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Button,
+  useDisclosure,
+} from "@nextui-org/react";
 import { MapWithArticles } from "@/components/map/AllMarkers";
 import { locales } from "@/langs";
 
@@ -76,9 +84,15 @@ export function NewArticle() {
   );
 }
 
-export function ToMapButton( {pos, lang} : {pos: Position, lang: (typeof locales)[number]} ) {
+export function ToMapButton({
+  pos,
+  lang,
+}: {
+  pos: Position;
+  lang: (typeof locales)[number];
+}) {
   const t = useTranslation();
-  const {isOpen, onOpen, onOpenChange} = useDisclosure();
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   return (
     <>
@@ -92,7 +106,10 @@ export function ToMapButton( {pos, lang} : {pos: Position, lang: (typeof locales
         <ModalContent>
           <div className="flex items-center justify-center border border-red-600">
             <div className="w-screen h-screen">
-              <MapWithArticles lang={lang} initPosition={{ x: Number(pos.x), y: Number(pos.y) }} />
+              <MapWithArticles
+                lang={lang}
+                initPosition={{ x: Number(pos.x), y: Number(pos.y) }}
+              />
             </div>
           </div>
         </ModalContent>

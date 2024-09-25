@@ -84,7 +84,6 @@ function ArticleMarker({
     <Marker
       position={[element.data.position.x, element.data.position.y]}
       autoPan={false}
-      
       eventHandlers={{
         mouseover: (e) => {
           setMouseOnMarker(true);
@@ -131,7 +130,13 @@ function ArticleMarker({
   );
 }
 
-export function MapWithArticles({ lang, initPosition}: { lang: (typeof locales)[number], initPosition?: Position}) {
+export function MapWithArticles({
+  lang,
+  initPosition,
+}: {
+  lang: (typeof locales)[number];
+  initPosition?: Position;
+}) {
   const [markers, setMarkers] = useState<{ [filename: string]: string }>({});
   useEffect(() => {
     const storageRef = ref(storage, "markers/");
@@ -180,10 +185,7 @@ export function MapWithArticles({ lang, initPosition}: { lang: (typeof locales)[
     />
   ));
   if (initPosition) {
-    return <MapViewer
-    initPosition={initPosition}
-    
-    >{elements}</MapViewer>;
+    return <MapViewer initPosition={initPosition}>{elements}</MapViewer>;
   }
 
   return <MapViewer>{elements}</MapViewer>;

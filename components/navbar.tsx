@@ -39,11 +39,11 @@ function NavBarLeftContent({ size }: { size: number }) {
   return (
     <>
       <NavbarItem>
-      <Tooltip content={t["navbar.articles"]} placement="bottom">
-        <Link href="/articles">
-          <FiBookOpen size={size} />
-        </Link>
-      </Tooltip>
+        <Tooltip content={t["navbar.articles"]} placement="bottom">
+          <Link href="/articles">
+            <FiBookOpen size={size} />
+          </Link>
+        </Tooltip>
       </NavbarItem>
       <NavbarItem>
         <Tooltip content={t["navbar.map"]} placement="bottom">
@@ -133,7 +133,7 @@ function NavBarRightContent({
         </Tooltip>
       </NavbarItem>
       <NavbarItem className="lg:flex">
-        <Tooltip content={t["navbar.theme_switch"]} placement="bottom"> 
+        <Tooltip content={t["navbar.theme_switch"]} placement="bottom">
           <div className=" relative bottom-[2px]">
             <ThemeSwitch props={{ size: size }} />
           </div>
@@ -149,7 +149,7 @@ function NavBarRightContent({
             </Tooltip>
           }
         >
-          <Tooltip content={t["navbar.account"]} >
+          <Tooltip content={t["navbar.account"]}>
             <Link href="/auth/account">
               <FiUser size={size} />
             </Link>

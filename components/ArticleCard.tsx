@@ -254,10 +254,10 @@ export function ArticlesViewer({ lang }: { lang: (typeof locales)[number] }) {
 
   return (
     <>
-      <div className="flex flex-row justify-center items-center w-full">
+      <div className="flex flex-row justify-center items-center w-full m-2">
         <div className="w-full h-full"></div>
         <h1>{t["articles.title"]}</h1>
-        <div className="w-full h-full flex flex-row justify-end items-center">
+        <div className="w-full h-full flex flex-row justify-end items-center gap-2">
           <IsUserLoggedIn>
             <NewArticle />
           </IsUserLoggedIn>

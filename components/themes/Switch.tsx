@@ -10,7 +10,6 @@ import { useTranslation } from "@/dictionaries/client";
 export function ThemeSwitch(props: any) {
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
-  const t = useTranslation();
 
   useEffect(() => {
     setMounted(true);
@@ -26,7 +25,6 @@ export function ThemeSwitch(props: any) {
   };
 
   return (
-    <Tooltip content={t["navbar.theme_switch"]} placement="bottom">
       <div className="flex flex-col gap-2">
         <Component {...getBaseProps()}>
           <VisuallyHidden>
@@ -51,6 +49,5 @@ export function ThemeSwitch(props: any) {
           </div>
         </Component>
       </div>
-    </Tooltip>
   );
 }

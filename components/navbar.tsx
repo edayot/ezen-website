@@ -27,6 +27,7 @@ import {
   Button,
   Avatar,
   AvatarGroup,
+  Tooltip,
 } from "@nextui-org/react";
 import type { Selection } from "@nextui-org/react";
 import { locales } from "@/langs";
@@ -34,18 +35,22 @@ import { useTranslation } from "@/dictionaries/client";
 import { IsUserLoggedIn } from "./RedirectButton";
 
 function NavBarLeftContent({ size }: { size: number }) {
-  const path = "/" + usePathname().split("/").slice(2).join("/");
+  const t = useTranslation();
   return (
     <>
-      <NavbarItem isActive={path === "/articles"}>
+      <NavbarItem>
+      <Tooltip content={t["navbar.articles"]} placement="bottom">
         <Link href="/articles">
           <FiBookOpen size={size} />
         </Link>
+      </Tooltip>
       </NavbarItem>
-      <NavbarItem isActive={path === "/map"}>
-        <Link href="/map">
-          <FiMap size={size} />
-        </Link>
+      <NavbarItem>
+        <Tooltip content={t["navbar.map"]} placement="bottom">
+          <Link href="/map">
+            <FiMap size={size} />
+          </Link>
+        </Tooltip>
       </NavbarItem>
     </>
   );
@@ -110,6 +115,7 @@ function NavBarRightContent({
 }) {
   const router = useRouter();
   const pathname = usePathname();
+  const t = useTranslation();
 
   const handleClick = (lang: string) => {
     const pathWitoutLocale = pathname.split("/").slice(2).join("/");
@@ -121,25 +127,33 @@ function NavBarRightContent({
     <>
       <NavbarItem className="lg:flex">
         <div className=" relative bottom-[2px]">
-          <LangSwitch size={size} lang={lang} handleClick={handleClick} />
+          <Tooltip content={t["navbar.lang_switch_tooltip"]} placement="bottom">
+            <LangSwitch size={size} lang={lang} handleClick={handleClick} />
+          </Tooltip>
         </div>
       </NavbarItem>
       <NavbarItem className="lg:flex">
         <div className=" relative bottom-[2px]">
+        <Tooltip content={t["navbar.theme_switch"]} placement="bottom"> 
           <ThemeSwitch props={{ size: size }} />
+        </Tooltip>
         </div>
       </NavbarItem>
       <NavbarItem className="lg:flex">
         <IsUserLoggedIn
           fallback={
-            <Link href="/auth/login">
-              <FiUser size={size} />
-            </Link>
+            <Tooltip content={t["navbar.login"]} placement="bottom">
+              <Link href="/auth/login">
+                <FiUser size={size} />
+              </Link>
+            </Tooltip>
           }
         >
-          <Link href="/auth/account">
-            <FiUser size={size} />
-          </Link>
+          <Tooltip content={t["navbar.account"]} >
+            <Link href="/auth/account">
+              <FiUser size={size} />
+            </Link>
+          </Tooltip>
         </IsUserLoggedIn>
       </NavbarItem>
     </>
@@ -149,14 +163,16 @@ function NavBarRightContent({
 function NavBarLogo() {
   return (
     <NavbarBrand>
-      <Link href="/">
-        <Image
-          className="w-12 h-12"
-          src="/favicon.ico"
-          alt="Ezen Garden"
-          isBlurred
-        />
-      </Link>
+      <Tooltip content="Ezen Garden" placement="bottom">
+        <Link href="/">
+          <Image
+            className="w-12 h-12"
+            src="/favicon.ico"
+            alt="Ezen Garden"
+            isBlurred
+          />
+        </Link>
+      </Tooltip>
     </NavbarBrand>
   );
 }

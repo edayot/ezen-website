@@ -5,7 +5,12 @@
       "en": "English",
       "it": "Italian",
       "fr": "French"
-    }
+    },
+    "lang_switch_tooltip": "Switch language",
+    "articles": "Articles",
+    "map": "Map",
+    "login": "Login",
+    "account": "Account"
   },
   "auth": {
     "login": {
@@ -26,6 +31,7 @@
     "title": "Articles",
     "search": "Search",
     "edit": "Edit article",
+    "map_button": "Show on map",
     "new": {
       "tooltip": "Add new article",
       "tabs": {

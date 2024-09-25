@@ -83,7 +83,7 @@ export function ToMapButton( {pos, lang} : {pos: Position, lang: (typeof locales
   return (
     <>
       <div className="h-2"></div>
-      <Tooltip content={t["articles.map_button.tooltip"]} placement="bottom">
+      <Tooltip content={t["articles.map_button"]} placement="bottom">
         <Button isIconOnly onPress={onOpen}>
           <FiMap size={30} />
         </Button>

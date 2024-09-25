@@ -18,6 +18,16 @@ export function LoginComponent() {
 
   const onLogin = async () => {
     setLoading(true);
+    if (!email || !password) {
+      setError("Please fill in all fields");
+      setLoading(false);
+      return
+    }
+    if (!email.includes("@")) {
+      setError("Invalid email");
+      setLoading(false);
+      return
+    }
     try {
       let [res, err] = await signInEmailPassword(email, password);
 
@@ -43,24 +53,33 @@ export function LoginComponent() {
     <div className="flex flex-col gap-2 items-center align-middle">
       <h1>{t["auth.login.title"]}</h1>
       <br />
-      <Input
-        type="email"
-        label={t["auth.login.email"]}
-        className="max-w-xs justify-center"
-        value={email}
-        onValueChange={setEmail}
-      />
-      <PasswordInput value={password} onChange={setPassword} />
-      <br />
-      <Button
-        isLoading={loading}
-        color="primary"
-        size="lg"
-        onPress={(e) => onLogin()}
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          onLogin();
+        }}
+        className="flex flex-col gap-2 items-center align-middle w-full"
       >
-        {t["auth.login.button"]}
-      </Button>
-      <div className=" text-red-600">{error}</div>
+        <Input
+          type="email"
+          label={t["auth.login.email"]}
+          className="max-w-xs justify-center"
+          value={email}
+          onValueChange={setEmail}
+        />
+        <PasswordInput value={password} onChange={setPassword} />
+        <br />
+        <Button
+          isLoading={loading}
+          color="primary"
+          size="lg"
+          type="submit"
+          onPress={onLogin}
+        >
+          {t["auth.login.button"]}
+        </Button>
+        <div className="text-red-600">{error}</div>
+      </form>
     </div>
   );
 }

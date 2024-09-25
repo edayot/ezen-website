@@ -126,18 +126,18 @@ function NavBarRightContent({
   return (
     <>
       <NavbarItem className="lg:flex">
-        <div className=" relative bottom-[2px]">
-          <Tooltip content={t["navbar.lang_switch_tooltip"]} placement="bottom">
+        <Tooltip content={t["navbar.lang_switch_tooltip"]} placement="bottom">
+          <div className=" relative bottom-[2px]">
             <LangSwitch size={size} lang={lang} handleClick={handleClick} />
-          </Tooltip>
-        </div>
+          </div>
+        </Tooltip>
       </NavbarItem>
       <NavbarItem className="lg:flex">
-        <div className=" relative bottom-[2px]">
         <Tooltip content={t["navbar.theme_switch"]} placement="bottom"> 
-          <ThemeSwitch props={{ size: size }} />
+          <div className=" relative bottom-[2px]">
+            <ThemeSwitch props={{ size: size }} />
+          </div>
         </Tooltip>
-        </div>
       </NavbarItem>
       <NavbarItem className="lg:flex">
         <IsUserLoggedIn

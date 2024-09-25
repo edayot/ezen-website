@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prettier": "prettier --write ."
   },
   "dependencies": {
     "@firebase/firestore": "^4.7.0",
@@ -19,7 +20,7 @@
     "json5": "^2.2.3",
     "leaflet": "^1.9.4",
     "negotiator": "^0.6.3",
-    "next": "14.2.6",
+    "next": "^14.2.6",
     "next-themes": "^0.3.0",
     "react": "^18",
     "react-dom": "^18",

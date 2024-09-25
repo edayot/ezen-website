@@ -83,6 +83,8 @@ function ArticleMarker({
   return (
     <Marker
       position={[element.data.position.x, element.data.position.y]}
+      autoPan={false}
+      
       eventHandlers={{
         mouseover: (e) => {
           setMouseOnMarker(true);

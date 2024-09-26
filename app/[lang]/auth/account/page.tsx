@@ -86,7 +86,7 @@ export default function Home({ params }: { params: HomeProps }) {
                 </Snippet>
               </p>
               <h2>{t["auth.account.change_map"]}</h2>
-              <h5>{t["auth.account.change_map_small"]}</h5>
+              <h4>{t["auth.account.change_map_small"]}</h4>
               <div className="flex flex-row gap-2">
                 <div {...getRootProps()} className="dropzone-container">
                   <input {...getInputProps()} />

@@ -43,6 +43,7 @@ export default function Home({ params }: { params: HomeProps }) {
                     signOutGlobal().then(redirect("/"));
                   }}
                   isLoading={loading}
+                  color="danger"
                 >
                   {t["auth.account.signout"]}
                 </Button>

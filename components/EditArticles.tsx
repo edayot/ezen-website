@@ -12,7 +12,7 @@ import { FiCheck, FiSave } from "react-icons/fi";
 import { EditMap } from "./map/EditMap";
 import { SelectMarker } from "./map/MarkerSelector";
 import { useTranslation } from "@/dictionaries/client";
-import { LangSwitch, langToFlag } from "./navbar";
+import { LangSwitch, langToFlag } from "./NavBar";
 import { UploadMarker } from "./map/UploadMarkerComponent";
 
 export function ArticleEditor({

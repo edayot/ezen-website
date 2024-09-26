@@ -3,7 +3,7 @@ import "../globals.css";
 import "leaflet/dist/leaflet.css";
 import { getDictionary, HomeProps } from "@/dictionaries/dictionaries";
 import { NextUIProvider } from "@nextui-org/react";
-import NavBar from "@/components/navbar";
+import NavBar from "@/components/NavBar";
 import { SetLangComponent } from "../setLangComponent";
 import { TranslationProvider } from "@/dictionaries/client";
 

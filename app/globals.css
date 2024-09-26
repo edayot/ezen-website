@@ -78,6 +78,7 @@ h4 {
 
 .my-markdown-container li {
   margin: 0.5rem 0;
+  list-style-type: disc;
 }
 
 .my-markdown-container a {

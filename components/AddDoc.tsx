@@ -10,6 +10,7 @@ import {
   Button,
   Divider,
   Switch,
+  Snippet,
 } from "@nextui-org/react";
 import { useDropzone } from "react-dropzone";
 import { FiUpload, FiCopy } from "react-icons/fi";
@@ -28,73 +29,8 @@ import {
   CircularProgress,
 } from "@nextui-org/react";
 import { useTranslation } from "@/dictionaries/client";
+import { small } from "framer-motion/client";
 
-function CreateImageMarkdown() {
-  const [image, setImage] = useState<string | null>(null);
-  const [filename, setFilename] = useState("");
-  const [alt, setAlt] = useState("");
-
-  const onDrop = (acceptedFiles: any) => {
-    // convert to base64 and set to state + set filename
-    const reader = new FileReader();
-    reader.onload = () => {
-      setImage(reader.result as string);
-      setFilename(acceptedFiles[0].name);
-    };
-    reader.readAsDataURL(acceptedFiles[0]);
-  };
-  const { getRootProps, getInputProps } = useDropzone({
-    onDrop,
-    multiple: false,
-  });
-
-  let upload_text = "Drop or click to create a markdown image";
-  if (image) {
-    upload_text = `Click to change image, current: ${filename}`;
-  }
-
-  const onClipboardCopy = () => {
-    navigator.clipboard.writeText(`![${alt}](${image})`);
-  };
-
-  return (
-    <div className="flex justify-center items-center flex-col">
-      <h3>Create an image in the text</h3>
-      <br />
-      <div className="flex justify-center items-center flex-col">
-        <div {...getRootProps()} className="dropzone-container">
-          <input {...getInputProps()} />
-          <div className="dropzone">
-            <Card className="w-64 h-30">
-              <CardBody>
-                <div className="flex flex-col justify-center items-center gap-6 text-center">
-                  <FiUpload size={50} />
-                  <p>{upload_text}</p>
-                </div>
-              </CardBody>
-            </Card>
-          </div>
-        </div>
-
-        <CardFooter className="justify-between before:bg-white/10 border-white/20 border-1 overflow-hidden py-1 before:rounded-xl rounded-large bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
-          <div className="flex gap-2 justify-center items-center">
-            <Input value={alt} onValueChange={setAlt} />
-            <Button
-              className="text-tiny "
-              variant="flat"
-              color="primary"
-              radius="lg"
-              size="sm"
-              onPress={onClipboardCopy}
-            >
-              <FiCopy size={20} />
-            </Button>
-          </div>
-        </CardFooter>
-      </div>
-    </div>
-  );
-}
 
 function CreateInput({
   all,
@@ -160,6 +96,7 @@ function CreateGlobalInput({
 }) {
   const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
   const [error, setError] = useState("");
+  
 
   const onDrop = (acceptedFiles: any) => {
     onOpen();
@@ -194,7 +131,7 @@ function CreateGlobalInput({
           setTimeout(() => {
             setError("");
             onClose();
-          }, 1000);
+          }, 3000);
         });
     };
 
@@ -218,7 +155,8 @@ function CreateGlobalInput({
     multiple: false,
   });
   return (
-    <div className="flex flex-col gap-2 w-full justify-center items-center">
+    <div className="flex flex-col gap-2 w-full justify-start items-center">
+      <h3>{t["articles.new.global.article_image"]}</h3>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="xs">
         <ModalContent>
           <ModalBody>
@@ -228,7 +166,6 @@ function CreateGlobalInput({
           </ModalBody>
         </ModalContent>
       </Modal>
-      <h3>{t["articles.new.global.title"]}</h3>
       <Input
         className="w-1/2"
         label={t["articles.new.global.label.latin_name"]}
@@ -253,6 +190,114 @@ function CreateGlobalInput({
   );
 }
 
+
+function CreateDropzoneForMarkdownImage({
+  all,
+  setAll,
+  lang,
+}: {
+  all: PlantData;
+  setAll: (value: any) => void;
+  lang: string;
+}) {
+  const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
+  const [error, setError] = useState("");
+  const [url, setUrl] = useState("");
+  const [filename, setFilename] = useState("");
+  const [alt, setAlt] = useState("");
+
+  let realAlt = alt ? alt : filename;
+  if (realAlt === "") {
+    realAlt = "(...)"
+  }
+  const markdownString = `![${realAlt}](${url})`;
+  const smallerMarkdownString = `![${realAlt}](${url.slice(0, 20)}...)`;
+
+  const onDrop = (acceptedFiles: any) => {
+    onOpen();
+    const timestamp = new Date().getTime();
+    const file = acceptedFiles[0];
+
+    // upload the file to firebase storage and generate a markdown image string "![alt](url)"
+    const storageRef = ref(storage, `images/${file.name}_${timestamp}`);
+    uploadBytes(storageRef, file)
+      .then((snapshot) => {
+        console.log("Uploaded a blob or file!", snapshot);
+        getDownloadURL(snapshot.ref).then((url) => {
+          setUrl(url)
+          setFilename(file.name)
+          setError("");
+          onClose();
+        });
+      })
+      .catch((error) => {
+        console.error("Error uploading file", error);
+        setError(`Error uploading file: ${error}`);
+        setTimeout(() => {
+          setError("");
+          onClose();
+        }, 3000);
+      });
+
+  }
+  const t = useTranslation();
+  let upload_text = t["articles.new.global.drop_image"];
+  if (filename) {
+    upload_text = t["articles.new.global.drop_image_filename"].replace(
+      "%s",
+      filename,
+    );
+  }
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop,
+    multiple: false,
+  });
+  return (
+    <div className="flex flex-col gap-2 w-full justify-start items-center">
+      <h3>{t["articles.new.global.add_image"]}</h3>
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="xs">
+        <ModalContent>
+          <ModalBody>
+            <div className=" flex justify-center items-center">
+              {error ? <div>{error}</div> : <CircularProgress size="lg" />}
+            </div>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+      <div {...getRootProps()} className="dropzone-container">
+        <input {...getInputProps()} />
+        <div className="dropzone">
+          <Card className="w-64 h-30">
+            <CardBody>
+              <div className="flex flex-col justify-center items-center gap-6 text-center">
+                <FiUpload size={50} />
+                <p>{upload_text}</p>
+              </div>
+            </CardBody>
+          </Card>
+        </div>
+      </div>
+      <Input
+        className="w-1/2"
+        label={t["articles.new.global.label.markdown_alt"]}
+        placeholder={t["articles.new.global.placeholder.markdown_alt"]}
+        value={alt}
+        onChange={(e) => setAlt(e.target.value)}
+      />
+      <Snippet 
+        symbol="" 
+        size="sm" 
+        disableCopy={url === ""} 
+        className=" max-w-36"
+        codeString={markdownString}
+      >
+        {smallerMarkdownString}
+      </Snippet>
+    </div>
+  );
+
+
+}
 function DisableOption({
   all,
   setAll,
@@ -306,6 +351,7 @@ function AddItem({
   setAll: (value: any) => void;
   locale: string;
 }) {
+  const t = useTranslation();
   return (
     <>
       <div className="flex flex-col gap-2">
@@ -314,8 +360,12 @@ function AddItem({
         </div>
         <div className="flex flex-row justify-center">
           <div className="w-5/6 max-w-3xl flex flex-row gap-4 justify-center items-center">
-            <div className="w-96">
+            <div className="w-full h-full">
               <CreateGlobalInput all={all} setAll={setAll} lang="(global)" />
+            </div>
+            <Divider orientation="vertical" />
+            <div className="w-full h-full">
+              <CreateDropzoneForMarkdownImage all={all} setAll={setAll} lang="(global)" />
             </div>
           </div>
         </div>

@@ -48,11 +48,15 @@
       "global": {
         "change_article_lang": "Change article language (current: %s)",
         "title": "Global inputs",
+        "article_image": "Article image (displayed everywhere)",
+        "add_image": "Add an image to the description",
         "label": {
-          "latin_name": "Latin Name"
+          "latin_name": "Latin Name",
+          "markdown_alt": "Markdown alternative"
         },
         "placeholder": {
-          "latin_name": "Lorem ipsus"
+          "latin_name": "Lorem ipsus",
+          "markdown_alt": "Schema of the plant"
         },
         "drop_image": "Drop or click to upload an image",
         "drop_image_filename": "Drop or click to replace the %s image",

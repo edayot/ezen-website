@@ -22,12 +22,6 @@ export default function RenderArticle({
   if (data[lang].name === "") {
     name = data.latin_name;
   }
-  const urlTransform = (url: string) => {
-    if (url.startsWith("data:image")) {
-      return url;
-    }
-    return defaultUrlTransform(url);
-  };
   return (
     <div className="flex flex-row justify-center">
       <div className="w-5/6 max-w-xl">
@@ -47,7 +41,7 @@ export default function RenderArticle({
           <h1>{name}</h1>
           <h2>{data[lang].place}</h2>
           <div className="my-markdown-container">
-            <Markdown className=" space-y-5" urlTransform={urlTransform}>
+            <Markdown className=" space-y-5">
               {data[lang].desc}
             </Markdown>
           </div>

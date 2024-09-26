@@ -46,9 +46,11 @@ export default function RenderArticle({
           </div>
           <h1>{name}</h1>
           <h2>{data[lang].place}</h2>
-          <Markdown className=" space-y-5" urlTransform={urlTransform}>
-            {data[lang].desc}
-          </Markdown>
+          <div className="my-markdown-container">
+            <Markdown className=" space-y-5" urlTransform={urlTransform}>
+              {data[lang].desc}
+            </Markdown>
+          </div>
         </div>
       </div>
     </div>

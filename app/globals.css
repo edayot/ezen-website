@@ -49,3 +49,8 @@ h4 {
   font-size: 1rem;
   font-style: italic;
 }
+
+
+.my-markdown-container a {
+  color: rgb(0, 55, 221);
+}

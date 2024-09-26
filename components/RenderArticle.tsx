@@ -3,7 +3,7 @@
 import Markdown from "react-markdown";
 import { Image } from "@nextui-org/react";
 import { PlantData } from "@/utils/article";
-import { locales } from "@/langs";
+import { locales } from "@/utils/langs";
 import { defaultUrlTransform } from "react-markdown";
 
 export default function RenderArticle({

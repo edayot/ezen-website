@@ -18,7 +18,7 @@ import {
   useDisclosure,
 } from "@nextui-org/react";
 import { MapWithArticles } from "@/components/map/AllMarkers";
-import { locales } from "@/langs";
+import { locales } from "@/utils/langs";
 
 export function IsUserLoggedIn({
   children,

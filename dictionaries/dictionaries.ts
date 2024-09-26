@@ -1,6 +1,6 @@
 import "server-only";
 
-import { defaultLocale, locales } from "@/langs";
+import { defaultLocale, locales } from "@/utils/langs";
 
 export interface HomeProps {
   lang: (typeof locales)[number];

@@ -3,7 +3,7 @@ import { MapViewer } from "@/components/map/Default";
 import { PlantData } from "@/utils/article";
 import { Marker, Popup, Tooltip } from "react-leaflet";
 import { Icon } from "leaflet";
-import { locales } from "@/langs";
+import { locales } from "@/utils/langs";
 import { useState, useEffect } from "react";
 import { Element } from "../ArticleCard";
 import {

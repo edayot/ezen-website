@@ -7,7 +7,7 @@ import RenderArticle from "./RenderArticle";
 import { collectionRef } from "@/utils/firebase";
 import { collection, setDoc, doc, addDoc } from "firebase/firestore";
 import { PlantData } from "@/utils/article";
-import { locales } from "@/langs";
+import { locales } from "@/utils/langs";
 import { FiCheck, FiSave } from "react-icons/fi";
 import { EditMap } from "./map/EditMap";
 import { SelectMarker } from "./map/MarkerSelector";

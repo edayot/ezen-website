@@ -14,7 +14,7 @@ import {
 import { useDropzone } from "react-dropzone";
 import { FiUpload, FiCopy } from "react-icons/fi";
 import { PlantData } from "@/utils/article";
-import { locales } from "@/langs";
+import { locales } from "@/utils/langs";
 import { useState } from "react";
 import { storage } from "@/utils/firebase";
 import { uploadBytes, ref, getDownloadURL } from "firebase/storage";

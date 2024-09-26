@@ -15,7 +15,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Image } from "@nextui-org/react";
 import { motion } from "framer-motion";
 import { PlantData } from "@/utils/article";
-import { locales } from "@/langs";
+import { locales } from "@/utils/langs";
 import { useEffect, useState, useRef } from "react";
 import { useCallback } from "react";
 import { FiSearch, FiArrowDown, FiArrowUp } from "react-icons/fi";

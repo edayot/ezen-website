@@ -30,7 +30,7 @@ import {
   Tooltip,
 } from "@nextui-org/react";
 import type { Selection } from "@nextui-org/react";
-import { locales } from "@/langs";
+import { locales } from "@/utils/langs";
 import { useTranslation } from "@/dictionaries/client";
 import { IsUserLoggedIn } from "./RedirectButton";
 

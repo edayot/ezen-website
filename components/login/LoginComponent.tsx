@@ -1,12 +1,11 @@
 "use client";
 
-import { Input, Button } from "@nextui-org/react";
 import { PasswordInput } from "@/components/password/Input";
-import React from "react";
-import { signInEmailPassword } from "@/utils/firebase";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 import { useTranslation } from "@/dictionaries/client";
+import { signInEmailPassword } from "@/utils/firebase";
+import { Button, Input } from "@nextui-org/react";
+import { useRouter } from "next/navigation";
+import React from "react";
 
 export function LoginComponent() {
   const [email, setEmail] = React.useState("");

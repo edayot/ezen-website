@@ -1,9 +1,8 @@
-import { PlantData } from "@/utils/article";
-import { Select, SelectItem } from "@nextui-org/react";
-import { Image } from "@nextui-org/react";
 import { useTranslation } from "@/dictionaries/client";
+import { PlantData } from "@/utils/article";
 import { storage } from "@/utils/firebase";
-import { ref, listAll, getDownloadURL } from "firebase/storage";
+import { Image, Select, SelectItem } from "@nextui-org/react";
+import { getDownloadURL, listAll, ref } from "firebase/storage";
 import { useEffect, useState } from "react";
 
 export function SelectMarker({

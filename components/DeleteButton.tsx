@@ -1,21 +1,20 @@
 "use client";
-import { FiX } from "react-icons/fi";
-import { Tooltip } from "@nextui-org/react";
 import { collectionRef } from "@/utils/firebase";
-import { collection, deleteDoc, doc } from "firebase/firestore";
-import { toast, Bounce } from "react-toastify";
-import { useTheme } from "next-themes";
-import { useRouter } from "next/navigation";
-import React, { useState } from "react";
 import {
+  Button,
   Modal,
   ModalContent,
-  ModalHeader,
-  ModalBody,
   ModalFooter,
-  Button,
+  ModalHeader,
+  Tooltip,
   useDisclosure,
 } from "@nextui-org/react";
+import { deleteDoc, doc } from "firebase/firestore";
+import { useTheme } from "next-themes";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { FiX } from "react-icons/fi";
+import { Bounce, toast } from "react-toastify";
 
 export function DeleteButton({ id }: { id: string }) {
   const { theme } = useTheme();

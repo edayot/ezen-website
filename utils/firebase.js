@@ -1,7 +1,7 @@
-import firebaseApp from "./firebaseConfig";
 import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
-import { getFirestore, collection } from "firebase/firestore";
+import { collection, getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
+import firebaseApp from "./firebaseConfig";
 
 export const auth = getAuth(firebaseApp);
 export const db = getFirestore(firebaseApp);

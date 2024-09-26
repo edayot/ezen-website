@@ -1,8 +1,8 @@
-import { NextRequest, NextResponse } from "next/server";
-import Negotiator from "negotiator";
 import { match } from "@formatjs/intl-localematcher";
+import Negotiator from "negotiator";
+import { NextRequest, NextResponse } from "next/server";
 
-import { locales, defaultLocale } from "@/utils/langs";
+import { defaultLocale, locales } from "@/utils/langs";
 
 // Get the preferred locale, similar to the above or using a library
 function getLocale(request: NextRequest) {

@@ -1,6 +1,6 @@
-import { HomeProps } from "@/dictionaries/dictionaries";
 import { LoginComponent } from "@/components/login/LoginComponent";
 import { IsUserLoggedIn, RedirectComponent } from "@/components/RedirectButton";
+import { HomeProps } from "@/dictionaries/dictionaries";
 
 export default async function Home({ params }: { params: HomeProps }) {
   return (

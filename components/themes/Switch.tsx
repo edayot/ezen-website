@@ -1,11 +1,8 @@
 "use client";
-import React from "react";
-import { Switch, VisuallyHidden, useSwitch, Tooltip } from "@nextui-org/react";
-import { FiMoon as MoonIcon } from "react-icons/fi";
-import { FiSun as SunIcon } from "react-icons/fi";
+import { VisuallyHidden, useSwitch } from "@nextui-org/react";
 import { useTheme } from "next-themes";
-import { useState, useEffect } from "react";
-import { useTranslation } from "@/dictionaries/client";
+import { useEffect, useState } from "react";
+import { FiMoon as MoonIcon, FiSun as SunIcon } from "react-icons/fi";
 
 export function ThemeSwitch(props: any) {
   const [mounted, setMounted] = useState(false);

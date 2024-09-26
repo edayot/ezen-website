@@ -1,9 +1,9 @@
 "use client";
 
+import { useTheme } from "next-themes";
 import { permanentRedirect } from "next/navigation";
 import { useEffect } from "react";
-import { toast, Bounce } from "react-toastify";
-import { useTheme } from "next-themes";
+import { Bounce, toast } from "react-toastify";
 
 export default function NotFoundPage() {
   const { theme } = useTheme();

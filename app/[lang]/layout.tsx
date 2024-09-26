@@ -1,11 +1,11 @@
-import type { Metadata } from "next";
-import "../globals.css";
-import "leaflet/dist/leaflet.css";
+import NavBar from "@/components/NavBar";
+import { TranslationProvider } from "@/dictionaries/client";
 import { getDictionary, HomeProps } from "@/dictionaries/dictionaries";
 import { NextUIProvider } from "@nextui-org/react";
-import NavBar from "@/components/NavBar";
+import "leaflet/dist/leaflet.css";
+import type { Metadata } from "next";
+import "../globals.css";
 import { SetLangComponent } from "../setLangComponent";
-import { TranslationProvider } from "@/dictionaries/client";
 
 export const metadata: Metadata = {
   title: "Ezen Garden",

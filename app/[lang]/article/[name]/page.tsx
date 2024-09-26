@@ -1,17 +1,17 @@
 "use server";
-import { HomeProps } from "@/dictionaries/dictionaries";
-import { getDoc, doc } from "@firebase/firestore";
-import { collectionRef } from "@/utils/firebase";
-import RenderArticle from "@/components/RenderArticle";
-import { PlantData } from "@/utils/article";
+import { DeleteButton } from "@/components/DeleteButton";
+import { ExportButton } from "@/components/ExportButton";
+import { NotFound } from "@/components/NotFoundComponent";
 import {
   EditButton,
   IsUserLoggedIn,
   ToMapButton,
 } from "@/components/RedirectButton";
-import { ExportButton } from "@/components/ExportButton";
-import { NotFound } from "@/components/NotFoundComponent";
-import { DeleteButton } from "@/components/DeleteButton";
+import RenderArticle from "@/components/RenderArticle";
+import { HomeProps } from "@/dictionaries/dictionaries";
+import { PlantData } from "@/utils/article";
+import { collectionRef } from "@/utils/firebase";
+import { doc, getDoc } from "@firebase/firestore";
 
 export default async function Home({ params }: { params: HomeProps }) {
   const document = await getDoc(doc(collectionRef, params.name));

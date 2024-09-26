@@ -1,13 +1,11 @@
 "use client";
-import { HomeProps } from "@/dictionaries/dictionaries";
 import { IsUserLoggedIn, RedirectComponent } from "@/components/RedirectButton";
-import { Button } from "@nextui-org/react";
 import { useTranslation } from "@/dictionaries/client";
-import { signOutGlobal } from "@/utils/firebase";
+import { HomeProps } from "@/dictionaries/dictionaries";
+import { auth, signOutGlobal } from "@/utils/firebase";
+import { Button, Snippet } from "@nextui-org/react";
 import { redirect } from "next/navigation";
-import { auth } from "@/utils/firebase";
-import { Snippet } from "@nextui-org/react";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function Home({ params }: { params: HomeProps }) {
   const t = useTranslation();

@@ -1,38 +1,28 @@
 "use client";
 
-import { Image } from "@nextui-org/react";
+import { useTranslation } from "@/dictionaries/client";
+import { locales } from "@/utils/langs";
+import type { Selection } from "@nextui-org/react";
 import {
+  Avatar,
+  Button,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
+  Image,
+  Link,
   Navbar,
   NavbarBrand,
   NavbarContent,
   NavbarItem,
-  Link,
-} from "@nextui-org/react";
-import { ThemeSwitch } from "./themes/Switch";
-import React from "react";
-import {
-  FiHome,
-  FiBookOpen,
-  FiMap,
-  FiUser,
-  FiLogOut,
-  FiGlobe,
-} from "react-icons/fi";
-import { usePathname, useRouter } from "next/navigation";
-import {
-  Dropdown,
-  DropdownTrigger,
-  DropdownMenu,
-  DropdownItem,
-  Button,
-  Avatar,
-  AvatarGroup,
   Tooltip,
 } from "@nextui-org/react";
-import type { Selection } from "@nextui-org/react";
-import { locales } from "@/utils/langs";
-import { useTranslation } from "@/dictionaries/client";
+import { usePathname, useRouter } from "next/navigation";
+import React from "react";
+import { FiBookOpen, FiGlobe, FiMap, FiUser } from "react-icons/fi";
 import { IsUserLoggedIn } from "./RedirectButton";
+import { ThemeSwitch } from "./themes/Switch";
 
 function NavBarLeftContent({ size }: { size: number }) {
   const t = useTranslation();

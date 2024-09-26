@@ -1,10 +1,10 @@
 "use client";
 
-import { MapViewer } from "./Default";
 import { PlantData } from "@/utils/article";
-import { useState, useMemo, useRef } from "react";
-import { Marker } from "react-leaflet";
 import { Icon } from "leaflet";
+import { useRef, useState } from "react";
+import { Marker } from "react-leaflet";
+import { MapViewer } from "./Default";
 
 function DrageableMarker({
   all,

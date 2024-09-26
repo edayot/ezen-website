@@ -1,8 +1,8 @@
-import React from "react";
+import { useTranslation } from "@/dictionaries/client";
 import { Input } from "@nextui-org/react";
+import React from "react";
 import { EyeFilledIcon } from "./EyeIcon";
 import { EyeSlashFilledIcon } from "./EyeSlashIcon";
-import { useTranslation } from "@/dictionaries/client";
 
 export function PasswordInput({
   value,

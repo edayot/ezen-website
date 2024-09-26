@@ -1,24 +1,20 @@
 "use client";
-import { auth } from "@/utils/firebase";
-import { Tooltip } from "@nextui-org/react";
-import { useEffect, useState } from "react";
-import { FiEdit, FiPlus } from "react-icons/fi";
-import Link from "next/link";
+import { MapWithArticles } from "@/components/map/AllMarkers";
 import { useTranslation } from "@/dictionaries/client";
-import { redirect } from "next/navigation";
 import { Position } from "@/utils/article";
-import { FiMap } from "react-icons/fi";
+import { auth } from "@/utils/firebase";
+import { locales } from "@/utils/langs";
 import {
+  Button,
   Modal,
   ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  Button,
+  Tooltip,
   useDisclosure,
 } from "@nextui-org/react";
-import { MapWithArticles } from "@/components/map/AllMarkers";
-import { locales } from "@/utils/langs";
+import Link from "next/link";
+import { redirect } from "next/navigation";
+import { useEffect, useState } from "react";
+import { FiEdit, FiMap, FiPlus } from "react-icons/fi";
 
 export function IsUserLoggedIn({
   children,

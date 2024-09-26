@@ -1,7 +1,7 @@
 "use client";
-import { FiCode } from "react-icons/fi";
 import { Button, Tooltip } from "@nextui-org/react";
 import { useState } from "react";
+import { FiCode } from "react-icons/fi";
 import QRCode from "react-qr-code";
 
 export function ExportButton({ id }: { id: string }) {

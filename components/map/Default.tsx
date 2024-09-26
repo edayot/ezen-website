@@ -1,8 +1,7 @@
 "use client";
-import { useState, useEffect } from "react";
-import { MapContainer, ImageOverlay } from "react-leaflet";
-import React from "react";
 import { Position } from "@/utils/article";
+import React, { useEffect, useState } from "react";
+import { ImageOverlay, MapContainer } from "react-leaflet";
 
 export function MapViewer({
   children,

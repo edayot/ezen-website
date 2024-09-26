@@ -1,9 +1,9 @@
 "use client";
-import { HomeProps } from "@/dictionaries/dictionaries";
 import { useTranslation } from "@/dictionaries/client";
-import { useEffect } from "react";
+import { HomeProps } from "@/dictionaries/dictionaries";
 import { signOutGlobal } from "@/utils/firebase";
 import { redirect } from "next/navigation";
+import { useEffect } from "react";
 
 export default function Home({ params }: { params: HomeProps }) {
   const t = useTranslation();

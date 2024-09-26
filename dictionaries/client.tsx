@@ -1,6 +1,6 @@
 "use client";
-import React, { createContext, useContext } from "react";
 import { createProxy } from "@/dictionaries/proxy";
+import React, { createContext, useContext } from "react";
 
 // Create the context with a default value of an empty object
 const TranslationContext = createContext({} as any);

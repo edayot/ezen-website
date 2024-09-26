@@ -1,11 +1,8 @@
 "use client";
 import { MapViewer } from "@/components/map/Default";
-import { PlantData } from "@/utils/article";
-import { Marker, Popup, Tooltip } from "react-leaflet";
-import { Icon } from "leaflet";
+import { PlantData, Position } from "@/utils/article";
+import { collectionRef, storage } from "@/utils/firebase";
 import { locales } from "@/utils/langs";
-import { useState, useEffect } from "react";
-import { Element } from "../ArticleCard";
 import {
   getDocs,
   limit,
@@ -14,10 +11,11 @@ import {
   startAfter,
   where,
 } from "@firebase/firestore";
-import { collectionRef } from "@/utils/firebase";
-import { ref, listAll, getDownloadURL } from "firebase/storage";
-import { storage } from "@/utils/firebase";
-import { Position } from "@/utils/article";
+import { getDownloadURL, listAll, ref } from "firebase/storage";
+import { Icon } from "leaflet";
+import { useEffect, useState } from "react";
+import { Marker, Popup } from "react-leaflet";
+import { Element } from "../ArticleCard";
 
 function ArticleMarker({
   element,

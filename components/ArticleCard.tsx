@@ -1,40 +1,32 @@
 "use client";
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  Button,
-  Input,
-  Pagination,
-  PaginationItemRenderProps,
-  PaginationItem,
-  PaginationItemType,
-} from "@nextui-org/react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { Image } from "@nextui-org/react";
-import { motion } from "framer-motion";
 import { PlantData } from "@/utils/article";
-import { locales } from "@/utils/langs";
-import { useEffect, useState, useRef } from "react";
-import { useCallback } from "react";
-import { FiSearch, FiArrowDown, FiArrowUp } from "react-icons/fi";
-import { NewArticle, IsUserLoggedIn } from "./RedirectButton";
-import Link from "next/link";
 import { throttle } from "@/utils/function";
+import { locales } from "@/utils/langs";
+import {
+  Button,
+  Card,
+  CardBody,
+  CardHeader,
+  Image,
+  Input,
+} from "@nextui-org/react";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { FiArrowDown, FiArrowUp, FiSearch } from "react-icons/fi";
+import { IsUserLoggedIn, NewArticle } from "./RedirectButton";
 
+import { useTranslation } from "@/dictionaries/client";
+import { collectionRef } from "@/utils/firebase";
 import {
   getDocs,
-  query,
-  orderBy,
   limit,
+  orderBy,
+  query,
   startAfter,
   where,
-  getCountFromServer,
-  QueryDocumentSnapshot,
 } from "@firebase/firestore";
-import { collectionRef } from "@/utils/firebase";
-import { useTranslation } from "@/dictionaries/client";
 
 function appplySearchParam(
   searchParams: URLSearchParams,
@@ -256,8 +248,12 @@ export function ArticlesViewer({ lang }: { lang: (typeof locales)[number] }) {
     ));
 
   let isButtonVisible = false;
-  if (loading) { isButtonVisible = true; }
-  if (!infiniteScrollEnabled) { isButtonVisible = false; }
+  if (loading) {
+    isButtonVisible = true;
+  }
+  if (!infiniteScrollEnabled) {
+    isButtonVisible = false;
+  }
 
   return (
     <>
@@ -313,8 +309,7 @@ export function ArticlesViewer({ lang }: { lang: (typeof locales)[number] }) {
         className={isButtonVisible ? "visible" : "invisible"}
         isIconOnly
         isLoading={loading}
-      >
-      </Button>
+      ></Button>
     </>
   );
 }

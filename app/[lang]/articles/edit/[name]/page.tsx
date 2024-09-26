@@ -1,8 +1,8 @@
-import { HomeProps } from "@/dictionaries/dictionaries";
-import { getDoc, collection, doc } from "@firebase/firestore";
-import { collectionRef } from "@/utils/firebase";
 import { ArticleEditor } from "@/components/EditArticles";
+import { HomeProps } from "@/dictionaries/dictionaries";
 import { PlantData } from "@/utils/article";
+import { collectionRef } from "@/utils/firebase";
+import { doc, getDoc } from "@firebase/firestore";
 import { notFound } from "next/navigation";
 
 export default async function Home({ params }: { params: HomeProps }) {

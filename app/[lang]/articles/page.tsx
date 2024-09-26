@@ -1,7 +1,5 @@
-import { HomeProps } from "@/dictionaries/dictionaries";
-import React from "react";
 import { ArticlesViewer } from "@/components/ArticleCard";
-import { PlantData } from "@/utils/article";
+import { HomeProps } from "@/dictionaries/dictionaries";
 
 export default async function Home({ params }: { params: HomeProps }) {
   return (

@@ -1,22 +1,21 @@
 "use client";
 
-import { Input, Card, CardBody } from "@nextui-org/react";
-import { useDropzone } from "react-dropzone";
-import { FiUpload, FiCopy } from "react-icons/fi";
-import { PlantData } from "@/utils/article";
-import { useState } from "react";
-import { storage } from "@/utils/firebase";
-import { uploadBytes, ref, getDownloadURL } from "firebase/storage";
-import {
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  useDisclosure,
-  CircularProgress,
-} from "@nextui-org/react";
 import { useTranslation } from "@/dictionaries/client";
+import { PlantData } from "@/utils/article";
+import { storage } from "@/utils/firebase";
+import {
+  Card,
+  CardBody,
+  CircularProgress,
+  Modal,
+  ModalBody,
+  ModalContent,
+  useDisclosure,
+} from "@nextui-org/react";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { useState } from "react";
+import { useDropzone } from "react-dropzone";
+import { FiUpload } from "react-icons/fi";
 
 export function UploadMarker({
   all,

@@ -1,18 +1,18 @@
 "use client";
-import { Tabs, Tab, Card, CardBody, Button, Tooltip } from "@nextui-org/react";
 import AddDoc from "@/components/AddDoc";
-import { useState } from "react";
-import { Element } from "./ArticleCard";
-import RenderArticle from "./RenderArticle";
-import { collectionRef } from "@/utils/firebase";
-import { collection, setDoc, doc, addDoc } from "firebase/firestore";
+import { useTranslation } from "@/dictionaries/client";
 import { PlantData } from "@/utils/article";
+import { collectionRef } from "@/utils/firebase";
 import { locales } from "@/utils/langs";
+import { Button, Card, CardBody, Tab, Tabs, Tooltip } from "@nextui-org/react";
+import { addDoc, doc, setDoc } from "firebase/firestore";
+import { useState } from "react";
 import { FiCheck, FiSave } from "react-icons/fi";
+import { Element } from "./ArticleCard";
+import { LangSwitch } from "./NavBar";
+import RenderArticle from "./RenderArticle";
 import { EditMap } from "./map/EditMap";
 import { SelectMarker } from "./map/MarkerSelector";
-import { useTranslation } from "@/dictionaries/client";
-import { LangSwitch, langToFlag } from "./NavBar";
 import { UploadMarker } from "./map/UploadMarkerComponent";
 
 export function ArticleEditor({

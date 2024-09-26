@@ -1,4 +1,3 @@
-import { PlantData } from "@/utils/article";
 import { MapWithArticles } from "@/components/map/AllMarkers";
 import { HomeProps } from "@/dictionaries/dictionaries";
 

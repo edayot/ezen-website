@@ -1,5 +1,5 @@
-import { HomeProps } from "@/dictionaries/dictionaries";
 import { ArticleEditor } from "@/components/EditArticles";
+import { HomeProps } from "@/dictionaries/dictionaries";
 
 export default async function Home({ params }: { params: HomeProps }) {
   return (

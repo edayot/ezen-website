@@ -1,35 +1,27 @@
 "use client";
 
+import { useTranslation } from "@/dictionaries/client";
+import { PlantData } from "@/utils/article";
+import { storage } from "@/utils/firebase";
+import { locales } from "@/utils/langs";
 import {
-  Textarea,
-  Input,
-  Image as NextImage,
   Card,
   CardBody,
-  CardFooter,
-  Button,
-  Divider,
-  Switch,
-  Snippet,
-} from "@nextui-org/react";
-import { useDropzone } from "react-dropzone";
-import { FiUpload, FiCopy } from "react-icons/fi";
-import { PlantData } from "@/utils/article";
-import { locales } from "@/utils/langs";
-import { useState } from "react";
-import { storage } from "@/utils/firebase";
-import { uploadBytes, ref, getDownloadURL } from "firebase/storage";
-import {
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  useDisclosure,
   CircularProgress,
+  Divider,
+  Input,
+  Modal,
+  ModalBody,
+  ModalContent,
+  Snippet,
+  Switch,
+  Textarea,
+  useDisclosure,
 } from "@nextui-org/react";
-import { useTranslation } from "@/dictionaries/client";
-import { small } from "framer-motion/client";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { useState } from "react";
+import { useDropzone } from "react-dropzone";
+import { FiUpload } from "react-icons/fi";
 
 function CreateInput({
   all,

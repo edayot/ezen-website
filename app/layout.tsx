@@ -1,7 +1,7 @@
-import { ToastContainer } from "react-toastify";
+import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { Inter } from "next/font/google";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { ThemeProvider as NextThemesProvider, useTheme } from "next-themes";
 
 const inter = Inter({ subsets: ["latin"] });
 

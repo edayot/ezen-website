@@ -31,7 +31,6 @@ import {
 import { useTranslation } from "@/dictionaries/client";
 import { small } from "framer-motion/client";
 
-
 function CreateInput({
   all,
   setAll,
@@ -96,7 +95,6 @@ function CreateGlobalInput({
 }) {
   const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
   const [error, setError] = useState("");
-  
 
   const onDrop = (acceptedFiles: any) => {
     onOpen();
@@ -190,7 +188,6 @@ function CreateGlobalInput({
   );
 }
 
-
 function CreateDropzoneForMarkdownImage({
   all,
   setAll,
@@ -208,7 +205,7 @@ function CreateDropzoneForMarkdownImage({
 
   let realAlt = alt ? alt : filename;
   if (realAlt === "") {
-    realAlt = "(...)"
+    realAlt = "(...)";
   }
   const markdownString = `![${realAlt}](${url})`;
   const smallerMarkdownString = `![${realAlt}](${url.slice(0, 20)}...)`;
@@ -224,8 +221,8 @@ function CreateDropzoneForMarkdownImage({
       .then((snapshot) => {
         console.log("Uploaded a blob or file!", snapshot);
         getDownloadURL(snapshot.ref).then((url) => {
-          setUrl(url)
-          setFilename(file.name)
+          setUrl(url);
+          setFilename(file.name);
           setError("");
           onClose();
         });
@@ -238,8 +235,7 @@ function CreateDropzoneForMarkdownImage({
           onClose();
         }, 3000);
       });
-
-  }
+  };
   const t = useTranslation();
   let upload_text = t["articles.new.global.drop_image"];
   if (filename) {
@@ -284,10 +280,10 @@ function CreateDropzoneForMarkdownImage({
         value={alt}
         onChange={(e) => setAlt(e.target.value)}
       />
-      <Snippet 
-        symbol="" 
-        size="sm" 
-        disableCopy={url === ""} 
+      <Snippet
+        symbol=""
+        size="sm"
+        disableCopy={url === ""}
         className=" max-w-36"
         codeString={markdownString}
       >
@@ -295,8 +291,6 @@ function CreateDropzoneForMarkdownImage({
       </Snippet>
     </div>
   );
-
-
 }
 function DisableOption({
   all,
@@ -365,7 +359,11 @@ function AddItem({
             </div>
             <Divider orientation="vertical" />
             <div className="w-full h-full">
-              <CreateDropzoneForMarkdownImage all={all} setAll={setAll} lang="(global)" />
+              <CreateDropzoneForMarkdownImage
+                all={all}
+                setAll={setAll}
+                lang="(global)"
+              />
             </div>
           </div>
         </div>

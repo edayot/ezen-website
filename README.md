@@ -2,7 +2,6 @@
 
 This project is a sort of blog, where articles have position on a map. This is used by the Ezen Garden at Lecce to make an interactive visit of the garden.
 
-
 ## Getting Started
 
 First, run the development server:
@@ -11,15 +10,13 @@ First, run the development server:
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result, you are normally redirected to `/fr`, `/it` or `/en` depending on your browser language. 
-
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result, you are normally redirected to `/fr`, `/it` or `/en` depending on your browser language.
 
 To run prettier:
 
 ```bash
 npm run prettier
 ```
-
 
 ## Main Dependencies
 

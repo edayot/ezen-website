@@ -1,12 +1,13 @@
 import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { collection, getFirestore } from "firebase/firestore";
-import { getStorage } from "firebase/storage";
+import { getStorage, ref } from "firebase/storage";
 import firebaseApp from "./firebaseConfig";
 
 export const auth = getAuth(firebaseApp);
 export const db = getFirestore(firebaseApp);
 export const storage = getStorage(firebaseApp);
 export const collectionRef = collection(db, "articles_revamp");
+export const mapRef = ref(storage, "map.jpg");
 
 export const signInEmailPassword = async (email, password) => {
   let err = null;

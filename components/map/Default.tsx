@@ -2,6 +2,8 @@
 import { Position } from "@/utils/article";
 import React, { useEffect, useState } from "react";
 import { ImageOverlay, MapContainer } from "react-leaflet";
+import { getDownloadURL } from "firebase/storage";
+import { mapRef } from "@/utils/firebase";
 
 export function MapViewer({
   children,
@@ -13,7 +15,7 @@ export function MapViewer({
   initPosition?: Position;
 }) {
   const [size, setSize] = useState<[number, number]>([-1, -1]);
-  const img_path = "/images/map.jpg";
+  const [img_url, setImgUrl] = useState<string>("");
   let bounds: [number, number][] = [[0, 0], size];
   if (initPosition) {
     const factor = 4;
@@ -29,13 +31,16 @@ export function MapViewer({
   ];
 
   useEffect(() => {
-    const img = new Image();
-    img.onload = () => {
-      const clamp = 25;
-      setSize([clamp, (img.width / img.height) * clamp]);
-    };
-    img.src = img_path;
-  }, [img_path]);
+    getDownloadURL(mapRef).then((url) => {
+      const img = new Image();
+      img.onload = () => {
+        const clamp = 25;
+        setSize([clamp, (img.width / img.height) * clamp]);
+      };
+      img.src = url;
+      setImgUrl(url);
+    })
+  }, []);
   if (size[0] === -1 || size[1] === -1) {
     return <></>;
   }
@@ -54,7 +59,7 @@ export function MapViewer({
     >
       <ImageOverlay
         bounds={[[0, 0], size]}
-        url={img_path}
+        url={img_url}
         className="map_main aspect-auto"
       />
       {children}

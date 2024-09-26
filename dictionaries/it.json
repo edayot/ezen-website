@@ -24,7 +24,10 @@
       "title": "Informazioni account",
       "email": "Email : ",
       "uid": "UID : ",
-      "signout": "Esci"
+      "signout": "Esci",
+      "change_map": "Cambia lo sfondo della mappa",
+      "change_map_small": "(potresti dover cambiare la posizione di tutti gli articoli)",
+      "dropzone": "Trascina o clicca per caricare un'immagine"
     }
   },
   "articles": {

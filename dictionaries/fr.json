@@ -24,7 +24,10 @@
       "title": "Informations du compte",
       "email": "Email : ",
       "uid": "UID : ",
-      "signout": "Déconnexion"
+      "signout": "Déconnexion",
+      "change_map": "Remplacer le fond de carte", 
+      "change_map_small": "(vous devrez peut-être changer la position de tous les articles)",
+      "dropzone": "Déposez ou cliquez pour télécharger une image"
     }
   },
   "articles": {

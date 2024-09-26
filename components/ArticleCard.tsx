@@ -166,6 +166,7 @@ export function ArticlesViewer({ lang }: { lang: (typeof locales)[number] }) {
   >([]);
   const [date, setDate] = useState(0);
   const [infiniteScrollEnabled, setInfiniteScrollEnabled] = useState(true);
+  const [loading, setLoading] = useState(false);
   const elementsPerPage = 12;
   const t = useTranslation();
 
@@ -175,6 +176,7 @@ export function ArticlesViewer({ lang }: { lang: (typeof locales)[number] }) {
     throttle(() => {
       if (!infiniteScrollEnabled) return;
 
+      setLoading(true);
       getDocs(
         query(
           collectionRef,
@@ -184,6 +186,7 @@ export function ArticlesViewer({ lang }: { lang: (typeof locales)[number] }) {
           where("disable_in_search", "==", false),
         ),
       ).then((q) => {
+        setLoading(false);
         let ele = q.docs.map((doc) => ({
           data: doc.data() as PlantData,
           id: doc.id,
@@ -252,6 +255,10 @@ export function ArticlesViewer({ lang }: { lang: (typeof locales)[number] }) {
       />
     ));
 
+  let isButtonVisible = false;
+  if (loading) { isButtonVisible = true; }
+  if (!infiniteScrollEnabled) { isButtonVisible = false; }
+
   return (
     <>
       <div className="flex flex-row justify-center items-center w-full m-2">
@@ -302,10 +309,11 @@ export function ArticlesViewer({ lang }: { lang: (typeof locales)[number] }) {
       <Button
         ref={loadMoreRef}
         onPress={infiniteScroll}
-        disabled={!infiniteScrollEnabled}
-        className=" invisible"
+        disabled={true}
+        className={isButtonVisible ? "visible" : "invisible"}
+        isIconOnly
+        isLoading={loading}
       >
-        {t["articles.load_more"]}
       </Button>
     </>
   );

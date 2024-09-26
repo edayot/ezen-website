@@ -95,7 +95,7 @@ export function ToMapButton({
       <div className="h-2"></div>
       <Tooltip content={t["articles.map_button"]} placement="bottom">
         <Button isIconOnly onPress={onOpen}>
-          <FiMap size={30} />
+          <FiMap/>
         </Button>
       </Tooltip>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="2xl">

@@ -1,6 +1,6 @@
 "use client";
 
-import { setLocaleCookie } from "@/app/setLang";
+import { setLocaleCookie } from "@/components/setLang";
 import { useEffect } from "react";
 
 export function SetLangComponent({ locale }: { locale: string }) {

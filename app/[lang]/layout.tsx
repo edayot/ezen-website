@@ -6,7 +6,7 @@ import { NextUIProvider } from "@nextui-org/react";
 import "leaflet/dist/leaflet.css";
 import type { Metadata } from "next";
 import "../globals.css";
-import { SetLangComponent } from "../setLangComponent";
+import { SetLangComponent } from "../../components/setLangComponent";
 
 export const metadata: Metadata = {
   title: "Ezen Garden",

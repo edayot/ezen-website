@@ -12,6 +12,9 @@
     "login": "Accedi",
     "account": "Account"
   },
+  "footer": {
+    "madeBy": "Realizzato da 143Me221"
+  },
   "auth": {
     "login": {
       "title": "Accedi",

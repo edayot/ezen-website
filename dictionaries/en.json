@@ -12,6 +12,9 @@
     "login": "Login",
     "account": "Account"
   },
+  "footer": {
+    "madeBy": "Made by 143Me221"
+  },
   "auth": {
     "login": {
       "title": "Sign in",

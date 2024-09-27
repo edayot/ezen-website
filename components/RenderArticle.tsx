@@ -3,7 +3,7 @@
 import { PlantData } from "@/utils/article";
 import { locales } from "@/utils/langs";
 import { Image } from "@nextui-org/react";
-import Markdown, { defaultUrlTransform } from "react-markdown";
+import Markdown from "react-markdown";
 
 export default function RenderArticle({
   data,
@@ -41,9 +41,7 @@ export default function RenderArticle({
           <h1>{name}</h1>
           <h2>{data[lang].place}</h2>
           <div className="my-markdown-container">
-            <Markdown className=" space-y-5">
-              {data[lang].desc}
-            </Markdown>
+            <Markdown className=" space-y-5">{data[lang].desc}</Markdown>
           </div>
         </div>
       </div>

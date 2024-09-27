@@ -12,6 +12,9 @@
     "login": "Connexion",
     "account": "Compte"
   },
+  "footer": {
+    "madeBy": "Usiné par 143Me221"
+  },
   "auth": {
     "login": {
       "title": "Se connecter",

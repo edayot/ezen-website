@@ -1,3 +1,4 @@
+import { Footer } from "@/components/Footer";
 import NavBar from "@/components/NavBar";
 import { TranslationProvider } from "@/dictionaries/client";
 import { getDictionary, HomeProps } from "@/dictionaries/dictionaries";
@@ -29,6 +30,7 @@ export default async function RootLayout({
             <NavBar lang={params.lang} />
           </div>
           <div className="grow">{children}</div>
+          <Footer />
         </div>
       </TranslationProvider>
     </NextUIProvider>

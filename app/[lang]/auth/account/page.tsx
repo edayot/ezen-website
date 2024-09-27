@@ -2,20 +2,30 @@
 import { IsUserLoggedIn, RedirectComponent } from "@/components/RedirectButton";
 import { useTranslation } from "@/dictionaries/client";
 import { HomeProps } from "@/dictionaries/dictionaries";
-import { auth, signOutGlobal, mapRef } from "@/utils/firebase";
-import { getDownloadURL, uploadBytes} from "firebase/storage";
-import { Button, Snippet, Modal, ModalBody, ModalContent, CircularProgress, Image } from "@nextui-org/react";
+import { auth, mapRef, signOutGlobal } from "@/utils/firebase";
+import {
+  Button,
+  Card,
+  CardBody,
+  CircularProgress,
+  Image,
+  Modal,
+  ModalBody,
+  ModalContent,
+  Snippet,
+  useDisclosure,
+} from "@nextui-org/react";
+import { getDownloadURL, uploadBytes } from "firebase/storage";
 import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
-import { Card, CardBody, useDisclosure } from "@nextui-org/react";
 import { FiUpload } from "react-icons/fi";
 
 export default function Home({ params }: { params: HomeProps }) {
   const t = useTranslation();
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(auth.currentUser);
-  const [mapUrl, setMapUrl] = useState("")
+  const [mapUrl, setMapUrl] = useState("");
   const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
   const [error, setError] = useState("");
 
@@ -27,8 +37,8 @@ export default function Home({ params }: { params: HomeProps }) {
   }, []);
 
   useEffect(() => {
-    getDownloadURL(mapRef).then(setMapUrl)
-  }, [])
+    getDownloadURL(mapRef).then(setMapUrl);
+  }, []);
 
   const onDrop = (acceptedFiles: any) => {
     onOpen();
@@ -39,7 +49,7 @@ export default function Home({ params }: { params: HomeProps }) {
       .then((snapshot) => {
         console.log("Uploaded a blob or file!", snapshot);
         getDownloadURL(snapshot.ref).then((url) => {
-          setMapUrl(url)
+          setMapUrl(url);
           setError("");
           onClose();
         });
@@ -53,7 +63,6 @@ export default function Home({ params }: { params: HomeProps }) {
         }, 3000);
       });
   };
-
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
@@ -101,9 +110,7 @@ export default function Home({ params }: { params: HomeProps }) {
                     </Card>
                   </div>
                 </div>
-                <Image
-                  src={mapUrl}
-                />
+                <Image src={mapUrl} />
               </div>
               <br />
               <div>

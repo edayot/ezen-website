@@ -1,9 +1,9 @@
 "use client";
 import { Position } from "@/utils/article";
+import { mapRef } from "@/utils/firebase";
+import { getDownloadURL } from "firebase/storage";
 import React, { useEffect, useState } from "react";
 import { ImageOverlay, MapContainer } from "react-leaflet";
-import { getDownloadURL } from "firebase/storage";
-import { mapRef } from "@/utils/firebase";
 
 export function MapViewer({
   children,
@@ -39,7 +39,7 @@ export function MapViewer({
       };
       img.src = url;
       setImgUrl(url);
-    })
+    });
   }, []);
   if (size[0] === -1 || size[1] === -1) {
     return <></>;

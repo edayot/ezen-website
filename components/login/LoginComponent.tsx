@@ -49,15 +49,14 @@ export function LoginComponent() {
   const t = useTranslation();
 
   return (
-    <div className="flex flex-col gap-2 items-center align-middle">
+    <div className="flex flex-col gap-4 items-center align-middle">
       <h1>{t["auth.login.title"]}</h1>
-      <br />
       <form
         onSubmit={(e) => {
           e.preventDefault();
           onLogin();
         }}
-        className="flex flex-col gap-2 items-center align-middle w-full"
+        className="flex flex-col gap-4 items-center align-middle w-full"
       >
         <Input
           type="email"
@@ -67,7 +66,6 @@ export function LoginComponent() {
           onValueChange={setEmail}
         />
         <PasswordInput value={password} onChange={setPassword} />
-        <br />
         <Button
           isLoading={loading}
           color="primary"

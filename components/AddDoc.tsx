@@ -345,19 +345,20 @@ function AddItem({
           <DisableOption all={all} setAll={setAll} lang={locale} />
         </div>
         <div className="flex flex-row justify-center">
-          <div className="w-5/6 max-w-3xl flex flex-row gap-4 justify-center items-center">
-            <div className="w-full h-full">
-              <CreateGlobalInput all={all} setAll={setAll} lang="(global)" />
+            <div className="w-5/6 max-w-3xl flex flex-col lg:flex-row gap-4 justify-center items-center">
+              <div className="w-full h-full">
+                <CreateGlobalInput all={all} setAll={setAll} lang="(global)" />
+              </div>
+              <Divider orientation="vertical" className=" hidden lg:flex"/>
+              <Divider orientation="horizontal" className="lg:hidden"/>
+              <div className="w-full h-full">
+                <CreateDropzoneForMarkdownImage
+                  all={all}
+                  setAll={setAll}
+                  lang="(global)"
+                />
+              </div>
             </div>
-            <Divider orientation="vertical" />
-            <div className="w-full h-full">
-              <CreateDropzoneForMarkdownImage
-                all={all}
-                setAll={setAll}
-                lang="(global)"
-              />
-            </div>
-          </div>
         </div>
         <div className=" flex flex-col lg:flex-row gap-2">
           <CreateInput all={all} setAll={setAll} lang="fr" />

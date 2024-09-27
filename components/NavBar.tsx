@@ -74,7 +74,7 @@ export function LangSwitch({
           isIconOnly
           className="flex items-center justify-center rounded-lg bg-default-100 hover:bg-default-200 cursor-pointer border-2 size-4"
         >
-          <FiGlobe size={20} />
+          <FiGlobe size={16} />
         </Button>
       </DropdownTrigger>
       <DropdownMenu

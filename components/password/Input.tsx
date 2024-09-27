@@ -1,8 +1,8 @@
 import { useTranslation } from "@/dictionaries/client";
 import { Input } from "@nextui-org/react";
 import React from "react";
-import { EyeFilledIcon } from "./EyeIcon";
-import { EyeSlashFilledIcon } from "./EyeSlashIcon";
+import { FiEye as EyeFilledIcon } from "react-icons/fi";
+import { FiEyeOff as EyeSlashFilledIcon } from "react-icons/fi";
 
 export function PasswordInput({
   value,
@@ -32,9 +32,9 @@ export function PasswordInput({
           aria-label="toggle password visibility"
         >
           {isVisible ? (
-            <EyeSlashFilledIcon className="text-2xl text-default-400 pointer-events-none" />
+            <EyeSlashFilledIcon size={16} />
           ) : (
-            <EyeFilledIcon className="text-2xl text-default-400 pointer-events-none" />
+            <EyeFilledIcon size={16} />
           )}
         </button>
       }

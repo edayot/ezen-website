@@ -9,13 +9,13 @@ export const storage = getStorage(firebaseApp);
 export const collectionRef = collection(db, "articles_revamp");
 export const mapRef = ref(storage, "map.jpg");
 
-export const signInEmailPassword = async (email, password) => {
+export const signInEmailPassword = async (email: string, password: string) => {
   let err = null;
   let res = null;
   try {
     res = await signInWithEmailAndPassword(auth, email, password);
     return [res, err];
-  } catch (error) {
+  } catch (error: any) {
     err = error.message;
     return [res, err];
   }
@@ -25,6 +25,6 @@ export const signOutGlobal = async () => {
   try {
     await signOut(auth);
   } catch (error) {
-    throw new Error(error);
+    throw error;
   }
 };

@@ -6,7 +6,7 @@
   /* Default theme */
   --background: rgb(221, 221, 255);
   --foreground: rgb(0, 0, 0);
-  --map-background: #ddd;
+  --map-background: rgb(221, 221, 255);
 }
 .dark {
   --background: rgb(0, 5, 20);

@@ -10,7 +10,7 @@ export default async function Home({
 }) {
   if (searchParams.pos_x && searchParams.pos_y) {
     return (
-      <div className="w-screen fixed top-16 bottom-16">
+      <div className="w-screen fixed top-16 bottom-0">
         <MapWithArticles
           lang={params.lang}
           initPosition={{
@@ -22,7 +22,7 @@ export default async function Home({
     );
   }
   return (
-    <div className="w-screen fixed top-16 bottom-10">
+    <div className="w-screen fixed top-16 bottom-0">
       <MapWithArticles lang={params.lang} />
     </div>
   );

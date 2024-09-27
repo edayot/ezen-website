@@ -50,6 +50,7 @@ export function MapViewer({
       boxZoom
       bounds={bounds}
       maxBounds={maxBounds}
+      attributionControl={false}
       className="h-full w-full"
       ref={(value: any) => {
         if (setMap) {

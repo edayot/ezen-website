@@ -5,8 +5,8 @@ import { getDictionary, HomeProps } from "@/dictionaries/dictionaries";
 import { NextUIProvider } from "@nextui-org/react";
 import "leaflet/dist/leaflet.css";
 import type { Metadata } from "next";
-import "../globals.css";
 import { SetLangComponent } from "../../components/setLangComponent";
+import "../globals.css";
 
 export const metadata: Metadata = {
   title: "Ezen Garden",

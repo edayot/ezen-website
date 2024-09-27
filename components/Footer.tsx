@@ -22,7 +22,7 @@ export function Footer({}) {
                 whileTap={{ scale: 0.95 }}
                 className="w-full h-full"
               >
-                <FiGithub size={16}/>
+                <FiGithub size={16} />
               </motion.button>
             </Link>
           </div>

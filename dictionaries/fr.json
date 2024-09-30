@@ -52,6 +52,8 @@
         "protected": "Protéger l'article contre la suppression"
       },
       "global": {
+        "markdown_cheat_sheet": "Une petite aide pour le format markdown",
+        "markdown_cheat_sheet_title": "Aide Markdown",
         "change_article_lang": "Changer la langue de l'article (actuel: %s)",
         "title": "Entrées globales",
         "article_image": "Image de l'article (affichée partout)",

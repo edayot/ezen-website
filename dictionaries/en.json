@@ -52,6 +52,8 @@
         "protected": "Protect article from being deleted"
       },
       "global": {
+        "markdown_cheat_sheet": "A small cheat sheet for markdown format",
+        "markdown_cheat_sheet_title": "Markdown cheat sheet",
         "change_article_lang": "Change article language (current: %s)",
         "title": "Global inputs",
         "article_image": "Article image (displayed everywhere)",

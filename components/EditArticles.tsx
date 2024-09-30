@@ -14,6 +14,8 @@ import RenderArticle from "./RenderArticle";
 import { EditMap } from "./map/EditMap";
 import { SelectMarker } from "./map/MarkerSelector";
 import { UploadMarker } from "./map/UploadMarkerComponent";
+import { Modal, ModalBody, ModalContent, useDisclosure, Code, ModalHeader } from "@nextui-org/react";
+import { FiInfo } from "react-icons/fi";
 
 export function ArticleEditor({
   lang,
@@ -110,7 +112,8 @@ export function ArticleEditor({
             }
           />
         </div>
-        <div className="flex flex-row justify-end w-full">
+        <div className="flex flex-row justify-end w-full gap-2">
+          <MarkdownCheatSheetButton />
           <Tooltip content={t["articles.new.global.save"]}>
             <Button
               color="primary"
@@ -164,4 +167,86 @@ export function ArticleEditor({
       </Tabs>
     </div>
   );
+}
+
+
+function MarkdownCheatSheetButton() {
+
+  const stringExample = `
+# Pluto
+
+**Pluto** (minor-planet designation: *134340 Pluto*)
+is a
+[dwarf planet](https://en.wikipedia.org/wiki/Dwarf_planet)
+in the
+[Kuiper belt](https://en.wikipedia.org/wiki/Kuiper_belt).
+
+## History
+
+In the 1840s,
+[Urbain Le Verrier](https://wikipedia.org/wiki/Urbain_Le_Verrier)
+used Newtonian mechanics to predict the position of the
+then-undiscovered planet
+[Neptune](https://wikipedia.org/wiki/Neptune)
+after analyzing perturbations in the orbit of
+[Uranus](https://wikipedia.org/wiki/Uranus).
+
+***
+
+Just a link: www.nasa.gov.
+
+* Lists
+* [ ] todo
+* [x] done
+
+A table:
+
+| a | b |
+| - | - |
+
+<details><summary>Show example</summary>
+
+\`\`\`js
+console.log('Hi pluto!')
+\`\`\`
+
+</details>  
+`
+  // create <p> for each line and <br> for each \n\n
+
+  const component = stringExample.split("\n").map((line, i) => {
+    if (line === "") {
+      return <br key={i} />
+    } else {
+      return <p key={i}>{line}</p>
+    }
+  })
+
+
+  const t = useTranslation()
+  const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
+
+
+
+  return (
+    <>
+    <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="2xl" scrollBehavior="outside">
+        <ModalContent>
+          <ModalHeader>{t["articles.new.global.markdown_cheat_sheet_title"]}</ModalHeader>
+          <ModalBody>
+            <Code>{component}</Code>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+      <Tooltip content={t["articles.new.global.markdown_cheat_sheet"]}>
+      <Button
+        color="primary"
+        onClick={onOpen}
+        isIconOnly
+      >
+        <FiInfo size={25} />
+      </Button>
+      </Tooltip>
+      </>
+  )
 }

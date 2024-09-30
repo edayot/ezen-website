@@ -141,7 +141,7 @@ export function ArticleEditor({
               <UploadMarker all={data} setAll={setData} />
             </div>
             <div className="flex items-center justify-center grow">
-              <div className="w-full h-72">
+              <div className="w-full h-96">
                 <EditMap all={data} setAll={setData} />
               </div>
             </div>

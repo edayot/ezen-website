@@ -8,10 +8,10 @@ export function Footer({}) {
   const t = useTranslation();
 
   return (
-    <div className="w-full z-1 ">
+    <div className="w-full">
       <div className="bg-default/60 backdrop-blur-sm border-default/60 border">
         <div className="flex flex-row justify-between items-center my-[0.15rem] mx-16">
-          <div className="flex flex-row justify-start text-[12px]">
+          <div className="flex flex-row justify-start text-[10px]">
             {t["footer.madeBy"]}
           </div>
 
@@ -23,7 +23,7 @@ export function Footer({}) {
                   whileTap={{ scale: 0.95 }}
                   className="w-full h-full"
                 >
-                  <FiGithub size={16} />
+                  <FiGithub size={12} />
                 </motion.button>
               </Link>
             </div>

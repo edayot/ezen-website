@@ -15,6 +15,8 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FiEdit, FiMap, FiPlus } from "react-icons/fi";
+import { toast, Bounce } from "react-toastify";
+import { useTheme } from "next-themes";
 
 export function IsUserLoggedIn({
   children,
@@ -115,8 +117,22 @@ export function ToMapButton({
   );
 }
 
-export function RedirectComponent({ href }: { href?: string }) {
+export function RedirectComponent({ href, message }: { href?: string, message?: string }) {
+  const { theme } = useTheme();
   useEffect(() => {
+    if (message) {
+      toast.error(message, {
+        position: "bottom-right",
+        autoClose: 2500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        transition: Bounce,
+        theme: theme,
+      });
+    }
     redirect(href || "/");
   });
   return <></>;

@@ -46,7 +46,7 @@ export function SelectMarker({
         className="flex flex-row gap-4 items-center justify-center h-10 w-full"
         key={marker}
       >
-        <Image src={url} alt={marker} style={{ objectFit: "contain" }} />
+        <Image src={url} alt={marker} className="h-8 w-8 aspect-square" />
         {marker}
       </div>
     );

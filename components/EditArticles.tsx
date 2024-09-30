@@ -1,5 +1,5 @@
 "use client";
-import AddDoc from "@/components/AddDoc";
+import FormEditor from "@/components/FormEditor";
 import { useTranslation } from "@/dictionaries/client";
 import { PlantData } from "@/utils/article";
 import { collectionRef } from "@/utils/firebase";
@@ -130,7 +130,7 @@ export function ArticleEditor({
         <Tab key="form" title={t["articles.new.tabs.form"]}>
           <Card>
             <CardBody>
-              <AddDoc all={data} setAll={setData} locale={lang} />
+              <FormEditor all={data} setAll={setData} locale={lang} />
             </CardBody>
           </Card>
         </Tab>
@@ -148,9 +148,8 @@ export function ArticleEditor({
           </div>
         </Tab>
         <Tab key="card" title={t["articles.new.tabs.small_preview"]}>
-          <Card>
-            <CardBody>
-              <div className="justify-center">
+            <br/>
+              <div className="justify-center items-center flex">
                 <Element
                   data={data}
                   lang={articleLang}
@@ -158,8 +157,6 @@ export function ArticleEditor({
                   className="w-[15rem]"
                 />
               </div>
-            </CardBody>
-          </Card>
         </Tab>
         <Tab key="full" title={t["articles.new.tabs.full_article"]}>
           <RenderArticle data={data} lang={articleLang} />

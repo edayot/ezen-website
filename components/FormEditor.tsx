@@ -328,7 +328,7 @@ function DisableOption({
   );
 }
 
-function AddItem({
+function FormEditor({
   all,
   setAll,
   locale,
@@ -370,4 +370,4 @@ function AddItem({
   );
 }
 
-export default AddItem;
+export default FormEditor;

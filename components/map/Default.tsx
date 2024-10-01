@@ -8,21 +8,21 @@ import { ImageOverlay, MapContainer } from "react-leaflet";
 export function MapViewer({
   children,
   setMap,
-  initPosition,
+  initBounds,
 }: {
   children?: React.ReactNode;
   setMap?: (value: any) => void;
-  initPosition?: Position;
+  initBounds?: [Position, Position];
 }) {
   const [size, setSize] = useState<[number, number]>([-1, -1]);
   const [img_url, setImgUrl] = useState<string>("");
   let bounds: [number, number][] = [[0, 0], size];
-  if (initPosition) {
-    const factor = 4;
+  if (initBounds) {
     bounds = [
-      [initPosition.x - factor, initPosition.y - factor],
-      [initPosition.x + factor, initPosition.y + factor],
+      [initBounds[0].x, initBounds[0].y],
+      [initBounds[1].x, initBounds[1].y],
     ];
+
   }
   const bounds_factor = 30;
   const maxBounds: [number, number][] = [

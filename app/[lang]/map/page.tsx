@@ -6,17 +6,17 @@ export default async function Home({
   searchParams,
 }: {
   params: HomeProps;
-  searchParams: { pos_x?: string; pos_y?: string };
+  searchParams: { bound00?: string; bound01?: string; bound10?: string; bound11?: string };
 }) {
-  if (searchParams.pos_x && searchParams.pos_y) {
+  if (searchParams.bound00 && searchParams.bound01 && searchParams.bound10 && searchParams.bound11) {
     return (
       <div className="w-screen fixed top-16 bottom-0">
         <MapWithArticles
           lang={params.lang}
-          initPosition={{
-            x: Number(searchParams.pos_x),
-            y: Number(searchParams.pos_y),
-          }}
+          initBounds={[
+            { x: parseFloat(searchParams.bound00), y: parseFloat(searchParams.bound01) },
+            { x: parseFloat(searchParams.bound10), y: parseFloat(searchParams.bound11) },
+          ]}
         />
       </div>
     );

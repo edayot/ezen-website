@@ -253,7 +253,7 @@ function CreateCubiqueMapURL({childs, setChilds}: {childs: React.ReactNode[], se
   return (<>
   <div className="absolute top-0 right-0 z-[1000000000000000000]">
     <Card>
-      <CardBody>
+      <CardBody className=" flex flex-col m-2 gap-2">
         <Button onClick={onClick}>
           Create bounding box
         </Button>

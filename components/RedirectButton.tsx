@@ -92,6 +92,14 @@ export function ToMapButton({
   const t = useTranslation();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
+  const factor = 4;
+  pos.x = Number(pos.x)
+  pos.y = Number(pos.y)
+  const bounds : [ Position, Position ] = [
+    { x: pos.x - factor, y: pos.y - factor },
+    { x: pos.x + factor, y: pos.y + factor },
+  ]
+
   return (
     <>
       <div className="h-2"></div>
@@ -106,7 +114,7 @@ export function ToMapButton({
             <div className="w-screen h-screen">
               <MapWithArticles
                 lang={lang}
-                initPosition={{ x: Number(pos.x), y: Number(pos.y) }}
+                initBounds={bounds}
               />
             </div>
           </div>

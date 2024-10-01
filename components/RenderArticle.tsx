@@ -4,8 +4,8 @@ import { PlantData } from "@/utils/article";
 import { locales } from "@/utils/langs";
 import { Image } from "@nextui-org/react";
 import Markdown from "react-markdown";
-import remarkGfm from 'remark-gfm'
 import rehypeRaw from "rehype-raw";
+import remarkGfm from "remark-gfm";
 
 export default function RenderArticle({
   data,
@@ -43,8 +43,8 @@ export default function RenderArticle({
           <h1>{name}</h1>
           <h2>{data[lang].place}</h2>
           <div className="my-markdown-container">
-            <Markdown 
-              remarkPlugins={[remarkGfm]} 
+            <Markdown
+              remarkPlugins={[remarkGfm]}
               rehypePlugins={[rehypeRaw]}
               className="space-y-5"
             >

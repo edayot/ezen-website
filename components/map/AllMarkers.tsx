@@ -11,12 +11,12 @@ import {
   startAfter,
   where,
 } from "@firebase/firestore";
+import { Button, Card, CardBody, Snippet } from "@nextui-org/react";
 import { getDownloadURL, listAll, ref } from "firebase/storage";
 import { Icon } from "leaflet";
 import { useEffect, useState } from "react";
 import { Marker, Popup, Rectangle } from "react-leaflet";
 import { Element } from "../ArticleCard";
-import { Button, Card, CardBody, Snippet } from "@nextui-org/react";
 import { IsUserLoggedIn } from "../RedirectButton";
 
 function ArticleMarker({
@@ -154,9 +154,9 @@ export function MapWithArticles({
   const [elements_data, set_elements_data] = useState<
     { data: PlantData; id: string }[]
   >([]);
-  const [childs, setChilds] = useState<React.ReactNode[]>([])
+  const [childs, setChilds] = useState<React.ReactNode[]>([]);
   const [date, setDate] = useState(0);
-  const [map, setMap] = useState<any>(null)
+  const [map, setMap] = useState<any>(null);
   const element_per_batch = 10;
   useEffect(() => {
     getDocs(
@@ -187,85 +187,97 @@ export function MapWithArticles({
     />
   ));
 
-  return <>
-  <MapViewer setMap={setMap} initBounds={initBounds}>{elements}{childs}</MapViewer>
-  <IsUserLoggedIn><CreateCubiqueMapURL childs={childs} setChilds={setChilds} /></IsUserLoggedIn>
-  </>;
+  return (
+    <>
+      <MapViewer setMap={setMap} initBounds={initBounds}>
+        {elements}
+        {childs}
+      </MapViewer>
+      <IsUserLoggedIn>
+        <CreateCubiqueMapURL childs={childs} setChilds={setChilds} />
+      </IsUserLoggedIn>
+    </>
+  );
 }
 
+function CreateCubiqueMapURL({
+  childs,
+  setChilds,
+}: {
+  childs: React.ReactNode[];
+  setChilds: (childs: React.ReactNode[]) => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const [pos1, setPos1] = useState<[number, number]>([0, 0]);
+  const [pos2, setPos2] = useState<[number, number]>([10, 10]);
+  const [bounds, setBounds] = useState<[number, number][]>([
+    [0, 0],
+    [10, 10],
+  ]);
 
-
-
-function CreateCubiqueMapURL({childs, setChilds}: {childs: React.ReactNode[], setChilds: (childs: React.ReactNode[]) => void}) {
-  const [open, setOpen] = useState(false)
-  const [pos1, setPos1] = useState<[number, number]>([0, 0])
-  const [pos2, setPos2] = useState<[number, number]>([10, 10])
-  const [bounds, setBounds] = useState<[number,number][]>([[0, 0], [10, 10]])
-
-  const marker1 = <Marker 
-    position={pos1}
-    draggable={true} 
-    eventHandlers={
-      {
+  const marker1 = (
+    <Marker
+      position={pos1}
+      draggable={true}
+      eventHandlers={{
         move: (e) => {
-          setPos1([e.target.getLatLng().lat, e.target.getLatLng().lng])
+          setPos1([e.target.getLatLng().lat, e.target.getLatLng().lng]);
           setBounds([
             [e.target.getLatLng().lat, e.target.getLatLng().lng],
-            bounds[1]
-          ])
-        }
-      }
-    }
-  />
-  const marker2 = <Marker 
-  position={pos2}
-  draggable={true}
-  eventHandlers={
-    {
-      move: (e) => {
-        setPos2([e.target.getLatLng().lat, e.target.getLatLng().lng])
-        setBounds([
-          bounds[0],
-          [e.target.getLatLng().lat, e.target.getLatLng().lng]
-        ])
-      }
-    }
-  }
-   />
-  const rectangle = <Rectangle bounds={bounds} />
+            bounds[1],
+          ]);
+        },
+      }}
+    />
+  );
+  const marker2 = (
+    <Marker
+      position={pos2}
+      draggable={true}
+      eventHandlers={{
+        move: (e) => {
+          setPos2([e.target.getLatLng().lat, e.target.getLatLng().lng]);
+          setBounds([
+            bounds[0],
+            [e.target.getLatLng().lat, e.target.getLatLng().lng],
+          ]);
+        },
+      }}
+    />
+  );
+  const rectangle = <Rectangle bounds={bounds} />;
 
   useEffect(() => {
     if (open) {
-      setChilds([marker1, marker2, rectangle])
+      setChilds([marker1, marker2, rectangle]);
     }
-  }, [bounds, pos1, pos2])
-
+  }, [bounds, pos1, pos2]);
 
   const onClick = () => {
-    setOpen(true)
+    setOpen(true);
     // add two draggeable marker + a rectangle
-    setChilds([marker1, marker2, rectangle])
-  }
+    setChilds([marker1, marker2, rectangle]);
+  };
 
-  let copyURL = `https://ezen-website.vercel.app/map?bound00=${bounds[0][0]}&bound01=${bounds[0][1]}&bound10=${bounds[1][0]}&bound11=${bounds[1][1]}`
+  let copyURL = `https://ezen-website.vercel.app/map?bound00=${bounds[0][0]}&bound01=${bounds[0][1]}&bound10=${bounds[1][0]}&bound11=${bounds[1][1]}`;
 
+  return (
+    <>
+      <div className="absolute top-0 right-0 z-[1000000000000000000]">
+        <Card>
+          <CardBody className=" flex flex-col m-2 gap-2">
+            <Button onClick={onClick}>Create bounding box</Button>
 
-  return (<>
-  <div className="absolute top-0 right-0 z-[1000000000000000000]">
-    <Card>
-      <CardBody className=" flex flex-col m-2 gap-2">
-        <Button onClick={onClick}>
-          Create bounding box
-        </Button>
-
-        {open ? <>
-         <Snippet symbol="" codeString={copyURL} size="sm">
-          {copyURL.slice(0, 30)}...
-        </Snippet>
-        </> : null}
-
-      </CardBody>
-    </Card>
-  </div>
-  </>)
+            {open ? (
+              <>
+                <Snippet symbol="" codeString={copyURL} size="sm">
+                  {copyURL.slice(0, 30)}...
+                </Snippet>
+              </>
+            ) : null}
+          </CardBody>
+        </Card>
+      </div>
+    </>
+  );
 }

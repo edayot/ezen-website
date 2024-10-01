@@ -11,12 +11,12 @@ import {
   Tooltip,
   useDisclosure,
 } from "@nextui-org/react";
+import { useTheme } from "next-themes";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FiEdit, FiMap, FiPlus } from "react-icons/fi";
-import { toast, Bounce } from "react-toastify";
-import { useTheme } from "next-themes";
+import { Bounce, toast } from "react-toastify";
 
 export function IsUserLoggedIn({
   children,
@@ -93,12 +93,12 @@ export function ToMapButton({
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const factor = 4;
-  pos.x = Number(pos.x)
-  pos.y = Number(pos.y)
-  const bounds : [ Position, Position ] = [
+  pos.x = Number(pos.x);
+  pos.y = Number(pos.y);
+  const bounds: [Position, Position] = [
     { x: pos.x - factor, y: pos.y - factor },
     { x: pos.x + factor, y: pos.y + factor },
-  ]
+  ];
 
   return (
     <>
@@ -112,10 +112,7 @@ export function ToMapButton({
         <ModalContent>
           <div className="flex items-center justify-center border border-red-600">
             <div className="w-screen h-screen">
-              <MapWithArticles
-                lang={lang}
-                initBounds={bounds}
-              />
+              <MapWithArticles lang={lang} initBounds={bounds} />
             </div>
           </div>
         </ModalContent>
@@ -125,7 +122,13 @@ export function ToMapButton({
   );
 }
 
-export function RedirectComponent({ href, message }: { href?: string, message?: string }) {
+export function RedirectComponent({
+  href,
+  message,
+}: {
+  href?: string;
+  message?: string;
+}) {
   const { theme } = useTheme();
   useEffect(() => {
     if (message) {

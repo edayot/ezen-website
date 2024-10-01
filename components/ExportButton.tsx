@@ -1,9 +1,9 @@
 "use client";
 import { Button, Tooltip } from "@nextui-org/react";
 import React, { useRef } from "react";
+import { exportComponentAsPNG } from "react-component-export-image";
 import { FiCode } from "react-icons/fi";
 import QRCode from "react-qr-code";
-import { exportComponentAsPNG } from "react-component-export-image";
 
 // Define the QR code component with a forwardRef
 const ComponentToPrint = React.forwardRef((props: any, ref: any) => (

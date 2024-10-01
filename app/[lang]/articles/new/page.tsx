@@ -7,7 +7,14 @@ export default async function Home({ params }: { params: HomeProps }) {
     <div className="flex flex-row justify-center">
       <div className=" w-[97.5%]">
         <br />
-        <IsUserLoggedIn fallback={<RedirectComponent message="You need to be logged in to use the article editor" href="/"/>}>
+        <IsUserLoggedIn
+          fallback={
+            <RedirectComponent
+              message="You need to be logged in to use the article editor"
+              href="/"
+            />
+          }
+        >
           <ArticleEditor lang={params.lang} />
         </IsUserLoggedIn>
       </div>

@@ -22,7 +22,6 @@ export function MapViewer({
       [initBounds[0].x, initBounds[0].y],
       [initBounds[1].x, initBounds[1].y],
     ];
-
   }
   const bounds_factor = 30;
   const maxBounds: [number, number][] = [

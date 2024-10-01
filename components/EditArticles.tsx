@@ -4,18 +4,29 @@ import { useTranslation } from "@/dictionaries/client";
 import { PlantData } from "@/utils/article";
 import { collectionRef } from "@/utils/firebase";
 import { locales } from "@/utils/langs";
-import { Button, Card, CardBody, Tab, Tabs, Tooltip } from "@nextui-org/react";
+import {
+  Button,
+  Card,
+  CardBody,
+  Code,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalHeader,
+  Tab,
+  Tabs,
+  Tooltip,
+  useDisclosure,
+} from "@nextui-org/react";
 import { addDoc, doc, setDoc } from "firebase/firestore";
 import { useState } from "react";
-import { FiCheck, FiSave } from "react-icons/fi";
+import { FiCheck, FiInfo, FiSave } from "react-icons/fi";
 import { Element } from "./ArticleCard";
 import { LangSwitch } from "./NavBar";
 import RenderArticle from "./RenderArticle";
 import { EditMap } from "./map/EditMap";
 import { SelectMarker } from "./map/MarkerSelector";
 import { UploadMarker } from "./map/UploadMarkerComponent";
-import { Modal, ModalBody, ModalContent, useDisclosure, Code, ModalHeader } from "@nextui-org/react";
-import { FiInfo } from "react-icons/fi";
 
 export function ArticleEditor({
   lang,
@@ -151,15 +162,15 @@ export function ArticleEditor({
           </div>
         </Tab>
         <Tab key="card" title={t["articles.new.tabs.small_preview"]}>
-            <br/>
-              <div className="justify-center items-center flex">
-                <Element
-                  data={data}
-                  lang={articleLang}
-                  id="1"
-                  className="w-[15rem]"
-                />
-              </div>
+          <br />
+          <div className="justify-center items-center flex">
+            <Element
+              data={data}
+              lang={articleLang}
+              id="1"
+              className="w-[15rem]"
+            />
+          </div>
         </Tab>
         <Tab key="full" title={t["articles.new.tabs.full_article"]}>
           <RenderArticle data={data} lang={articleLang} />
@@ -169,9 +180,7 @@ export function ArticleEditor({
   );
 }
 
-
 function MarkdownCheatSheetButton() {
-
   const stringExample = `
 # Pluto
 
@@ -211,42 +220,42 @@ console.log('Hi pluto!')
 \`\`\`
 
 </details>  
-`
+`;
   // create <p> for each line and <br> for each \n\n
 
   const component = stringExample.split("\n").map((line, i) => {
     if (line === "") {
-      return <br key={i} />
+      return <br key={i} />;
     } else {
-      return <p key={i}>{line}</p>
+      return <p key={i}>{line}</p>;
     }
-  })
+  });
 
-
-  const t = useTranslation()
+  const t = useTranslation();
   const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
-
-
 
   return (
     <>
-    <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="2xl" scrollBehavior="outside">
+      <Modal
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        size="2xl"
+        scrollBehavior="outside"
+      >
         <ModalContent>
-          <ModalHeader>{t["articles.new.global.markdown_cheat_sheet_title"]}</ModalHeader>
+          <ModalHeader>
+            {t["articles.new.global.markdown_cheat_sheet_title"]}
+          </ModalHeader>
           <ModalBody>
             <Code>{component}</Code>
           </ModalBody>
         </ModalContent>
       </Modal>
       <Tooltip content={t["articles.new.global.markdown_cheat_sheet"]}>
-      <Button
-        color="primary"
-        onClick={onOpen}
-        isIconOnly
-      >
-        <FiInfo size={25} />
-      </Button>
+        <Button color="primary" onClick={onOpen} isIconOnly>
+          <FiInfo size={25} />
+        </Button>
       </Tooltip>
-      </>
-  )
+    </>
+  );
 }

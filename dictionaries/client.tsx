@@ -6,7 +6,7 @@ import React, { createContext, useContext } from "react";
 const TranslationContext = createContext({} as any);
 
 // useTranslation hook to access the dictionary from the context
-export function useTranslation() : any {
+export function useTranslation(): any {
   const dict = useContext(TranslationContext);
   return createProxy(dict); // Use the createProxy function with the dictionary
 }

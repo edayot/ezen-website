@@ -57,7 +57,7 @@ export function UploadMarker({
         (blob) => {
           if (blob) {
             // Créer un nouveau nom de fichier pour garantir l'extension PNG
-            const newFile = new File([blob], `${file.name.split('.')[0]}.png`, {
+            const newFile = new File([blob], `${file.name.split(".")[0]}.png`, {
               type: "image/png",
             });
 
@@ -87,7 +87,7 @@ export function UploadMarker({
               });
           }
         },
-        "image/png" // Forcer le format PNG pour préserver la transparence
+        "image/png", // Forcer le format PNG pour préserver la transparence
       );
     };
 

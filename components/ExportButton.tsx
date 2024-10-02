@@ -45,7 +45,7 @@ const ComponentToPrint = React.forwardRef((props: {url: string, data: PlantData}
           <div className="flex flex-row justify-between w-full h-full items-center">
             <div className="flex flex-col w-full h-full justify-around gap-4">
               {locales.map((lang) => (
-                <div className="flex flex-row gap-2">
+                <div className="flex flex-row gap-2" key={lang}>
                   {langToFlag[lang]}
                   <p className="text-sm text-black font-sans">
                     {fullArticle[lang]}

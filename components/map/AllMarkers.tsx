@@ -178,13 +178,16 @@ export function MapWithArticles({
       setDate(ele[ele.length - 1].data.date);
     });
   }, [date]);
+
+  let data = elements_data;
   if (initBounds) {
+    
     const minX = Math.min(initBounds[0].x,initBounds[1].x)
     const minY = Math.min(initBounds[0].y,initBounds[1].y)
     const maxX = Math.max(initBounds[0].x,initBounds[1].x)
     const maxY = Math.max(initBounds[0].y,initBounds[1].y)
 
-    elements_data.filter((element) => {
+    data = elements_data.filter((element) => {
       if (element.data.position) {
         return (
           element.data.position.x >= minX &&
@@ -198,7 +201,7 @@ export function MapWithArticles({
     );
 
   }
-  let elements = elements_data.map((element) => (
+  let elements = data.map((element) => (
     <ArticleMarker
       element={element}
       lang={lang}

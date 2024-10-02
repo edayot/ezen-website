@@ -95,7 +95,7 @@ export function ExportButton({ id , data }: { id: string, data: PlantData }) {
   return (
     <>
       {/* Display the QRCode only when exporting */}
-      <div style={{ position: "absolute", left: "100px", top: "100px" }}>
+      <div style={{ position: "absolute", left: "-1000000px", top: "100px" }}>
         <ComponentToPrint ref={qrRef} url={url} data={data} />
       </div>
 

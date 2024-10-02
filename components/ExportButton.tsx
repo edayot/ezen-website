@@ -1,20 +1,73 @@
 "use client";
+import { PlantData } from "@/utils/article";
 import { Button, Tooltip } from "@nextui-org/react";
 import React, { useRef } from "react";
 import { exportComponentAsPNG } from "react-component-export-image";
 import { FiCode } from "react-icons/fi";
-import QRCode from "react-qr-code";
+import {QRCode} from "react-qrcode-logo";
+import { langToFlag } from "./NavBar";
+import { useTranslation } from "@/dictionaries/client";
+import { locales } from "@/utils/langs";
+import Image from "next/image";
 
 // Define the QR code component with a forwardRef
-const ComponentToPrint = React.forwardRef((props: any, ref: any) => (
-  <div ref={ref} style={{ background: "white", padding: "16px" }}>
-    <QRCode value={props.url} />
+const ComponentToPrint = React.forwardRef((props: {url: string, data: PlantData}, ref: any) => {
+  const t = useTranslation();
+
+  const fullArticle = {
+    fr: "Article en entier sur :",
+    en: "Full article on :",
+    it: "Articolo completo su :",
+  }
+
+  return (
+  <div ref={ref}>
+    <div className="bg-white aspect-[3/4] w-[34rem]">
+      <div className="flex flex-col justify-between gap-2">
+        <div className="m-12">
+          <p className="text-sm text-black font-sans italic">
+            {props.data.latin_name}
+          </p>
+          <p className="text-xl text-black font-sans font-bold">
+            {props.data.it.name}
+          </p>
+          <p className="text-sm text-black font-sans">
+            {props.data.it.desc.split("\n").map((line, index) => (
+              <span key={index}>
+                {line}
+                <br />
+              </span>
+            )
+            )}
+          </p>
+        </div>
+        <div className="m-12">
+          <div className="flex flex-row justify-between w-full h-full items-center">
+            <div className="flex flex-col w-full h-full justify-around gap-4">
+              {locales.map((lang) => (
+                <div className="flex flex-row gap-2">
+                  {langToFlag[lang]}
+                  <p className="text-sm text-black font-sans">
+                    {fullArticle[lang]}
+                  </p>
+                </div>
+              ))}
+            </div>
+            <div className="flex flex-row justify-end items-end w-full">
+              <QRCode value={props.url} logoImage="/favicon.ico" size={128}/>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-));
+  
+)
+});
 
 ComponentToPrint.displayName = "ComponentToPrint";
 
-export function ExportButton({ id }: { id: string }) {
+export function ExportButton({ id , data }: { id: string, data: PlantData }) {
   const url = `https://ezen-website.vercel.app/article/${id}`;
   const qrRef = useRef(null);
 
@@ -26,8 +79,8 @@ export function ExportButton({ id }: { id: string }) {
   return (
     <>
       {/* Display the QRCode only when exporting */}
-      <div style={{ position: "absolute", left: "-1000px", top: "-1000px" }}>
-        <ComponentToPrint ref={qrRef} url={url} />
+      <div style={{ position: "absolute", left: "-10000px", top: "100px" }}>
+        <ComponentToPrint ref={qrRef} url={url} data={data} />
       </div>
 
       {/* Tooltip and Button for triggering the download */}

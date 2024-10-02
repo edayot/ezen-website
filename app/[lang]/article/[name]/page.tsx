@@ -30,7 +30,7 @@ export default async function Home({ params }: { params: HomeProps }) {
         <div className="flex flex-row justify-end items-end w-11/12 m-2 gap-2">
           <IsUserLoggedIn>
             {data.protected ? <></> : <DeleteButton id={document.id} />}
-            <ExportButton id={document.id} />
+            <ExportButton id={document.id} data={data}/>
             <EditButton id={document.id} />
           </IsUserLoggedIn>
           {data.position && !data.disable_map_position ? (

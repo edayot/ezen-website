@@ -14,10 +14,12 @@ import {
 import { Button, Card, CardBody, Snippet } from "@nextui-org/react";
 import { getDownloadURL, listAll, ref } from "firebase/storage";
 import { Icon } from "leaflet";
-import { useEffect, useState } from "react";
+import { useEffect, useState, forwardRef, useRef } from "react";
 import { Marker, Popup, Rectangle } from "react-leaflet";
 import { Element } from "../ArticleCard";
 import { IsUserLoggedIn } from "../RedirectButton";
+import { QRCode } from "react-qrcode-logo";
+import { exportComponentAsPNG } from "react-component-export-image";
 
 function ArticleMarker({
   element,
@@ -223,6 +225,20 @@ export function MapWithArticles({
   );
 }
 
+
+// Define the QR code component with a forwardRef
+const ComponentToPrint = forwardRef((props: {url: string}, ref: any) => {
+  return (
+  <div ref={ref} className="p-4 bg-white flex justify-center items-center h-[24rem] w-[24rem]">
+    <QRCode value={props.url} logoImage="/favicon.ico" size={256}/>
+  </div>
+  
+)
+});
+ComponentToPrint.displayName = "ComponentToPrint";
+
+
+
 function CreateCubiqueMapURL({
   childs,
   setChilds,
@@ -230,6 +246,7 @@ function CreateCubiqueMapURL({
   childs: React.ReactNode[];
   setChilds: (childs: React.ReactNode[]) => void;
 }) {
+  const qrcodeRef = useRef(null);
   const [open, setOpen] = useState(false);
   const [pos1, setPos1] = useState<[number, number]>([0, 0]);
   const [pos2, setPos2] = useState<[number, number]>([10, 10]);
@@ -293,9 +310,19 @@ function CreateCubiqueMapURL({
 
             {open ? (
               <>
+                <ComponentToPrint ref={qrcodeRef} url={copyURL}/>
                 <Snippet symbol="" codeString={copyURL} size="sm">
-                  {copyURL.slice(0, 30)}...
+                  {copyURL.slice(0, 56)}...
                 </Snippet>
+                <Button
+                  onClick={() => {
+                    setOpen(false);
+                    setChilds([]);
+                    exportComponentAsPNG(qrcodeRef, { fileName: "qr-code.png" });
+                  }}
+                >
+                  Close and download QR Code
+                </Button>
               </>
             ) : null}
           </CardBody>

@@ -2,14 +2,13 @@
 import { PlantData } from "@/utils/article";
 import { Button, Tooltip } from "@nextui-org/react";
 import React, { useRef } from "react";
-import { exportComponentAsPNG } from "react-component-export-image";
 import { FiCode } from "react-icons/fi";
 import {QRCode} from "react-qrcode-logo";
 import { langToFlag } from "./NavBar";
 import { useTranslation } from "@/dictionaries/client";
 import { locales, defaultLocale } from "@/utils/langs";
-import Image from "next/image";
 import MarkdownRender from "./MarkdownRender";
+import { useToPng } from '@hugocxl/react-to-image'
 
 
 
@@ -57,43 +56,49 @@ function BottomQRCode({url}: {url: string}) {
 
 
 // Define the QR code component with a forwardRef
-const ComponentToPrint = React.forwardRef((props: {url: string, data: PlantData}, ref: any) => {
-  const t = useTranslation();
+function ComponentToPrint({url, data}: {url: string, data: PlantData}) {
 
   return (
-  <div ref={ref}>
     <div className="bg-white w-[36rem] h-[46rem] p-16">
       <div className="flex flex-col justify-between gap-2 h-full">
       <div className="flex-grow overflow-hidden relative">
-        <Article data={props.data}/>
+        <Article data={data}/>
         <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-white to-transparent pointer-events-none"></div>
       </div>
         <div className="mt-auto">
-          <BottomQRCode url={props.url}/>
+          <BottomQRCode url={url}/>
         </div>
       </div>
-    </div>
-  </div>
-  
+    </div>  
 )
-});
+}
 
-ComponentToPrint.displayName = "ComponentToPrint";
 
 export function ExportButton({ id , data }: { id: string, data: PlantData }) {
   const url = `https://ezen-website.vercel.app/article/${id}`;
-  const qrRef = useRef(null);
 
-  // Define the export function to capture the QR code as an image
+  const [state, convertToPng, ref] = useToPng<HTMLDivElement>({
+    onSuccess: data => {
+      // make the user download the image
+      // data is a base64 encoded image
+      const link = document.createElement('a')
+      link.download = 'QRCode.png'
+      link.href = data
+      link.click()
+    }
+  })
+
   const generate = () => {
-    exportComponentAsPNG(qrRef, { fileName: "qr-code.png" });
-  };
+    convertToPng()
+  }
 
   return (
     <>
       {/* Display the QRCode only when exporting */}
       <div style={{ position: "absolute", left: "-1000000px", top: "100px" }}>
-        <ComponentToPrint ref={qrRef} url={url} data={data} />
+        <div ref={ref}>
+          <ComponentToPrint url={url} data={data} />
+        </div>
       </div>
 
       {/* Tooltip and Button for triggering the download */}

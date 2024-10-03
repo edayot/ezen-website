@@ -19,7 +19,7 @@ import { Marker, Popup, Rectangle } from "react-leaflet";
 import { Element } from "../ArticleCard";
 import { IsUserLoggedIn } from "../RedirectButton";
 import { QRCode } from "react-qrcode-logo";
-import { exportComponentAsPNG } from "react-component-export-image";
+import { useToPng } from '@hugocxl/react-to-image'
 
 function ArticleMarker({
   element,
@@ -227,16 +227,14 @@ export function MapWithArticles({
 
 
 // Define the QR code component with a forwardRef
-const ComponentToPrint = forwardRef((props: {url: string}, ref: any) => {
+function ComponentToPrint({url}: {url: string}) {
   return (
-  <div ref={ref} className="p-4 bg-white flex justify-center items-center h-[24rem] w-[24rem]">
-    <QRCode value={props.url} logoImage="/favicon.ico" size={256}/>
+  <div className="p-4 bg-white flex justify-center items-center h-[24rem] w-[24rem]">
+    <QRCode value={url} logoImage="/favicon.ico" size={256}/>
   </div>
   
 )
-});
-ComponentToPrint.displayName = "ComponentToPrint";
-
+}
 
 
 function CreateCubiqueMapURL({
@@ -246,7 +244,16 @@ function CreateCubiqueMapURL({
   childs: React.ReactNode[];
   setChilds: (childs: React.ReactNode[]) => void;
 }) {
-  const qrcodeRef = useRef(null);
+  const [state, convertToPng, ref] = useToPng<HTMLDivElement>({
+    onSuccess: data => {
+      // make the user download the image
+      // data is a base64 encoded image
+      const link = document.createElement('a')
+      link.download = 'QRCode.png'
+      link.href = data
+      link.click()
+    }
+  })
   const [open, setOpen] = useState(false);
   const [pos1, setPos1] = useState<[number, number]>([0, 0]);
   const [pos2, setPos2] = useState<[number, number]>([10, 10]);
@@ -310,7 +317,9 @@ function CreateCubiqueMapURL({
 
             {open ? (
               <>
-                <ComponentToPrint ref={qrcodeRef} url={copyURL}/>
+                <div ref={ref}>
+                  <ComponentToPrint url={copyURL}/>
+                </div>
                 <Snippet symbol="" codeString={copyURL} size="sm">
                   {copyURL.slice(0, 56)}...
                 </Snippet>
@@ -318,7 +327,7 @@ function CreateCubiqueMapURL({
                   onClick={() => {
                     setOpen(false);
                     setChilds([]);
-                    exportComponentAsPNG(qrcodeRef, { fileName: "qr-code.png" });
+                    convertToPng();
                   }}
                 >
                   Close and download QR Code

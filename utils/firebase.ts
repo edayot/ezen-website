@@ -7,7 +7,7 @@ export const auth = getAuth(firebaseApp);
 export const db = getFirestore(firebaseApp);
 export const storage = getStorage(firebaseApp);
 export const collectionRef = collection(db, "articles_revamp");
-export const mapRef = ref(storage, "map.jpg");
+export const mapRef = ref(storage, "map.png");
 
 export const signInEmailPassword = async (email: string, password: string) => {
   let err = null;

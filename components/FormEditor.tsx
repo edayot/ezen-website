@@ -150,7 +150,7 @@ function CreateGlobalInput({
   return (
     <div className="flex flex-col gap-2 w-full justify-start items-center">
       <h3>{t["articles.new.global.article_image"]}</h3>
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="xs" isDismissable={false} isKeyboardDismissDisabled={true} className="z-[9999999999]">
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="xs" isDismissable={false} isKeyboardDismissDisabled={true} className="z-[9999999999]" closeButton={<></>}>
         <ModalContent>
           <ModalBody>
             <div className=" flex flex-col justify-center items-center">
@@ -252,10 +252,10 @@ function CreateDropzoneForMarkdownImage({
   return (
     <div className="flex flex-col gap-2 w-full justify-start items-center">
       <h3>{t["articles.new.global.add_image"]}</h3>
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="xs" isDismissable={false} isKeyboardDismissDisabled={true} className="z-[9999999999]">
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="xs" isDismissable={false} isKeyboardDismissDisabled={true} className="z-[9999999999]" closeButton={<></>}>
         <ModalContent>
           <ModalBody>
-            <div className=" flex justify-center items-center">
+            <div className=" flex flex-col justify-center items-center">
               {error ? <div>{error}</div> : <>
                 <CircularProgress size="lg" />
                 <Progress aria-label="Uploading..." value={task ? (task.snapshot.bytesTransferred/task.snapshot.totalBytes * 100) : 0} className="max-w-md"/>

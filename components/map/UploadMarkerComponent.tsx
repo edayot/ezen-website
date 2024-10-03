@@ -108,7 +108,7 @@ export function UploadMarker({
 
   return (
     <div className="flex flex-col gap-2 w-full justify-center items-center">
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="xs">
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="xs" isDismissable={false} isKeyboardDismissDisabled={true}>
         <ModalContent>
           <ModalBody>
             <div className=" flex justify-center items-center">

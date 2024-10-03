@@ -19,7 +19,7 @@ import {
   useDisclosure,
   Progress,
 } from "@nextui-org/react";
-import { getDownloadURL, ref, uploadBytesResumable, UploadTask } from "firebase/storage";
+import { getDownloadURL, ref, StorageReference, uploadBytesResumable, UploadTask } from "firebase/storage";
 import { useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { FiUpload } from "react-icons/fi";
@@ -86,14 +86,74 @@ function CreateGlobalInput({
   setAll: (value: any) => void;
   lang: string;
 }) {
+  const [error, setError] = useState("");
+  const t = useTranslation();
+
+  const handleUploadComplete = (url: string, filename: string, width?: number, height?: number) => {
+    setAll({
+      ...all,
+      image: url,
+      image_filename: filename,
+      image_height: height,
+      image_width: width,
+    });
+    setError("");
+  };
+
+  return (
+    <div className="flex flex-col gap-2 w-full justify-start items-center">
+      <h3>{t["articles.new.global.article_image"]}</h3>
+      <Input
+        className="w-1/2"
+        label={t["articles.new.global.label.latin_name"]}
+        placeholder={t["articles.new.global.placeholder.latin_name"]}
+        value={all.latin_name}
+        onChange={(e) => setAll({ ...all, latin_name: e.target.value })}
+      />
+      <UploadToCloud onUploadComplete={handleUploadComplete} />
+    </div>
+  );
+}
+
+export function UploadToCloud({
+  onUploadComplete,
+  transformImage,
+  getStorageRef,
+}: {
+  onUploadComplete: (url: string, filename: string, width?: number, height?: number) => void;
+  transformImage?: (file: File) => Promise<File>;
+  getStorageRef?: (filename: string) => StorageReference;
+}) {
   const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
   const [error, setError] = useState("");
   const [task, setTask] = useState<UploadTask | null>(null);
+  const [percent, setPercent] = useState(0);
 
-  const onDrop = (acceptedFiles: any) => {
+  setInterval(() => {
+    if (task) {
+      setPercent((task.snapshot.bytesTransferred / task.snapshot.totalBytes) * 100);
+    } else {
+      setPercent(0);
+    }
+  }, 1000);
+
+  const onDrop = async (acceptedFiles: any) => {
     onOpen();
     const timestamp = new Date().getTime();
-    const file = acceptedFiles[0];
+    let file = acceptedFiles[0];
+
+    if (transformImage) {
+      try {
+        file = await transformImage(file);
+      } catch (error) {
+        setError(`Error transforming file: ${error}`);
+        setTimeout(() => {
+          setError("");
+          onClose();
+        }, 3000);
+        return;
+      }
+    }
 
     // Create an image object to get the dimensions
     const img = new Image();
@@ -101,22 +161,20 @@ function CreateGlobalInput({
       const { width, height } = img;
 
       // Upload image to Firebase storage
-      const storageRef = ref(storage, `images/${file.name}_${timestamp}`);
+      let storageRef = ref(storage, `images/${file.name}_${timestamp}`);
+      if (getStorageRef) {
+        storageRef = getStorageRef(file.name);
+      }
       const task = uploadBytesResumable(storageRef, file);
       setTask(task);
       task.then((snapshot) => {
           console.log("Uploaded a blob or file!", snapshot);
           getDownloadURL(snapshot.ref).then((url) => {
-            setAll({
-              ...all,
-              image: url,
-              image_filename: file.name,
-              image_height: height,
-              image_width: width,
-            });
+            onUploadComplete(url, file.name, width, height);
+            setError("");
+            onClose();
+            setTask(null);
           });
-          setError("");
-          onClose();
         })
         .catch((error) => {
           console.error("Error uploading file", error);
@@ -124,6 +182,7 @@ function CreateGlobalInput({
           setTimeout(() => {
             setError("");
             onClose();
+            setTask(null);
           }, 3000);
         });
     };
@@ -135,41 +194,28 @@ function CreateGlobalInput({
     };
     reader.readAsDataURL(file);
   };
+
   const t = useTranslation();
-  let upload_text = t["articles.new.global.drop_image"];
-  if (all.image_filename) {
-    upload_text = t["articles.new.global.drop_image_filename"].replace(
-      "%s",
-      all.image_filename,
-    );
-  }
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
     multiple: false,
   });
+
   return (
     <div className="flex flex-col gap-2 w-full justify-start items-center">
-      <h3>{t["articles.new.global.article_image"]}</h3>
+      <h3>{t["articles.new.global.upload_to_cloud"]}</h3>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="xs" isDismissable={false} isKeyboardDismissDisabled={true} className="z-[9999999999]" closeButton={<></>}>
         <ModalContent>
           <ModalBody>
-            <div className=" flex flex-col justify-center items-center">
+            <div className="flex flex-col justify-center items-center">
               {error ? <div>{error}</div> : <>
                 <CircularProgress size="lg" />
-                <Progress aria-label="Uploading..." value={task ? (task.snapshot.bytesTransferred/task.snapshot.totalBytes * 100) : 0} className="max-w-md"/>
-
+                <Progress aria-label="Uploading..." value={percent} className="max-w-md"/>
               </>}
             </div>
           </ModalBody>
         </ModalContent>
       </Modal>
-      <Input
-        className="w-1/2"
-        label={t["articles.new.global.label.latin_name"]}
-        placeholder={t["articles.new.global.placeholder.latin_name"]}
-        value={all.latin_name}
-        onChange={(e) => setAll({ ...all, latin_name: e.target.value })}
-      />
       <div {...getRootProps()} className="dropzone-container">
         <input {...getInputProps()} />
         <div className="dropzone">
@@ -177,7 +223,7 @@ function CreateGlobalInput({
             <CardBody>
               <div className="flex flex-col justify-center items-center gap-6 text-center">
                 <FiUpload size={50} />
-                <p>{upload_text}</p>
+                <p>{t["articles.new.global.drop_image"]}</p>
               </div>
             </CardBody>
           </Card>
@@ -196,12 +242,9 @@ function CreateDropzoneForMarkdownImage({
   setAll: (value: any) => void;
   lang: string;
 }) {
-  const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
-  const [error, setError] = useState("");
   const [url, setUrl] = useState("");
   const [filename, setFilename] = useState("");
   const [alt, setAlt] = useState("");
-  const [task, setTask] = useState<UploadTask | null>(null);
 
   let realAlt = alt ? alt : filename;
   if (realAlt === "") {
@@ -210,73 +253,18 @@ function CreateDropzoneForMarkdownImage({
   const markdownString = `![${realAlt}](${url})`;
   const smallerMarkdownString = `![${realAlt}](${url.slice(0, 20)}...)`;
 
-  const onDrop = (acceptedFiles: any) => {
-    onOpen();
-    const timestamp = new Date().getTime();
-    const file = acceptedFiles[0];
-
-    // upload the file to firebase storage and generate a markdown image string "![alt](url)"
-    const storageRef = ref(storage, `images/${file.name}_${timestamp}`);
-    const task = uploadBytesResumable(storageRef, file);
-    setTask(task);
-    task.then((snapshot) => {
-        console.log("Uploaded a blob or file!", snapshot);
-        getDownloadURL(snapshot.ref).then((url) => {
-          setUrl(url);
-          setFilename(file.name);
-          setError("");
-          onClose();
-        });
-      })
-      .catch((error) => {
-        console.error("Error uploading file", error);
-        setError(`Error uploading file: ${error}`);
-        setTimeout(() => {
-          setError("");
-          onClose();
-        }, 3000);
-      });
+  const handleUploadComplete = (url: string, filename: string) => {
+    setUrl(url);
+    setFilename(filename);
   };
+
   const t = useTranslation();
-  let upload_text = t["articles.new.global.drop_image"];
-  if (filename) {
-    upload_text = t["articles.new.global.drop_image_filename"].replace(
-      "%s",
-      filename,
-    );
-  }
-  const { getRootProps, getInputProps } = useDropzone({
-    onDrop,
-    multiple: false,
-  });
+
+
   return (
     <div className="flex flex-col gap-2 w-full justify-start items-center">
       <h3>{t["articles.new.global.add_image"]}</h3>
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="xs" isDismissable={false} isKeyboardDismissDisabled={true} className="z-[9999999999]" closeButton={<></>}>
-        <ModalContent>
-          <ModalBody>
-            <div className=" flex flex-col justify-center items-center">
-              {error ? <div>{error}</div> : <>
-                <CircularProgress size="lg" />
-                <Progress aria-label="Uploading..." value={task ? (task.snapshot.bytesTransferred/task.snapshot.totalBytes * 100) : 0} className="max-w-md"/>
-              </>}
-            </div>
-          </ModalBody>
-        </ModalContent>
-      </Modal>
-      <div {...getRootProps()} className="dropzone-container">
-        <input {...getInputProps()} />
-        <div className="dropzone">
-          <Card className="w-64 h-30">
-            <CardBody>
-              <div className="flex flex-col justify-center items-center gap-6 text-center">
-                <FiUpload size={50} />
-                <p>{upload_text}</p>
-              </div>
-            </CardBody>
-          </Card>
-        </div>
-      </div>
+      <UploadToCloud onUploadComplete={handleUploadComplete} />
       <Input
         className="w-1/2"
         label={t["articles.new.global.label.markdown_alt"]}

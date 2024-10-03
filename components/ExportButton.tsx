@@ -7,8 +7,11 @@ import { FiCode } from "react-icons/fi";
 import {QRCode} from "react-qrcode-logo";
 import { langToFlag } from "./NavBar";
 import { useTranslation } from "@/dictionaries/client";
-import { locales } from "@/utils/langs";
+import { locales, defaultLocale } from "@/utils/langs";
 import Image from "next/image";
+import Markdown from "react-markdown";
+import rehypeRaw from "rehype-raw";
+import remarkGfm from "remark-gfm";
 
 
 
@@ -19,16 +22,16 @@ function Article({data}: {data: PlantData}) {
       {data.latin_name}
     </p>
     <p className="text-xl text-black font-sans font-bold">
-      {data.it.name}
+      {data[defaultLocale].name}
     </p>
     <p className="text-sm text-black font-sans">
-      {data.it.desc.split("\n").map((line, index) => (
-        <span key={index}>
-          {line}
-          <br />
-        </span>
-      )
-      )}
+      <Markdown
+          remarkPlugins={[remarkGfm]}
+          rehypePlugins={[rehypeRaw]}
+          className="space-y-5"
+        >
+          {data[defaultLocale].desc}
+        </Markdown>
     </p>
     </>)
 }

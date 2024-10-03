@@ -11,8 +11,9 @@ import {
   ModalBody,
   ModalContent,
   useDisclosure,
+  Progress,
 } from "@nextui-org/react";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { getDownloadURL, ref, uploadBytesResumable, UploadTask } from "firebase/storage";
 import { useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { FiUpload } from "react-icons/fi";
@@ -26,6 +27,7 @@ export function UploadMarker({
 }) {
   const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
   const [error, setError] = useState("");
+  const [task, setTask] = useState<UploadTask | null>(null);
 
   const onDrop = (acceptedFiles: any) => {
     onOpen();
@@ -65,8 +67,9 @@ export function UploadMarker({
             const storageRef = ref(storage, `markers/${newFile.name}`);
 
             // Uploader l'image convertie en PNG
-            uploadBytes(storageRef, newFile)
-              .then((snapshot) => {
+            const task = uploadBytesResumable(storageRef, newFile);
+            setTask(task);
+            task.then((snapshot) => {
                 console.log("Uploaded a PNG file!", snapshot);
                 getDownloadURL(snapshot.ref).then((url) => {
                   setAll({
@@ -108,11 +111,14 @@ export function UploadMarker({
 
   return (
     <div className="flex flex-col gap-2 w-full justify-center items-center">
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="xs" isDismissable={false} isKeyboardDismissDisabled={true}>
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="xs" isDismissable={false} isKeyboardDismissDisabled={true} className="z-[9999999999]">
         <ModalContent>
           <ModalBody>
-            <div className=" flex justify-center items-center">
-              {error ? <div>{error}</div> : <CircularProgress size="lg" />}
+            <div className=" flex flex-col justify-center items-center">
+              {error ? <div>{error}</div> : <>
+              <CircularProgress size="lg" />
+              <Progress aria-label="Uploading..." value={task ? (task.snapshot.bytesTransferred/task.snapshot.totalBytes * 100) : 0} className="max-w-md"/>
+              </>}
             </div>
           </ModalBody>
         </ModalContent>

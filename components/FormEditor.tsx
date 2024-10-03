@@ -17,8 +17,9 @@ import {
   Switch,
   Textarea,
   useDisclosure,
+  Progress,
 } from "@nextui-org/react";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { getDownloadURL, ref, uploadBytesResumable, UploadTask } from "firebase/storage";
 import { useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { FiUpload } from "react-icons/fi";
@@ -87,6 +88,7 @@ function CreateGlobalInput({
 }) {
   const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
   const [error, setError] = useState("");
+  const [task, setTask] = useState<UploadTask | null>(null);
 
   const onDrop = (acceptedFiles: any) => {
     onOpen();
@@ -100,8 +102,9 @@ function CreateGlobalInput({
 
       // Upload image to Firebase storage
       const storageRef = ref(storage, `images/${file.name}_${timestamp}`);
-      uploadBytes(storageRef, file)
-        .then((snapshot) => {
+      const task = uploadBytesResumable(storageRef, file);
+      setTask(task);
+      task.then((snapshot) => {
           console.log("Uploaded a blob or file!", snapshot);
           getDownloadURL(snapshot.ref).then((url) => {
             setAll({
@@ -147,11 +150,15 @@ function CreateGlobalInput({
   return (
     <div className="flex flex-col gap-2 w-full justify-start items-center">
       <h3>{t["articles.new.global.article_image"]}</h3>
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="xs">
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="xs" isDismissable={false} isKeyboardDismissDisabled={true} className="z-[9999999999]">
         <ModalContent>
           <ModalBody>
-            <div className=" flex justify-center items-center">
-              {error ? <div>{error}</div> : <CircularProgress size="lg" />}
+            <div className=" flex flex-col justify-center items-center">
+              {error ? <div>{error}</div> : <>
+                <CircularProgress size="lg" />
+                <Progress aria-label="Uploading..." value={task ? (task.snapshot.bytesTransferred/task.snapshot.totalBytes * 100) : 0} className="max-w-md"/>
+
+              </>}
             </div>
           </ModalBody>
         </ModalContent>
@@ -194,6 +201,7 @@ function CreateDropzoneForMarkdownImage({
   const [url, setUrl] = useState("");
   const [filename, setFilename] = useState("");
   const [alt, setAlt] = useState("");
+  const [task, setTask] = useState<UploadTask | null>(null);
 
   let realAlt = alt ? alt : filename;
   if (realAlt === "") {
@@ -209,8 +217,9 @@ function CreateDropzoneForMarkdownImage({
 
     // upload the file to firebase storage and generate a markdown image string "![alt](url)"
     const storageRef = ref(storage, `images/${file.name}_${timestamp}`);
-    uploadBytes(storageRef, file)
-      .then((snapshot) => {
+    const task = uploadBytesResumable(storageRef, file);
+    setTask(task);
+    task.then((snapshot) => {
         console.log("Uploaded a blob or file!", snapshot);
         getDownloadURL(snapshot.ref).then((url) => {
           setUrl(url);
@@ -243,11 +252,14 @@ function CreateDropzoneForMarkdownImage({
   return (
     <div className="flex flex-col gap-2 w-full justify-start items-center">
       <h3>{t["articles.new.global.add_image"]}</h3>
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="xs">
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="xs" isDismissable={false} isKeyboardDismissDisabled={true} className="z-[9999999999]">
         <ModalContent>
           <ModalBody>
             <div className=" flex justify-center items-center">
-              {error ? <div>{error}</div> : <CircularProgress size="lg" />}
+              {error ? <div>{error}</div> : <>
+                <CircularProgress size="lg" />
+                <Progress aria-label="Uploading..." value={task ? (task.snapshot.bytesTransferred/task.snapshot.totalBytes * 100) : 0} className="max-w-md"/>
+              </>}
             </div>
           </ModalBody>
         </ModalContent>

@@ -9,9 +9,7 @@ import { langToFlag } from "./NavBar";
 import { useTranslation } from "@/dictionaries/client";
 import { locales, defaultLocale } from "@/utils/langs";
 import Image from "next/image";
-import Markdown from "react-markdown";
-import rehypeRaw from "rehype-raw";
-import remarkGfm from "remark-gfm";
+import MarkdownRender from "./MarkdownRender";
 
 
 
@@ -25,13 +23,9 @@ function Article({data}: {data: PlantData}) {
       {data[defaultLocale].name}
     </p>
     <p className="text-sm text-black font-sans">
-      <Markdown
-          remarkPlugins={[remarkGfm]}
-          rehypePlugins={[rehypeRaw]}
-          className="space-y-5"
-        >
-          {data[defaultLocale].desc}
-        </Markdown>
+      <MarkdownRender>
+        {data[defaultLocale].desc}
+      </MarkdownRender>
     </p>
     </>)
 }

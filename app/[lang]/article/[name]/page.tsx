@@ -6,7 +6,10 @@ import {
   EditButton,
   IsUserLoggedIn,
 } from "@/components/RedirectButton";
-import { ToMapButton } from "@/components/map/ToMapButton";
+import { lazy } from "react";
+const ToMapButton = lazy(() => import("@/components/map/ToMapButton")
+  .then((mod) => ({ default: mod.ToMapButton }))
+);
 import RenderArticle from "@/components/RenderArticle";
 import { HomeProps } from "@/dictionaries/dictionaries";
 import { PlantData } from "@/utils/article";

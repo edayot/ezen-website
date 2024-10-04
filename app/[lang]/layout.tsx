@@ -4,8 +4,8 @@ import { TranslationProvider } from "@/dictionaries/client";
 import { getDictionary, HomeProps } from "@/dictionaries/dictionaries";
 import { NextUIProvider } from "@nextui-org/react";
 import type { Metadata } from "next";
-import { SetLangComponent } from "../../components/setLangComponent";
-import "../globals.css";
+import { SetLangComponent } from "@/components/setLangComponent";
+import "@/app/globals.css";
 
 export const metadata: Metadata = {
   title: "Ezen Garden",

@@ -15,7 +15,7 @@ import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { FiArrowDown, FiArrowUp, FiSearch } from "react-icons/fi";
-import { IsUserLoggedIn, NewArticle } from "./RedirectButton";
+import { IsUserLoggedIn, NewArticle } from "@/components/RedirectButton";
 
 import { useTranslation } from "@/dictionaries/client";
 import { collectionRef } from "@/utils/firebase";

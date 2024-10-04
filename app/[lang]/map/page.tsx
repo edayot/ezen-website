@@ -1,7 +1,11 @@
-import { MapWithArticles } from "@/components/map/AllMarkers";
+"use client";
+import { lazy } from "react";
+const MapWithArticles = lazy(() => import("@/components/map/AllMarkers")
+  .then((mod) => ({ default: mod.MapWithArticles }))
+);
 import { HomeProps } from "@/dictionaries/dictionaries";
 
-export default async function Home({
+export default function Home({
   params,
   searchParams,
 }: {

@@ -22,8 +22,8 @@ import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 import { FiBookOpen, FiGlobe, FiMap, FiUser } from "react-icons/fi";
 import { GenIcon, IconType } from "react-icons";
-import { IsUserLoggedIn } from "./RedirectButton";
-import { ThemeSwitch } from "./themes/Switch";
+import { IsUserLoggedIn } from "@/components/RedirectButton";
+import { ThemeSwitch } from "@/components/themes/Switch";
 
 
 const FiWhatsApp : IconType = (props: any) => {

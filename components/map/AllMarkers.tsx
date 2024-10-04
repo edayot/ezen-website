@@ -1,5 +1,8 @@
 "use client";
-import { MapViewer } from "@/components/map/Default";
+import { lazy } from "react";
+const MapViewer = lazy(() => import("@/components/map/Default")
+  .then((mod) => ({ default: mod.MapViewer }))
+);
 import { PlantData, Position } from "@/utils/article";
 import { collectionRef, storage } from "@/utils/firebase";
 import { locales } from "@/utils/langs";
@@ -16,8 +19,8 @@ import { getDownloadURL, listAll, ref } from "firebase/storage";
 import { Icon } from "leaflet";
 import { useEffect, useState, forwardRef, useRef } from "react";
 import { Marker, Popup, Rectangle } from "react-leaflet";
-import { Element } from "../ArticleCard";
-import { IsUserLoggedIn } from "../RedirectButton";
+import { Element } from "@/components/ArticleCard";
+import { IsUserLoggedIn } from "@/components/RedirectButton";
 import { QRCode } from "react-qrcode-logo";
 import { useToPng } from '@hugocxl/react-to-image'
 

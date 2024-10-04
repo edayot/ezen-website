@@ -4,10 +4,10 @@ import { Button, Tooltip } from "@nextui-org/react";
 import React, { useRef } from "react";
 import { FiCode } from "react-icons/fi";
 import {QRCode} from "react-qrcode-logo";
-import { langToFlag } from "./NavBar";
+import { langToFlag } from "@/components/NavBar";
 import { useTranslation } from "@/dictionaries/client";
 import { locales, defaultLocale } from "@/utils/langs";
-import MarkdownRender from "./MarkdownRender";
+import MarkdownRender from "@/components/MarkdownRender";
 import { useToPng } from '@hugocxl/react-to-image'
 
 
@@ -21,11 +21,11 @@ function Article({data}: {data: PlantData}) {
     <p className="text-xl text-black font-sans font-bold">
       {data[defaultLocale].name}
     </p>
-    <p className="text-sm text-black font-sans">
+    <div className="text-sm text-black font-sans">
       <MarkdownRender>
         {data[defaultLocale].desc}
       </MarkdownRender>
-    </p>
+    </div>
     </>)
 }
 

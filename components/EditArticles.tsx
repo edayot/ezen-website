@@ -21,12 +21,19 @@ import {
 import { addDoc, doc, setDoc } from "firebase/firestore";
 import { useState } from "react";
 import { FiCheck, FiInfo, FiSave } from "react-icons/fi";
-import { Element } from "./ArticleCard";
-import { LangSwitch } from "./NavBar";
-import RenderArticle from "./RenderArticle";
-import { EditMap } from "./map/EditMap";
-import { SelectMarker } from "./map/MarkerSelector";
-import { UploadMarker } from "./map/UploadMarkerComponent";
+import { Element } from "@/components/ArticleCard";
+import { LangSwitch } from "@/components/NavBar";
+import RenderArticle from "@/components/RenderArticle";
+import { lazy } from "react";
+const EditMap = lazy(() => import("@/components/map/EditMap")
+  .then((mod) => ({ default: mod.EditMap }))
+);
+const SelectMarker = lazy(() => import("@/components/map/MarkerSelector")
+  .then((mod) => ({ default: mod.SelectMarker }))
+);
+const UploadMarker = lazy(() => import("@/components/map/UploadMarkerComponent")
+  .then((mod) => ({ default: mod.UploadMarker }))
+);
 
 export function ArticleEditor({
   lang,

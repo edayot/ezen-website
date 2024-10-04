@@ -1,6 +1,9 @@
 "use client";
 
-import { MapWithArticles } from "@/components/map/AllMarkers";
+import { lazy } from "react";
+const MapWithArticles = lazy(() => import("@/components/map/AllMarkers")
+  .then((mod) => ({ default: mod.MapWithArticles }))
+);
 import { useTranslation } from "@/dictionaries/client";
 import { Position } from "@/utils/article";
 import { locales } from "@/utils/langs";

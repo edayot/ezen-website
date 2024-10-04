@@ -5,7 +5,7 @@ import { PlantData } from "@/utils/article";
 import { storage } from "@/utils/firebase";
 import { ref } from "firebase/storage";
 import { useState } from "react";
-import { UploadToCloud } from "../FormEditor";
+import { UploadToCloud } from "@/components/FormEditor";
 
 export function UploadMarker({
   all,

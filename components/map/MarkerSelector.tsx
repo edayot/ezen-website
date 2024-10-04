@@ -1,3 +1,4 @@
+"use client";
 import { useTranslation } from "@/dictionaries/client";
 import { PlantData } from "@/utils/article";
 import { storage } from "@/utils/firebase";

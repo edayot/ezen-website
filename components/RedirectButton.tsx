@@ -45,7 +45,6 @@ export function EditButton({ id }: { id: string }) {
   const t = useTranslation();
   return (
     <>
-      <div className="h-2"></div>
       <Tooltip content={t["articles.edit"]} placement="bottom">
         <Link href={`/articles/edit/${id}`}>
           <Button isIconOnly>
@@ -53,7 +52,6 @@ export function EditButton({ id }: { id: string }) {
           </Button>
         </Link>
       </Tooltip>
-      <div className="h-2"></div>
     </>
   );
 }
@@ -63,7 +61,6 @@ export function NewArticle() {
 
   return (
     <>
-      <div className="h-2"></div>
       <Tooltip content={t["articles.new.tooltip"]} placement="bottom">
         <Link href={`/articles/new`}>
           <Button isIconOnly>
@@ -71,7 +68,6 @@ export function NewArticle() {
           </Button>
         </Link>
       </Tooltip>
-      <div className="h-2"></div>
     </>
   );
 }

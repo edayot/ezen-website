@@ -45,7 +45,6 @@ export function DeleteButton({ id }: { id: string }) {
 
   return (
     <>
-      <div className="h-2"></div>
       <Tooltip content="Delete article ?" placement="bottom">
         <Button onClick={onOpen} isIconOnly>
           <FiX />
@@ -77,7 +76,6 @@ export function DeleteButton({ id }: { id: string }) {
           )}
         </ModalContent>
       </Modal>
-      <div className="h-2"></div>
     </>
   );
 }

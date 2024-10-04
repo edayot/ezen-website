@@ -21,13 +21,53 @@ import {
 import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 import { FiBookOpen, FiGlobe, FiMap, FiUser } from "react-icons/fi";
+import { GenIcon, IconType } from "react-icons";
 import { IsUserLoggedIn } from "./RedirectButton";
 import { ThemeSwitch } from "./themes/Switch";
+
+
+const FiWhatsApp : IconType = (props: any) => {
+  return GenIcon({
+    "tag": "svg",
+    "attr": {
+      "viewBox": "0 0 24 24",
+      "fill": "none",
+      "stroke": "currentColor",
+      "strokeWidth": "2",
+      "strokeLinecap": "round",
+      "strokeLinejoin": "round"
+    },
+    "child": [
+      {
+        "tag": "path",
+        "attr": {
+          "d": "M21 11.5a8.37 8.37 0 0 1-.9 3.8 8.49 8.49 0 0 1-7.6 4.7 8.37 8.37 0 0 1-3.8-.9L3 21l1.9-5.7a8.37 8.37 0 0 1-.9-3.8 8.49 8.49 0 0 1 4.7-7.6 8.37 8.37 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8Z"
+        },
+        child: []
+      },
+      {
+        "tag": "path",
+        "attr": {
+          "d": "M9.49 10a7.58 7.58 0 0 0 .72 1.42A8 8 0 0 0 14 14.5M9.49 10a7.47 7.47 0 0 1-.4-1.4.51.51 0 0 1 .52-.6h0a.54.54 0 0 1 .51.37l.38 1.13ZM14 14.5a7.8 7.8 0 0 0 1.43.41.51.51 0 0 0 .6-.52h0a.54.54 0 0 0-.37-.51l-1.16-.38Z"
+        },
+        child: []
+      }
+    ]
+  })(props);
+}
+
 
 function NavBarLeftContent({ size }: { size: number }) {
   const t = useTranslation();
   return (
     <>
+      <NavbarItem>
+        <Tooltip content={t["navbar.whatsapp"]} placement="bottom">
+          <Link href="https://wa.me/message/P6OJB25ZRPTSB1">
+            <FiWhatsApp size={30} color="#25D366"/>
+          </Link>
+        </Tooltip>
+      </NavbarItem>
       <NavbarItem>
         <Tooltip content={t["navbar.articles"]} placement="bottom">
           <Link href="/articles">

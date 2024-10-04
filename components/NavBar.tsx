@@ -46,10 +46,12 @@ function NavBarLeftContent({ size }: { size: number }) {
   );
 }
 
-export const langToFlag: Record<string, JSX.Element> = {
+export const langToFlag: Record<(typeof locales)[number], JSX.Element> = {
   en: <Avatar alt="en" size="sm" src="https://flagcdn.com/gb.svg" />,
   fr: <Avatar alt="fr" size="sm" src="https://flagcdn.com/fr.svg" />,
   it: <Avatar alt="it" size="sm" src="https://flagcdn.com/it.svg" />,
+  es: <Avatar alt="es" size="sm" src="https://flagcdn.com/es.svg" />,
+  de: <Avatar alt="de" size="sm" src="https://flagcdn.com/de.svg" />,
 };
 
 export function LangSwitch({

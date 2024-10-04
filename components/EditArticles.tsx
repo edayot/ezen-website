@@ -61,6 +61,16 @@ export function ArticleEditor({
       place: "",
       desc: "",
     },
+    es: {
+      name: "",
+      place: "",
+      desc: "",
+    },
+    de: {
+      name: "",
+      place: "",
+      desc: "",
+    },
   };
 
   const [data, setData] = useState<PlantData>({

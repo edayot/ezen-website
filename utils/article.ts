@@ -18,6 +18,8 @@ export interface PlantData {
   fr: LanguageData;
   en: LanguageData;
   it: LanguageData;
+  es: LanguageData;
+  de: LanguageData;
   date: number;
   position?: Position;
   disable_map_position: boolean;

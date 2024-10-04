@@ -10,7 +10,7 @@ First, run the development server:
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result, you are normally redirected to `/fr`, `/it` or `/en` depending on your browser language.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result, you are normally redirected to `/fr`, `/it`, `/de`, `/es` or `/en` depending on your browser language.
 
 To run prettier:
 

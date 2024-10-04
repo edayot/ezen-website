@@ -37,11 +37,15 @@ function ArticleMarker({
   const [mouseOnPopup, setMouseOnPopup] = useState(false);
 
   const [open, setOpen] = useState(false);
+  const [delay, setDelay] = useState(1000);
 
-  let delay = 1000;
-  if (window && window.matchMedia("(pointer: coarse)").matches) {
-    delay = 100;
-  }
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      if (window.matchMedia("(pointer: coarse)").matches) {
+        setDelay(50);
+      }
+    }
+  }, []);
 
   useEffect(() => {
     if (mouseOnMarker) {

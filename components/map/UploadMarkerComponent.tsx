@@ -14,14 +14,12 @@ export function UploadMarker({
   all: PlantData;
   setAll: (value: any) => void;
 }) {
-  const [error, setError] = useState("");
 
   const handleUploadComplete = (url: string) => {
     setAll({
       ...all,
       map_marker: url,
     });
-    setError("");
   };
 
   const transformImage = async (file: File): Promise<File> => {

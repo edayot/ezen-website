@@ -6,43 +6,57 @@ import { signInEmailPassword } from "@/utils/firebase";
 import { Button, Input } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import React from "react";
+import { toast, Bounce } from "react-toastify";
+import { useTheme } from "next-themes";
 
 export function LoginComponent() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [error, setError] = React.useState("");
   const [loading, setLoading] = React.useState(false);
+  const {theme} = useTheme();
+
+  const toastError = (message: string) => {
+    toast.error(message, {
+      position: "bottom-right",
+      autoClose: 2500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      transition: Bounce,
+      theme: theme,
+    });
+  }
 
   const router = useRouter();
 
   const onLogin = async () => {
-    setLoading(true);
     if (!email || !password) {
-      setError("Please fill in all fields");
-      setLoading(false);
+      toastError("Please fill in all fields");
       return;
     }
     if (!email.includes("@")) {
-      setError("Invalid email");
-      setLoading(false);
+      toastError("Invalid email");
       return;
     }
+    setLoading(true);
     try {
       let [res, err] = await signInEmailPassword(email, password);
 
       if (err) {
-        setError(err);
+        toastError(err);
         setLoading(false);
       } else if (res) {
-        setError("");
+        toastError("");
         router.push("/");
       } else {
-        setError("An error occurred");
+        toastError("An error occurred");
         setLoading(false);
       }
     } catch (e) {
       console.error(e);
-      setError("An error occurred");
+      toastError("An error occurred");
       setLoading(false);
     }
   };
@@ -75,7 +89,6 @@ export function LoginComponent() {
         >
           {t["auth.login.button"]}
         </Button>
-        <div className="text-red-600">{error}</div>
       </form>
     </div>
   );

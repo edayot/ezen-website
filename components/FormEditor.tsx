@@ -23,6 +23,8 @@ import { getDownloadURL, ref, StorageReference, uploadBytesResumable, UploadTask
 import { useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { FiUpload } from "react-icons/fi";
+import { toast, Bounce } from "react-toastify";
+import { useTheme } from "next-themes";
 
 function CreateInput({
   all,
@@ -86,7 +88,6 @@ function CreateGlobalInput({
   setAll: (value: any) => void;
   lang: string;
 }) {
-  const [error, setError] = useState("");
   const t = useTranslation();
 
   const handleUploadComplete = (url: string, filename: string, width?: number, height?: number) => {
@@ -97,7 +98,6 @@ function CreateGlobalInput({
       image_height: height,
       image_width: width,
     });
-    setError("");
   };
 
   return (
@@ -125,9 +125,23 @@ export function UploadToCloud({
   getStorageRef?: (filename: string) => StorageReference;
 }) {
   const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
-  const [error, setError] = useState("");
   const [task, setTask] = useState<UploadTask | null>(null);
   const [percent, setPercent] = useState(0);
+  const {theme} = useTheme();
+
+  const toastError = (message: string) => {
+    toast.error(message, {
+      position: "bottom-right",
+      autoClose: 2500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      transition: Bounce,
+      theme: theme,
+    });
+  }
 
   setInterval(() => {
     if (task) {
@@ -146,9 +160,9 @@ export function UploadToCloud({
       try {
         file = await transformImage(file);
       } catch (error) {
-        setError(`Error transforming file: ${error}`);
+        toastError(`Error transforming file: ${error}`);
         setTimeout(() => {
-          setError("");
+          toastError("");
           onClose();
         }, 3000);
         return;
@@ -171,16 +185,16 @@ export function UploadToCloud({
           console.log("Uploaded a blob or file!", snapshot);
           getDownloadURL(snapshot.ref).then((url) => {
             onUploadComplete(url, file.name, width, height);
-            setError("");
+            toastError("");
             onClose();
             setTask(null);
           });
         })
         .catch((error) => {
           console.error("Error uploading file", error);
-          setError(`Error uploading file: ${error}`);
+          toastError(`Error uploading file: ${error}`);
           setTimeout(() => {
-            setError("");
+            toastError("");
             onClose();
             setTask(null);
           }, 3000);
@@ -203,15 +217,14 @@ export function UploadToCloud({
 
   return (
     <div className="flex flex-col gap-2 w-full justify-start items-center">
-      <h3>{t["articles.new.global.upload_to_cloud"]}</h3>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="xs" isDismissable={false} isKeyboardDismissDisabled={true} className="z-[9999999999]" closeButton={<></>}>
         <ModalContent>
           <ModalBody>
             <div className="flex flex-col justify-center items-center">
-              {error ? <div>{error}</div> : <>
+              <>
                 <CircularProgress size="lg" />
                 <Progress aria-label="Uploading..." value={percent} className="max-w-md"/>
-              </>}
+              </>
             </div>
           </ModalBody>
         </ModalContent>

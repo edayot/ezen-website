@@ -25,6 +25,12 @@ import { Element } from "@/components/ArticleCard";
 import { LangSwitch } from "@/components/NavBar";
 import RenderArticle from "@/components/RenderArticle";
 import { lazy } from "react";
+import { useRouter } from "next/navigation";
+import { Bounce, toast } from "react-toastify";
+import { useTheme } from "next-themes";
+
+
+
 const EditMap = lazy(() => import("@/components/map/EditMap")
   .then((mod) => ({ default: mod.EditMap }))
 );
@@ -88,13 +94,33 @@ export function ArticleEditor({
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const t = useTranslation();
+  const router = useRouter();
+  const { theme } = useTheme();
+
   let saveIcon = <FiSave size={25} />;
   if (success) {
     saveIcon = <FiCheck size={25} />;
   }
-  const [error, setError] = useState("");
+
+  const toastError = (message: string) => {
+    toast.error(message, {
+      position: "bottom-right",
+      autoClose: 2500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      transition: Bounce,
+      theme: theme,
+    });
+  }
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+    if (!data.latin_name) {
+      toastError("Latin name is required to save the article");
+      return;
+    }
     setLoading(true);
     try {
       let timestamp = new Date().getTime();
@@ -113,14 +139,16 @@ export function ArticleEditor({
         });
         console.log("Document written with ID: ", docRef.id);
         setSuccess(true);
-        setData(initDataPlaceHolder);
         setTimeout(() => {
           setSuccess(false);
         }, 1000);
+        if (!id) {
+          router.push(`/article/${docRef.id}`);
+        }
       }
     } catch (e: any) {
       console.error("Error adding document: ", e);
-      setError(e.message);
+      toastError(e.message);
     }
     setLoading(false);
   };
@@ -154,7 +182,6 @@ export function ArticleEditor({
             </Button>
           </Tooltip>
         </div>
-        <div className="text-red-500">{error}</div>
       </div>
       <br />
       <Tabs aria-label="Options" className=" justify-center">

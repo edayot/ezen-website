@@ -71,9 +71,11 @@ function ArticleMarker({
   let marker = element.data.map_marker
     ? element.data.map_marker
     : markers["bush.png"];
-  // if the value is not in the map, use the default marker
-  if (!markers[marker]) {
-    marker = markers["bush.png"];
+  if (!marker.startsWith("http")) {
+    marker = markers[marker];
+    if (!marker) {
+      marker = markers["bush.png"];
+    }
   }
   const icon = new Icon({
     iconUrl: marker,

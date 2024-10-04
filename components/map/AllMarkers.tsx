@@ -36,7 +36,7 @@ function ArticleMarker({
   const [open, setOpen] = useState(false);
 
   let delay = 1000;
-  if (window.matchMedia("(pointer: coarse)").matches) {
+  if (window && window.matchMedia("(pointer: coarse)").matches) {
     delay = 100;
   }
 

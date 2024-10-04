@@ -34,6 +34,8 @@ function BottomQRCode({url}: {url: string}) {
     fr: "Article en entier sur :",
     en: "Full article on :",
     it: "Articolo completo su :",
+    es: "Artículo completo en :",
+    de: "Vollständiger Artikel auf :",
   }
   return (<>
   <div className="flex flex-row justify-between w-full h-full items-center">

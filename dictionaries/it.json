@@ -4,7 +4,9 @@
     "lang_switch": {
       "en": "Inglese",
       "it": "Italiano",
-      "fr": "Francese"
+      "fr": "Francese",
+      "es": "Spagnolo",
+      "de": "Tedesco"
     },
     "lang_switch_tooltip": "Cambia lingua",
     "articles": "Articoli",

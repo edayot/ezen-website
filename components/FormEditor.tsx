@@ -360,10 +360,18 @@ function FormEditor({
             </div>
           </div>
         </div>
-        <div className=" flex flex-col lg:flex-row gap-2">
-          <CreateInput all={all} setAll={setAll} lang="fr" />
-          <CreateInput all={all} setAll={setAll} lang="en" />
-          <CreateInput all={all} setAll={setAll} lang="it" />
+        <div className=" flex flex-col gap-2">
+          <div className=" flex flex-col lg:flex-row gap-2">
+            <CreateInput all={all} setAll={setAll} lang="fr" />
+            <CreateInput all={all} setAll={setAll} lang="en" />
+            <CreateInput all={all} setAll={setAll} lang="it" />
+          </div>
+          <Divider orientation="horizontal" className="lg:hidden" />
+          <Divider orientation="vertical" className="lg:hidden" />
+          <div className=" flex flex-col lg:flex-row gap-2">
+            <CreateInput all={all} setAll={setAll} lang="es" />
+            <CreateInput all={all} setAll={setAll} lang="de" />
+          </div>
         </div>
       </div>
     </>

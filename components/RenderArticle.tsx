@@ -38,8 +38,14 @@ export default function RenderArticle({
               <></>
             )}
           </div>
-          <h1>{name}</h1>
-          <h2>{data[lang].place}</h2>
+          <div className="flex flex-row items-center gap-2">
+            <h1 className="text-xl font-sans font-bold">
+              {data[lang].name}
+            </h1>
+            <p className="text-sm font-sans italic">
+              ({data.latin_name})
+            </p>
+          </div>
           <div className="my-markdown-container">
             <MarkdownRender>{data[lang].desc}</MarkdownRender>
             </div>

@@ -5,8 +5,8 @@ import { NotFound } from "@/components/NotFoundComponent";
 import {
   EditButton,
   IsUserLoggedIn,
-  ToMapButton,
 } from "@/components/RedirectButton";
+import { ToMapButton } from "@/components/map/ToMapButton";
 import RenderArticle from "@/components/RenderArticle";
 import { HomeProps } from "@/dictionaries/dictionaries";
 import { PlantData } from "@/utils/article";

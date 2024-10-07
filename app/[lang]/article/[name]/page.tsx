@@ -1,4 +1,4 @@
-"use server";
+"use client";
 import { DeleteButton } from "@/components/DeleteButton";
 import { ExportButton } from "@/components/ExportButton";
 import { NotFound } from "@/components/NotFoundComponent";
@@ -8,22 +8,32 @@ import { HomeProps } from "@/dictionaries/dictionaries";
 import { PlantData } from "@/utils/article";
 import { collectionRef } from "@/utils/firebase";
 import { doc, getDoc } from "@firebase/firestore";
-import { lazy } from "react";
+import { lazy, useEffect, useState } from "react";
 const ToMapButton = lazy(() =>
   import("@/components/map/ToMapButton").then((mod) => ({
     default: mod.ToMapButton,
   })),
 );
 
-export default async function Home({ params }: { params: HomeProps }) {
-  const document = await getDoc(doc(collectionRef, params.name));
-  const data: PlantData = document.data() as PlantData;
+export default function Home({ params }: { params: HomeProps }) {
 
-  if (!data) {
-    return <NotFound />;
+  const [data, setData] = useState<PlantData | null>(null);
+
+  useEffect(() => {
+    getDoc(doc(collectionRef, params.name)).then((document) => {
+      setData(document.data() as PlantData);
+    });
+  }, [params.name]);
+
+
+  if (data === null) {
+    return <></>;
+  }
+  if (data === undefined) {
+    return <NotFound id={params.name} />;
   }
   if (!params.bypass && (data.disable_in_search || data.disable_map_position)) {
-    return <NotFound id={document.id} />;
+    return <NotFound id={params.name} />;
   }
 
   return (
@@ -31,9 +41,9 @@ export default async function Home({ params }: { params: HomeProps }) {
       <div className="flex justify-center items-center">
         <div className="flex flex-row justify-end items-end w-11/12 m-2 gap-2">
           <IsUserLoggedIn>
-            {data.protected ? <></> : <DeleteButton id={document.id} />}
-            <ExportButton id={document.id} data={data} />
-            <EditButton id={document.id} />
+            {data.protected ? <></> : <DeleteButton id={params.name} />}
+            <ExportButton id={params.name} data={data} />
+            <EditButton id={params.name} />
           </IsUserLoggedIn>
           {data.position && !data.disable_map_position ? (
             <ToMapButton pos={data.position} lang={params.lang} />

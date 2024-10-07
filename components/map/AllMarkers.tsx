@@ -235,7 +235,7 @@ export function MapWithArticles({
 // Define the QR code component with a forwardRef
 function ComponentToPrint({ url }: { url: string }) {
   return (
-    <div className="p-4 bg-white flex justify-center items-center h-[24rem] w-[24rem]">
+    <div className="p-4 bg-white flex justify-center items-center m-4">
       <QRCodeSVG
         value={url}
         size={128}

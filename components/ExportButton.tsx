@@ -106,7 +106,7 @@ export function ExportButton({ id, data }: { id: string; data: PlantData }) {
 
   return (
     <>
-      <div style={{ position: "absolute", left: "100px", top: "600px" }}>
+      <div style={{ position: "absolute", left: "-1000000px", top: "600px" }}>
         <div ref={fullRef}>
           <ComponentToPrint url={url} data={data} />
         </div>

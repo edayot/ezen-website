@@ -15,7 +15,7 @@ import {
 import { useToPng } from "@hugocxl/react-to-image";
 import { Button, Card, CardBody, Snippet } from "@nextui-org/react";
 import { getDownloadURL, listAll, ref } from "firebase/storage";
-import { Icon } from "leaflet";
+import { DivIcon, Icon } from "leaflet";
 import { QRCodeSVG } from "qrcode.react";
 import { lazy, useEffect, useState } from "react";
 import { Marker, Popup, Rectangle } from "react-leaflet";
@@ -276,8 +276,16 @@ function CreateCubiqueMapURL({
     [10, 10],
   ]);
 
+  const icon = new DivIcon({
+    className: "custom-div-icon",
+    html: `<div style="background-color: #f00; width: 10px; height: 10px; border-radius: 50%;"></div>`,
+    iconSize: [10, 10],
+    iconAnchor: [5, 5],
+  });
+
   const marker1 = (
     <Marker
+      icon={icon}
       position={pos1}
       draggable={true}
       eventHandlers={{
@@ -293,6 +301,7 @@ function CreateCubiqueMapURL({
   );
   const marker2 = (
     <Marker
+      icon={icon}
       position={pos2}
       draggable={true}
       eventHandlers={{
@@ -331,8 +340,10 @@ function CreateCubiqueMapURL({
 
             {open ? (
               <>
-                <div ref={ref}>
-                  <ComponentToPrint url={copyURL} />
+                <div className="flex justify-center items-center">
+                  <div ref={ref}>
+                    <ComponentToPrint url={copyURL} />
+                  </div>
                 </div>
                 <Snippet symbol="" codeString={copyURL} size="sm">
                   {copyURL.slice(0, 56)}...

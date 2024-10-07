@@ -13,18 +13,24 @@ import {
   Modal,
   ModalBody,
   ModalContent,
+  Progress,
   Snippet,
   Switch,
   Textarea,
   useDisclosure,
-  Progress,
 } from "@nextui-org/react";
-import { getDownloadURL, ref, StorageReference, uploadBytesResumable, UploadTask } from "firebase/storage";
+import {
+  getDownloadURL,
+  ref,
+  StorageReference,
+  uploadBytesResumable,
+  UploadTask,
+} from "firebase/storage";
+import { useTheme } from "next-themes";
 import { useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { FiUpload } from "react-icons/fi";
-import { toast, Bounce } from "react-toastify";
-import { useTheme } from "next-themes";
+import { Bounce, toast } from "react-toastify";
 
 function CreateInput({
   all,
@@ -90,7 +96,12 @@ function CreateGlobalInput({
 }) {
   const t = useTranslation();
 
-  const handleUploadComplete = (url: string, filename: string, width?: number, height?: number) => {
+  const handleUploadComplete = (
+    url: string,
+    filename: string,
+    width?: number,
+    height?: number,
+  ) => {
     setAll({
       ...all,
       image: url,
@@ -120,14 +131,19 @@ export function UploadToCloud({
   transformImage,
   getStorageRef,
 }: {
-  onUploadComplete: (url: string, filename: string, width?: number, height?: number) => void;
+  onUploadComplete: (
+    url: string,
+    filename: string,
+    width?: number,
+    height?: number,
+  ) => void;
   transformImage?: (file: File) => Promise<File>;
   getStorageRef?: (filename: string) => StorageReference;
 }) {
   const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
   const [task, setTask] = useState<UploadTask | null>(null);
   const [percent, setPercent] = useState(0);
-  const {theme} = useTheme();
+  const { theme } = useTheme();
 
   const toastError = (message: string) => {
     toast.error(message, {
@@ -141,11 +157,13 @@ export function UploadToCloud({
       transition: Bounce,
       theme: theme,
     });
-  }
+  };
 
   setInterval(() => {
     if (task) {
-      setPercent((task.snapshot.bytesTransferred / task.snapshot.totalBytes) * 100);
+      setPercent(
+        (task.snapshot.bytesTransferred / task.snapshot.totalBytes) * 100,
+      );
     } else {
       setPercent(0);
     }
@@ -181,7 +199,8 @@ export function UploadToCloud({
       }
       const task = uploadBytesResumable(storageRef, file);
       setTask(task);
-      task.then((snapshot) => {
+      task
+        .then((snapshot) => {
           console.log("Uploaded a blob or file!", snapshot);
           getDownloadURL(snapshot.ref).then((url) => {
             onUploadComplete(url, file.name, width, height);
@@ -217,13 +236,25 @@ export function UploadToCloud({
 
   return (
     <div className="flex flex-col gap-2 w-full justify-start items-center">
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="xs" isDismissable={false} isKeyboardDismissDisabled={true} className="z-[9999999999]" closeButton={<></>}>
+      <Modal
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        size="xs"
+        isDismissable={false}
+        isKeyboardDismissDisabled={true}
+        className="z-[9999999999]"
+        closeButton={<></>}
+      >
         <ModalContent>
           <ModalBody>
             <div className="flex flex-col justify-center items-center">
               <>
                 <CircularProgress size="lg" />
-                <Progress aria-label="Uploading..." value={percent} className="max-w-md"/>
+                <Progress
+                  aria-label="Uploading..."
+                  value={percent}
+                  className="max-w-md"
+                />
               </>
             </div>
           </ModalBody>
@@ -272,7 +303,6 @@ function CreateDropzoneForMarkdownImage({
   };
 
   const t = useTranslation();
-
 
   return (
     <div className="flex flex-col gap-2 w-full justify-start items-center">

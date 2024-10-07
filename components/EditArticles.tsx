@@ -1,5 +1,8 @@
 "use client";
+import { Element } from "@/components/ArticleCard";
 import FormEditor from "@/components/FormEditor";
+import { LangSwitch } from "@/components/NavBar";
+import RenderArticle from "@/components/RenderArticle";
 import { useTranslation } from "@/dictionaries/client";
 import { PlantData } from "@/utils/article";
 import { collectionRef } from "@/utils/firebase";
@@ -19,26 +22,24 @@ import {
   useDisclosure,
 } from "@nextui-org/react";
 import { addDoc, doc, setDoc } from "firebase/firestore";
-import { useState } from "react";
-import { FiCheck, FiInfo, FiSave } from "react-icons/fi";
-import { Element } from "@/components/ArticleCard";
-import { LangSwitch } from "@/components/NavBar";
-import RenderArticle from "@/components/RenderArticle";
-import { lazy } from "react";
-import { useRouter } from "next/navigation";
-import { Bounce, toast } from "react-toastify";
 import { useTheme } from "next-themes";
+import { useRouter } from "next/navigation";
+import { lazy, useState } from "react";
+import { FiCheck, FiInfo, FiSave } from "react-icons/fi";
+import { Bounce, toast } from "react-toastify";
 
-
-
-const EditMap = lazy(() => import("@/components/map/EditMap")
-  .then((mod) => ({ default: mod.EditMap }))
+const EditMap = lazy(() =>
+  import("@/components/map/EditMap").then((mod) => ({ default: mod.EditMap })),
 );
-const SelectMarker = lazy(() => import("@/components/map/MarkerSelector")
-  .then((mod) => ({ default: mod.SelectMarker }))
+const SelectMarker = lazy(() =>
+  import("@/components/map/MarkerSelector").then((mod) => ({
+    default: mod.SelectMarker,
+  })),
 );
-const UploadMarker = lazy(() => import("@/components/map/UploadMarkerComponent")
-  .then((mod) => ({ default: mod.UploadMarker }))
+const UploadMarker = lazy(() =>
+  import("@/components/map/UploadMarkerComponent").then((mod) => ({
+    default: mod.UploadMarker,
+  })),
 );
 
 export function ArticleEditor({
@@ -114,7 +115,7 @@ export function ArticleEditor({
       transition: Bounce,
       theme: theme,
     });
-  }
+  };
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     if (!data.latin_name) {

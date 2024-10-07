@@ -1,13 +1,13 @@
 "use client";
+import { UploadToCloud } from "@/components/FormEditor";
 import { IsUserLoggedIn, RedirectComponent } from "@/components/RedirectButton";
 import { useTranslation } from "@/dictionaries/client";
 import { HomeProps } from "@/dictionaries/dictionaries";
 import { auth, mapRef, signOutGlobal } from "@/utils/firebase";
 import { Button, Image, Snippet } from "@nextui-org/react";
-import { getDownloadURL, ref } from "firebase/storage";
+import { getDownloadURL } from "firebase/storage";
 import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
-import { UploadToCloud } from "@/components/FormEditor";
 
 export default function Home({ params }: { params: HomeProps }) {
   const t = useTranslation();

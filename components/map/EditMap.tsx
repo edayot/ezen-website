@@ -2,13 +2,13 @@
 
 import { PlantData } from "@/utils/article";
 import { Icon } from "leaflet";
-import { useRef, useState } from "react";
+import { lazy, useRef, useState } from "react";
 import { Marker } from "react-leaflet";
-import { lazy } from "react";
-const MapViewer = lazy(() => import("@/components/map/Default")
-  .then((mod) => ({ default: mod.MapViewer }))
+const MapViewer = lazy(() =>
+  import("@/components/map/Default").then((mod) => ({
+    default: mod.MapViewer,
+  })),
 );
-
 
 function DrageableMarker({
   all,

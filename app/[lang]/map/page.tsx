@@ -1,11 +1,12 @@
 "use client";
-import { lazy } from "react";
-const MapWithArticles = lazy(() => import("@/components/map/AllMarkers")
-  .then((mod) => ({ default: mod.MapWithArticles }))
-);
 import { HomeProps } from "@/dictionaries/dictionaries";
 import { Position } from "@/utils/article";
-import { useState, useEffect } from "react";
+import { lazy, useEffect, useState } from "react";
+const MapWithArticles = lazy(() =>
+  import("@/components/map/AllMarkers").then((mod) => ({
+    default: mod.MapWithArticles,
+  })),
+);
 
 export default function Home({
   params,
@@ -19,7 +20,7 @@ export default function Home({
     bound11?: string;
   };
 }) {
-  let bounds : any = undefined
+  let bounds: any = undefined;
   if (
     searchParams.bound00 &&
     searchParams.bound01 &&
@@ -35,7 +36,7 @@ export default function Home({
         x: parseFloat(searchParams.bound10),
         y: parseFloat(searchParams.bound11),
       } as Position,
-    ]
+    ];
   }
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -44,7 +45,7 @@ export default function Home({
     }
   }, []);
   if (loading) {
-    return <></>
+    return <></>;
   }
   return (
     <div className="w-screen fixed top-16 bottom-0">

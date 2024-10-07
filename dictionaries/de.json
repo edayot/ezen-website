@@ -1,96 +1,95 @@
 {
-    "navbar": {
-      "whatsapp": "Kontaktieren Sie uns über WhatsApp",
-      "theme_switch": "Thema wechseln",
-      "lang_switch": {
-        "en": "Englisch",
-        "it": "Italienisch",
-        "fr": "Französisch",
-        "es": "Spanisch",
-        "de": "Deutsch"
+  "navbar": {
+    "whatsapp": "Kontaktieren Sie uns über WhatsApp",
+    "theme_switch": "Thema wechseln",
+    "lang_switch": {
+      "en": "Englisch",
+      "it": "Italienisch",
+      "fr": "Französisch",
+      "es": "Spanisch",
+      "de": "Deutsch"
+    },
+    "lang_switch_tooltip": "Sprache wechseln",
+    "articles": "Artikel",
+    "map": "Karte",
+    "login": "Anmelden",
+    "account": "Konto"
+  },
+  "footer": {
+    "madeBy": "Erstellt von 143Me221"
+  },
+  "auth": {
+    "login": {
+      "title": "Anmelden",
+      "button": "Anmelden",
+      "email": "E-Mail",
+      "password": "Passwort",
+      "password_placeholder": "Geben Sie Ihr Passwort ein"
+    },
+    "account": {
+      "title": "Kontoinformationen",
+      "email": "E-Mail: ",
+      "uid": "UID: ",
+      "signout": "Abmelden",
+      "change_map": "Kartenhintergrund ändern",
+      "change_map_small": "(möglicherweise müssen Sie die Position aller Artikel ändern)",
+      "dropzone": "Zum Hochladen eines Bildes ablegen oder klicken"
+    }
+  },
+  "articles": {
+    "title": "Artikel",
+    "search": "Suche",
+    "edit": "Artikel bearbeiten",
+    "map_button": "Auf der Karte anzeigen",
+    "new": {
+      "tooltip": "Neuen Artikel hinzufügen",
+      "tabs": {
+        "form": "Formular",
+        "set_map_position": "Kartenposition festlegen",
+        "small_preview": "Kleine Vorschau",
+        "full_article": "Vollständiger Artikel"
       },
-      "lang_switch_tooltip": "Sprache wechseln",
-      "articles": "Artikel",
-      "map": "Karte",
-      "login": "Anmelden",
-      "account": "Konto"
-    },
-    "footer": {
-      "madeBy": "Erstellt von 143Me221"
-    },
-    "auth": {
-      "login": {
-        "title": "Anmelden",
-        "button": "Anmelden",
-        "email": "E-Mail",
-        "password": "Passwort",
-        "password_placeholder": "Geben Sie Ihr Passwort ein"
+      "switch": {
+        "disable_map_position": "Kartenposition deaktivieren",
+        "disable_in_search": "In Suchergebnissen deaktivieren",
+        "protected": "Artikel vor dem Löschen schützen"
       },
-      "account": {
-        "title": "Kontoinformationen",
-        "email": "E-Mail: ",
-        "uid": "UID: ",
-        "signout": "Abmelden",
-        "change_map": "Kartenhintergrund ändern",
-        "change_map_small": "(möglicherweise müssen Sie die Position aller Artikel ändern)",
-        "dropzone": "Zum Hochladen eines Bildes ablegen oder klicken"
-      }
-    },
-    "articles": {
-      "title": "Artikel",
-      "search": "Suche",
-      "edit": "Artikel bearbeiten",
-      "map_button": "Auf der Karte anzeigen",
-      "new": {
-        "tooltip": "Neuen Artikel hinzufügen",
-        "tabs": {
-          "form": "Formular",
-          "set_map_position": "Kartenposition festlegen",
-          "small_preview": "Kleine Vorschau",
-          "full_article": "Vollständiger Artikel"
+      "global": {
+        "markdown_cheat_sheet": "Ein kleiner Leitfaden für das Markdown-Format",
+        "markdown_cheat_sheet_title": "Markdown-Leitfaden",
+        "change_article_lang": "Artikelsprache ändern (aktuell: %s)",
+        "title": "Globale Eingaben",
+        "article_image": "Artikelbild (wird überall angezeigt)",
+        "add_image": "Bild zur Beschreibung hinzufügen",
+        "label": {
+          "latin_name": "Lateinischer Name",
+          "markdown_alt": "Markdown-Alternative"
         },
-        "switch": {
-          "disable_map_position": "Kartenposition deaktivieren",
-          "disable_in_search": "In Suchergebnissen deaktivieren",
-          "protected": "Artikel vor dem Löschen schützen"
+        "placeholder": {
+          "latin_name": "Lorem ipsum",
+          "markdown_alt": "Schema der Pflanze"
         },
-        "global": {
-          "markdown_cheat_sheet": "Ein kleiner Leitfaden für das Markdown-Format",
-          "markdown_cheat_sheet_title": "Markdown-Leitfaden",
-          "change_article_lang": "Artikelsprache ändern (aktuell: %s)",
-          "title": "Globale Eingaben",
-          "article_image": "Artikelbild (wird überall angezeigt)",
-          "add_image": "Bild zur Beschreibung hinzufügen",
-          "label": {
-            "latin_name": "Lateinischer Name",
-            "markdown_alt": "Markdown-Alternative"
-          },
-          "placeholder": {
-            "latin_name": "Lorem ipsum",
-            "markdown_alt": "Schema der Pflanze"
-          },
-          "drop_image": "Zum Hochladen eines Bildes ablegen oder klicken",
-          "drop_image_filename": "Zum Ersetzen des Bildes %s ablegen oder klicken",
-          "save": "Artikel in der Datenbank speichern"
+        "drop_image": "Zum Hochladen eines Bildes ablegen oder klicken",
+        "drop_image_filename": "Zum Ersetzen des Bildes %s ablegen oder klicken",
+        "save": "Artikel in der Datenbank speichern"
+      },
+      "local_input": {
+        "label": {
+          "name": "Name",
+          "place": "Ort im Garten",
+          "desc": "Beschreibung"
         },
-        "local_input": {
-          "label": {
-            "name": "Name",
-            "place": "Ort im Garten",
-            "desc": "Beschreibung"
-          },
-          "placeholder": {
-            "name": "Gartenrose",
-            "place": "Draußen",
-            "desc": "Gartenrosen sind überwiegend Hybriden, die gezüchtet werden ..."
-          }
-        },
-        "map": {
-          "label": {
-            "marker": "Marker-Symbol"
-          }
+        "placeholder": {
+          "name": "Gartenrose",
+          "place": "Draußen",
+          "desc": "Gartenrosen sind überwiegend Hybriden, die gezüchtet werden ..."
+        }
+      },
+      "map": {
+        "label": {
+          "marker": "Marker-Symbol"
         }
       }
     }
   }
-  
+}

@@ -4,16 +4,16 @@ import { PasswordInput } from "@/components/password/Input";
 import { useTranslation } from "@/dictionaries/client";
 import { signInEmailPassword } from "@/utils/firebase";
 import { Button, Input } from "@nextui-org/react";
+import { useTheme } from "next-themes";
 import { useRouter } from "next/navigation";
 import React from "react";
-import { toast, Bounce } from "react-toastify";
-import { useTheme } from "next-themes";
+import { Bounce, toast } from "react-toastify";
 
 export function LoginComponent() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [loading, setLoading] = React.useState(false);
-  const {theme} = useTheme();
+  const { theme } = useTheme();
 
   const toastError = (message: string) => {
     toast.error(message, {
@@ -27,7 +27,7 @@ export function LoginComponent() {
       transition: Bounce,
       theme: theme,
     });
-  }
+  };
 
   const router = useRouter();
 

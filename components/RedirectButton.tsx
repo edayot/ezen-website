@@ -1,10 +1,7 @@
 "use client";
 import { useTranslation } from "@/dictionaries/client";
 import { auth } from "@/utils/firebase";
-import {
-  Button,
-  Tooltip,
-} from "@nextui-org/react";
+import { Button, Tooltip } from "@nextui-org/react";
 import { useTheme } from "next-themes";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -71,7 +68,6 @@ export function NewArticle() {
     </>
   );
 }
-
 
 export function RedirectComponent({
   href,

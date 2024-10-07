@@ -2,19 +2,18 @@
 import { DeleteButton } from "@/components/DeleteButton";
 import { ExportButton } from "@/components/ExportButton";
 import { NotFound } from "@/components/NotFoundComponent";
-import {
-  EditButton,
-  IsUserLoggedIn,
-} from "@/components/RedirectButton";
-import { lazy } from "react";
-const ToMapButton = lazy(() => import("@/components/map/ToMapButton")
-  .then((mod) => ({ default: mod.ToMapButton }))
-);
+import { EditButton, IsUserLoggedIn } from "@/components/RedirectButton";
 import RenderArticle from "@/components/RenderArticle";
 import { HomeProps } from "@/dictionaries/dictionaries";
 import { PlantData } from "@/utils/article";
 import { collectionRef } from "@/utils/firebase";
 import { doc, getDoc } from "@firebase/firestore";
+import { lazy } from "react";
+const ToMapButton = lazy(() =>
+  import("@/components/map/ToMapButton").then((mod) => ({
+    default: mod.ToMapButton,
+  })),
+);
 
 export default async function Home({ params }: { params: HomeProps }) {
   const document = await getDoc(doc(collectionRef, params.name));
@@ -33,7 +32,7 @@ export default async function Home({ params }: { params: HomeProps }) {
         <div className="flex flex-row justify-end items-end w-11/12 m-2 gap-2">
           <IsUserLoggedIn>
             {data.protected ? <></> : <DeleteButton id={document.id} />}
-            <ExportButton id={document.id} data={data}/>
+            <ExportButton id={document.id} data={data} />
             <EditButton id={document.id} />
           </IsUserLoggedIn>
           {data.position && !data.disable_map_position ? (

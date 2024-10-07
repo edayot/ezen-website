@@ -1,96 +1,95 @@
 {
-    "navbar": {
-      "whatsapp": "Contáctanos en WhatsApp",
-      "theme_switch": "Cambiar tema",
-      "lang_switch": {
-        "en": "Inglés",
-        "it": "Italiano",
-        "fr": "Francés",
-        "es": "Español",
-        "de": "Alemán"
+  "navbar": {
+    "whatsapp": "Contáctanos en WhatsApp",
+    "theme_switch": "Cambiar tema",
+    "lang_switch": {
+      "en": "Inglés",
+      "it": "Italiano",
+      "fr": "Francés",
+      "es": "Español",
+      "de": "Alemán"
+    },
+    "lang_switch_tooltip": "Cambiar idioma",
+    "articles": "Artículos",
+    "map": "Mapa",
+    "login": "Iniciar sesión",
+    "account": "Cuenta"
+  },
+  "footer": {
+    "madeBy": "Hecho por 143Me221"
+  },
+  "auth": {
+    "login": {
+      "title": "Iniciar sesión",
+      "button": "Iniciar sesión",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "password_placeholder": "Ingrese su contraseña"
+    },
+    "account": {
+      "title": "Información de la cuenta",
+      "email": "Correo electrónico: ",
+      "uid": "UID: ",
+      "signout": "Cerrar sesión",
+      "change_map": "Cambiar fondo del mapa",
+      "change_map_small": "(es posible que deba cambiar la posición de todos los artículos)",
+      "dropzone": "Suelte o haga clic para cargar una imagen"
+    }
+  },
+  "articles": {
+    "title": "Artículos",
+    "search": "Buscar",
+    "edit": "Editar artículo",
+    "map_button": "Mostrar en el mapa",
+    "new": {
+      "tooltip": "Agregar nuevo artículo",
+      "tabs": {
+        "form": "Formulario",
+        "set_map_position": "Establecer posición en el mapa",
+        "small_preview": "Pequeña vista previa",
+        "full_article": "Artículo completo"
       },
-      "lang_switch_tooltip": "Cambiar idioma",
-      "articles": "Artículos",
-      "map": "Mapa",
-      "login": "Iniciar sesión",
-      "account": "Cuenta"
-    },
-    "footer": {
-      "madeBy": "Hecho por 143Me221"
-    },
-    "auth": {
-      "login": {
-        "title": "Iniciar sesión",
-        "button": "Iniciar sesión",
-        "email": "Correo electrónico",
-        "password": "Contraseña",
-        "password_placeholder": "Ingrese su contraseña"
+      "switch": {
+        "disable_map_position": "Deshabilitar posición en el mapa",
+        "disable_in_search": "Deshabilitar en resultados de búsqueda",
+        "protected": "Proteger artículo de ser eliminado"
       },
-      "account": {
-        "title": "Información de la cuenta",
-        "email": "Correo electrónico: ",
-        "uid": "UID: ",
-        "signout": "Cerrar sesión",
-        "change_map": "Cambiar fondo del mapa",
-        "change_map_small": "(es posible que deba cambiar la posición de todos los artículos)",
-        "dropzone": "Suelte o haga clic para cargar una imagen"
-      }
-    },
-    "articles": {
-      "title": "Artículos",
-      "search": "Buscar",
-      "edit": "Editar artículo",
-      "map_button": "Mostrar en el mapa",
-      "new": {
-        "tooltip": "Agregar nuevo artículo",
-        "tabs": {
-          "form": "Formulario",
-          "set_map_position": "Establecer posición en el mapa",
-          "small_preview": "Pequeña vista previa",
-          "full_article": "Artículo completo"
+      "global": {
+        "markdown_cheat_sheet": "Una pequeña guía para el formato markdown",
+        "markdown_cheat_sheet_title": "Guía de markdown",
+        "change_article_lang": "Cambiar idioma del artículo (actual: %s)",
+        "title": "Entradas globales",
+        "article_image": "Imagen del artículo (se muestra en todas partes)",
+        "add_image": "Agregar una imagen a la descripción",
+        "label": {
+          "latin_name": "Nombre latino",
+          "markdown_alt": "Alternativa en markdown"
         },
-        "switch": {
-          "disable_map_position": "Deshabilitar posición en el mapa",
-          "disable_in_search": "Deshabilitar en resultados de búsqueda",
-          "protected": "Proteger artículo de ser eliminado"
+        "placeholder": {
+          "latin_name": "Lorem ipsum",
+          "markdown_alt": "Esquema de la planta"
         },
-        "global": {
-          "markdown_cheat_sheet": "Una pequeña guía para el formato markdown",
-          "markdown_cheat_sheet_title": "Guía de markdown",
-          "change_article_lang": "Cambiar idioma del artículo (actual: %s)",
-          "title": "Entradas globales",
-          "article_image": "Imagen del artículo (se muestra en todas partes)",
-          "add_image": "Agregar una imagen a la descripción",
-          "label": {
-            "latin_name": "Nombre latino",
-            "markdown_alt": "Alternativa en markdown"
-          },
-          "placeholder": {
-            "latin_name": "Lorem ipsum",
-            "markdown_alt": "Esquema de la planta"
-          },
-          "drop_image": "Suelte o haga clic para cargar una imagen",
-          "drop_image_filename": "Suelte o haga clic para reemplazar la imagen %s",
-          "save": "Guardar artículo en la base de datos"
+        "drop_image": "Suelte o haga clic para cargar una imagen",
+        "drop_image_filename": "Suelte o haga clic para reemplazar la imagen %s",
+        "save": "Guardar artículo en la base de datos"
+      },
+      "local_input": {
+        "label": {
+          "name": "Nombre",
+          "place": "Lugar en el jardín",
+          "desc": "Descripción"
         },
-        "local_input": {
-          "label": {
-            "name": "Nombre",
-            "place": "Lugar en el jardín",
-            "desc": "Descripción"
-          },
-          "placeholder": {
-            "name": "Rosa de jardín",
-            "place": "Exterior",
-            "desc": "Las rosas de jardín son predominantemente híbridos cultivados..."
-          }
-        },
-        "map": {
-          "label": {
-            "marker": "Ícono del marcador"
-          }
+        "placeholder": {
+          "name": "Rosa de jardín",
+          "place": "Exterior",
+          "desc": "Las rosas de jardín son predominantemente híbridos cultivados..."
+        }
+      },
+      "map": {
+        "label": {
+          "marker": "Ícono del marcador"
         }
       }
     }
   }
-  
+}

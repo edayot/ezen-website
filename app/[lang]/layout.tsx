@@ -1,10 +1,10 @@
 import { Footer } from "@/components/Footer";
 import NavBar from "@/components/NavBar";
+import { SetLangComponent } from "@/components/setLangComponent";
 import { TranslationProvider } from "@/dictionaries/client";
 import { getDictionary, HomeProps } from "@/dictionaries/dictionaries";
 import { NextUIProvider } from "@nextui-org/react";
 import type { Metadata } from "next";
-import { SetLangComponent } from "@/components/setLangComponent";
 
 export const metadata: Metadata = {
   title: "Ezen Garden",

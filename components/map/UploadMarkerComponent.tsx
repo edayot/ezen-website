@@ -1,11 +1,10 @@
 "use client";
 
+import { UploadToCloud } from "@/components/FormEditor";
 import { useTranslation } from "@/dictionaries/client";
 import { PlantData } from "@/utils/article";
 import { storage } from "@/utils/firebase";
 import { ref } from "firebase/storage";
-import { useState } from "react";
-import { UploadToCloud } from "@/components/FormEditor";
 
 export function UploadMarker({
   all,
@@ -14,7 +13,6 @@ export function UploadMarker({
   all: PlantData;
   setAll: (value: any) => void;
 }) {
-
   const handleUploadComplete = (url: string) => {
     setAll({
       ...all,
@@ -43,7 +41,7 @@ export function UploadMarker({
 
     // Convert the centered image into a PNG Blob
     const blob = await new Promise<Blob>((resolve) =>
-      canvas.toBlob((b) => resolve(b!), "image/png")
+      canvas.toBlob((b) => resolve(b!), "image/png"),
     );
 
     // Return a new File object
@@ -52,7 +50,8 @@ export function UploadMarker({
     });
   };
 
-  const getStorageRef = (filename: string) => ref(storage, `markers/${filename}`);
+  const getStorageRef = (filename: string) =>
+    ref(storage, `markers/${filename}`);
 
   const t = useTranslation();
 

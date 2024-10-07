@@ -1,8 +1,6 @@
 "use client";
-import { lazy } from "react";
-const MapViewer = lazy(() => import("@/components/map/Default")
-  .then((mod) => ({ default: mod.MapViewer }))
-);
+import { Element } from "@/components/ArticleCard";
+import { IsUserLoggedIn } from "@/components/RedirectButton";
 import { PlantData, Position } from "@/utils/article";
 import { collectionRef, storage } from "@/utils/firebase";
 import { locales } from "@/utils/langs";
@@ -14,15 +12,18 @@ import {
   startAfter,
   where,
 } from "@firebase/firestore";
+import { useToPng } from "@hugocxl/react-to-image";
 import { Button, Card, CardBody, Snippet } from "@nextui-org/react";
 import { getDownloadURL, listAll, ref } from "firebase/storage";
 import { Icon } from "leaflet";
-import { useEffect, useState, forwardRef, useRef } from "react";
-import { Marker, Popup, Rectangle } from "react-leaflet";
-import { Element } from "@/components/ArticleCard";
-import { IsUserLoggedIn } from "@/components/RedirectButton";
-import { useToPng } from '@hugocxl/react-to-image'
 import { QRCodeSVG } from "qrcode.react";
+import { lazy, useEffect, useState } from "react";
+import { Marker, Popup, Rectangle } from "react-leaflet";
+const MapViewer = lazy(() =>
+  import("@/components/map/Default").then((mod) => ({
+    default: mod.MapViewer,
+  })),
+);
 
 function ArticleMarker({
   element,
@@ -192,11 +193,10 @@ export function MapWithArticles({
 
   let data = elements_data;
   if (initBounds) {
-    
-    const minX = Math.min(initBounds[0].x,initBounds[1].x)
-    const minY = Math.min(initBounds[0].y,initBounds[1].y)
-    const maxX = Math.max(initBounds[0].x,initBounds[1].x)
-    const maxY = Math.max(initBounds[0].y,initBounds[1].y)
+    const minX = Math.min(initBounds[0].x, initBounds[1].x);
+    const minY = Math.min(initBounds[0].y, initBounds[1].y);
+    const maxX = Math.max(initBounds[0].x, initBounds[1].x);
+    const maxY = Math.max(initBounds[0].y, initBounds[1].y);
 
     data = elements_data.filter((element) => {
       if (element.data.position) {
@@ -208,9 +208,7 @@ export function MapWithArticles({
         );
       }
       return false;
-    }
-    );
-
+    });
   }
   let elements = data.map((element) => (
     <ArticleMarker
@@ -234,22 +232,24 @@ export function MapWithArticles({
   );
 }
 
-
 // Define the QR code component with a forwardRef
-function ComponentToPrint({url}: {url: string}) {
+function ComponentToPrint({ url }: { url: string }) {
   return (
-  <div className="p-4 bg-white flex justify-center items-center h-[24rem] w-[24rem]">
-    <QRCodeSVG value={url} size={128} level="H" imageSettings={{
-      src:"/favicon.ico",
-      height: 32,
-      width: 32,
-      excavate: false,
-    }}/>
-  </div>
-  
-)
+    <div className="p-4 bg-white flex justify-center items-center h-[24rem] w-[24rem]">
+      <QRCodeSVG
+        value={url}
+        size={128}
+        level="H"
+        imageSettings={{
+          src: "/favicon.ico",
+          height: 32,
+          width: 32,
+          excavate: false,
+        }}
+      />
+    </div>
+  );
 }
-
 
 function CreateCubiqueMapURL({
   childs,
@@ -259,15 +259,15 @@ function CreateCubiqueMapURL({
   setChilds: (childs: React.ReactNode[]) => void;
 }) {
   const [state, convertToPng, ref] = useToPng<HTMLDivElement>({
-    onSuccess: data => {
+    onSuccess: (data) => {
       // make the user download the image
       // data is a base64 encoded image
-      const link = document.createElement('a')
-      link.download = 'QRCode.png'
-      link.href = data
-      link.click()
-    }
-  })
+      const link = document.createElement("a");
+      link.download = "QRCode.png";
+      link.href = data;
+      link.click();
+    },
+  });
   const [open, setOpen] = useState(false);
   const [pos1, setPos1] = useState<[number, number]>([0, 0]);
   const [pos2, setPos2] = useState<[number, number]>([10, 10]);
@@ -332,7 +332,7 @@ function CreateCubiqueMapURL({
             {open ? (
               <>
                 <div ref={ref}>
-                  <ComponentToPrint url={copyURL}/>
+                  <ComponentToPrint url={copyURL} />
                 </div>
                 <Snippet symbol="" codeString={copyURL} size="sm">
                   {copyURL.slice(0, 56)}...

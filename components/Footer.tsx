@@ -56,7 +56,7 @@ export function Footer({lang}: {lang: typeof locales[number]}) {
           </div>
 
           <div className="flex flex-row justify-end mx-2 my-1">
-            {data ? data.map((d, i) => <RenderFooter data={d} lang={lang} key={i} />) : null}"en"
+            {data ? data.map((d, i) => <RenderFooter data={d} lang={lang} key={i} />) : null}
           </div>
         </div>
       </div>

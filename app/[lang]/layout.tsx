@@ -28,7 +28,7 @@ export default async function RootLayout({
             <NavBar lang={params.lang} />
           </div>
           <div className="grow">{children}</div>
-          <Footer />
+          <Footer lang={params.lang} />
         </div>
       </TranslationProvider>
     </NextUIProvider>

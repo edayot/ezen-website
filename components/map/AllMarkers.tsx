@@ -21,8 +21,8 @@ import { useEffect, useState, forwardRef, useRef } from "react";
 import { Marker, Popup, Rectangle } from "react-leaflet";
 import { Element } from "@/components/ArticleCard";
 import { IsUserLoggedIn } from "@/components/RedirectButton";
-import { QRCode } from "react-qrcode-logo";
 import { useToPng } from '@hugocxl/react-to-image'
+import { QRCodeSVG } from "qrcode.react";
 
 function ArticleMarker({
   element,
@@ -239,7 +239,12 @@ export function MapWithArticles({
 function ComponentToPrint({url}: {url: string}) {
   return (
   <div className="p-4 bg-white flex justify-center items-center h-[24rem] w-[24rem]">
-    <QRCode value={url} logoImage="/favicon.ico" size={256}/>
+    <QRCodeSVG value={url} size={128} level="H" imageSettings={{
+      src:"/favicon.ico",
+      height: 32,
+      width: 32,
+      excavate: false,
+    }}/>
   </div>
   
 )

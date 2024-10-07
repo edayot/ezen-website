@@ -3,12 +3,10 @@ import { PlantData } from "@/utils/article";
 import { Button, Tooltip } from "@nextui-org/react";
 import React, { useRef } from "react";
 import { FiCode } from "react-icons/fi";
-import {QRCode} from "react-qrcode-logo";
-import { langToFlag } from "@/components/NavBar";
-import { useTranslation } from "@/dictionaries/client";
 import { locales, defaultLocale } from "@/utils/langs";
 import MarkdownRender from "@/components/MarkdownRender";
 import { useToPng } from '@hugocxl/react-to-image'
+import {QRCodeSVG} from 'qrcode.react';
 
 import {Dropdown, DropdownTrigger, DropdownMenu, DropdownItem} from "@nextui-org/react";
 
@@ -30,7 +28,8 @@ function Article({data}: {data: PlantData}) {
         {latin_name}
       </p>
     </div>
-    <div className="text-sm text-black font-sans">
+    <br/>
+    <div className="text-sm text-black font-sans text-justify	">
       <MarkdownRender>
         {data[defaultLocale].desc}
       </MarkdownRender>
@@ -47,8 +46,13 @@ function ComponentToPrint({url, data}: {url: string, data: PlantData}) {
     <div className="bg-white w-[36rem] h-[46rem] p-16">
       <div className="flex flex-col justify-between gap-2 h-full">
       <div className="flex-grow overflow-hidden relative">
-        <div className="float-right">
-          <QRCode value={url} logoImage="/favicon.ico" size={128}/>
+        <div className="float-right ml-4">
+          <QRCodeSVG value={url} size={128} level="H" imageSettings={{
+            src:"/favicon.ico",
+            height: 32,
+            width: 32,
+            excavate: false,
+          }}/>
         </div>
         <Article data={data}/>
       </div>
@@ -118,14 +122,24 @@ export function ExportButton({ id , data }: { id: string, data: PlantData }) {
             <p className="text-xl text-black font-sans font-bold">
               {data[defaultLocale].name}
             </p>
-            <QRCode value={url} logoImage="/favicon.ico" size={256}/>
+            <QRCodeSVG value={url} size={256} level="H" imageSettings={{
+            src:"/favicon.ico",
+            height: 32,
+            width: 32,
+            excavate: false,
+          }}/>
           </div>
         </div>
     </div>
     <div style={{ position: "absolute", left: "-9000000px", top: "100px" }}>
         <div ref={xsRef}>
           <div className="p-4 bg-white flex justify-center items-center h-[24rem] w-[24rem]">
-            <QRCode value={url} logoImage="/favicon.ico" size={256}/>
+          <QRCodeSVG value={url} size={256} level="H" imageSettings={{
+            src:"/favicon.ico",
+            height: 32,
+            width: 32,
+            excavate: false,
+          }}/>
           </div>
         </div>
     </div>

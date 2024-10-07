@@ -13,7 +13,7 @@ export default function RenderArticle({
   lang: (typeof locales)[number];
 }) {
   let latin_name = "";
-  if (data.latin_name) {
+  if (data.latin_name && data.latin_name.trim() !== "") {
     latin_name = `(${data.latin_name})`
   }
   return (

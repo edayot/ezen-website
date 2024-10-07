@@ -16,6 +16,10 @@ import {Dropdown, DropdownTrigger, DropdownMenu, DropdownItem} from "@nextui-org
 
 
 function Article({data}: {data: PlantData}) {
+  let latin_name = ""
+  if (data.latin_name && data.latin_name.trim() !== "") {
+    latin_name = `(${data.latin_name})`
+  }
   return (<>
 
     <div className="flex flex-row items-center gap-2">
@@ -23,7 +27,7 @@ function Article({data}: {data: PlantData}) {
         {data[defaultLocale].name}
       </p>
       <p className="text-sm text-black font-sans italic">
-        ({data.latin_name})
+        {latin_name}
       </p>
     </div>
     <div className="text-sm text-black font-sans">
@@ -34,47 +38,20 @@ function Article({data}: {data: PlantData}) {
     </>)
 }
 
-function BottomQRCode({url}: {url: string}) {
-  const fullArticle = {
-    fr: "Article en entier sur :",
-    en: "Full article on :",
-    it: "Articolo completo su :",
-    es: "Artículo completo en :",
-    de: "Vollständiger Artikel auf :",
-  }
-  return (<>
-  <div className="flex flex-row justify-between w-full h-full items-center">
-    <div className="flex flex-col w-full h-full justify-around gap-4">
-      {locales.map((lang) => (
-        <div className="flex flex-row gap-2 items-center" key={lang}>
-          {langToFlag[lang]}
-          <p className="text-sm text-black font-sans">
-            {fullArticle[lang]}
-          </p>
-        </div>
-      ))}
-    </div>
-    <div className="flex flex-row justify-end items-end w-full">
-      <QRCode value={url} logoImage="/favicon.ico" size={128}/>
-    </div>
-  </div>
-  </>)
-}
 
 
-// Define the QR code component with a forwardRef
 function ComponentToPrint({url, data}: {url: string, data: PlantData}) {
 
+  // QRCode is at the top right corner
   return (
     <div className="bg-white w-[36rem] h-[46rem] p-16">
       <div className="flex flex-col justify-between gap-2 h-full">
       <div className="flex-grow overflow-hidden relative">
-        <Article data={data}/>
-        <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-white to-transparent pointer-events-none"></div>
-      </div>
-        <div className="mt-auto">
-          <BottomQRCode url={url}/>
+        <div className="float-right">
+          <QRCode value={url} logoImage="/favicon.ico" size={128}/>
         </div>
+        <Article data={data}/>
+      </div>
       </div>
     </div>  
 )
@@ -127,7 +104,7 @@ export function ExportButton({ id , data }: { id: string, data: PlantData }) {
 
   return (
     <>
-    <div style={{ position: "absolute", left: "-1000000px", top: "100px" }}>
+    <div style={{ position: "absolute", left: "100px", top: "600px" }}>
         <div ref={fullRef}>
           <ComponentToPrint url={url} data={data} />
         </div>

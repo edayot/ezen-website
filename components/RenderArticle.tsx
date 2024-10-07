@@ -23,10 +23,10 @@ export default function RenderArticle({
           <div className="flex justify-center items-center">
             {data.image !== "" ? (
               <Image
-                src={data.image}
-                alt={data[lang].name}
-                width={data.image_width}
-                height={data.image_height}
+              src={data.image}
+              alt={data[lang].name}
+              width="100%"
+              height="auto"
               />
             ) : (
               <></>

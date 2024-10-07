@@ -42,16 +42,7 @@ export default function Home({ params }: { params: HomeProps }) {
                   {user?.uid}
                 </Snippet>
               </p>
-              <h2>{t["auth.account.change_map"]}</h2>
-              <h4>{t["auth.account.change_map_small"]}</h4>
-              <div className="flex flex-row gap-2">
-                <UploadToCloud
-                  onUploadComplete={(url: string) => setMapUrl(url)}
-                  getStorageRef={() => mapRef}
-                />
-                <Image src={mapUrl} alt="Map Image" />
-              </div>
-              <br />
+              <br/>
               <div>
                 <Button
                   onClick={() => {
@@ -63,6 +54,16 @@ export default function Home({ params }: { params: HomeProps }) {
                 >
                   {t["auth.account.signout"]}
                 </Button>
+              </div>
+              <br/>
+              <h2>{t["auth.account.change_map"]}</h2>
+              <h4>{t["auth.account.change_map_small"]}</h4>
+              <div className="flex flex-row gap-2">
+                <UploadToCloud
+                  onUploadComplete={(url: string) => setMapUrl(url)}
+                  getStorageRef={() => mapRef}
+                />
+                <Image src={mapUrl} alt="Map Image" />
               </div>
             </div>
           </IsUserLoggedIn>

@@ -12,15 +12,9 @@ export default function RenderArticle({
   data: PlantData;
   lang: (typeof locales)[number];
 }) {
-  let name = `${data[lang].name} (${data.latin_name})`;
-  if (name === " ()") {
-    name = "";
-  }
-  if (data.latin_name === "") {
-    name = data[lang].name;
-  }
-  if (data[lang].name === "") {
-    name = data.latin_name;
+  let latin_name = "";
+  if (data.latin_name) {
+    latin_name = `(${data.latin_name})`
   }
   return (
     <div className="flex flex-row justify-center">
@@ -30,7 +24,7 @@ export default function RenderArticle({
             {data.image !== "" ? (
               <Image
                 src={data.image}
-                alt={name}
+                alt={data[lang].name}
                 width={data.image_width}
                 height={data.image_height}
               />
@@ -43,7 +37,7 @@ export default function RenderArticle({
               {data[lang].name}
             </h1>
             <p className="text-sm font-sans italic">
-              ({data.latin_name})
+              {latin_name}
             </p>
           </div>
           <div className="my-markdown-container">

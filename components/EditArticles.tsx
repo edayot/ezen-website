@@ -5,7 +5,7 @@ import { LangSwitch } from "@/components/NavBar";
 import RenderArticle from "@/components/RenderArticle";
 import { useTranslation } from "@/dictionaries/client";
 import { PlantData } from "@/utils/article";
-import { collectionRef } from "@/utils/firebase";
+import { articlesRef } from "@/utils/firebase";
 import { locales } from "@/utils/langs";
 import {
   Button,
@@ -126,7 +126,7 @@ export function ArticleEditor({
     try {
       let timestamp = new Date().getTime();
       if (id) {
-        const docRef = doc(collectionRef, id);
+        const docRef = doc(articlesRef, id);
         await setDoc(docRef, { ...data, date: timestamp });
         console.log("Document edited with ID: ", docRef.id);
         setSuccess(true);
@@ -134,7 +134,7 @@ export function ArticleEditor({
           setSuccess(false);
         }, 1000);
       } else {
-        const docRef = await addDoc(collectionRef, {
+        const docRef = await addDoc(articlesRef, {
           ...data,
           date: timestamp,
         });

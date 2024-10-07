@@ -2,7 +2,7 @@
 import { Element } from "@/components/ArticleCard";
 import { IsUserLoggedIn } from "@/components/RedirectButton";
 import { PlantData, Position } from "@/utils/article";
-import { collectionRef, storage } from "@/utils/firebase";
+import { articlesRef, storage } from "@/utils/firebase";
 import { locales } from "@/utils/langs";
 import {
   getDocs,
@@ -173,7 +173,7 @@ export function MapWithArticles({
   useEffect(() => {
     getDocs(
       query(
-        collectionRef,
+        articlesRef,
         where("disable_map_position", "==", false),
         limit(element_per_batch),
         orderBy("date"),

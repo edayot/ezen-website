@@ -18,7 +18,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { FiArrowDown, FiArrowUp, FiSearch } from "react-icons/fi";
 
 import { useTranslation } from "@/dictionaries/client";
-import { collectionRef } from "@/utils/firebase";
+import { articlesRef } from "@/utils/firebase";
 import {
   getDocs,
   limit,
@@ -171,7 +171,7 @@ export function ArticlesViewer({ lang }: { lang: (typeof locales)[number] }) {
       setLoading(true);
       getDocs(
         query(
-          collectionRef,
+          articlesRef,
           orderBy("date"),
           startAfter(date),
           limit(elementsPerPage),

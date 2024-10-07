@@ -1,5 +1,5 @@
 "use client";
-import { collectionRef } from "@/utils/firebase";
+import { articlesRef } from "@/utils/firebase";
 import {
   Button,
   Modal,
@@ -24,7 +24,7 @@ export function DeleteButton({ id }: { id: string }) {
 
   const deleteArticle = async () => {
     setLoading(true);
-    const colRef = collectionRef;
+    const colRef = articlesRef;
     const docRef = doc(colRef, id);
     await deleteDoc(docRef);
     setLoading(false);

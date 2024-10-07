@@ -6,7 +6,7 @@ import { EditButton, IsUserLoggedIn } from "@/components/RedirectButton";
 import RenderArticle from "@/components/RenderArticle";
 import { HomeProps } from "@/dictionaries/dictionaries";
 import { PlantData } from "@/utils/article";
-import { collectionRef } from "@/utils/firebase";
+import { articlesRef } from "@/utils/firebase";
 import { doc, getDoc } from "@firebase/firestore";
 import { lazy, useEffect, useState } from "react";
 const ToMapButton = lazy(() =>
@@ -20,7 +20,7 @@ export default function Home({ params }: { params: HomeProps }) {
   const [data, setData] = useState<PlantData | null>(null);
 
   useEffect(() => {
-    getDoc(doc(collectionRef, params.name)).then((document) => {
+    getDoc(doc(articlesRef, params.name)).then((document) => {
       setData(document.data() as PlantData);
     });
   }, [params.name]);

@@ -12,7 +12,10 @@ import { Tooltip } from "@nextui-org/react";
 import Image from "next/image";
 
 
-function RenderFooter({ data, lang }: { data: FooterData; lang: typeof locales[number] }) {
+export function RenderFooter({ data, lang }: { data: FooterData; lang: typeof locales[number] }) {
+  if (data.url.trim() === "") {
+    return <></>
+  }
   const specialIcon : Record<string, JSX.Element> = {
     "special:github": <FiGithub size={12} />,
   };

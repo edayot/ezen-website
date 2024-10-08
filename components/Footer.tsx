@@ -40,12 +40,17 @@ function RenderFooter({ data, lang }: { data: FooterData; lang: typeof locales[n
 
 export function Footer({lang}: {lang: typeof locales[number]}) {
   const t = useTranslation();
-  const [data, setData] = useState<FooterData[] | null>(null);
+  const [data, setData] = useState<FooterData[]>([{
+    icon: "special:github",
+    url: "https://github.com/edayot/ezen-website"
+  }]);
   useEffect(() => {
     getDocs(footerRef).then((q) => {
       setData(q.docs.map((doc) => doc.data() as FooterData));
     });
   }, []);
+
+  const orderedData = data.sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
 
   return (
     <div className="w-full">
@@ -56,7 +61,7 @@ export function Footer({lang}: {lang: typeof locales[number]}) {
           </div>
 
           <div className="flex flex-row justify-end mx-2 my-1">
-            {data ? data.map((d, i) => <RenderFooter data={d} lang={lang} key={i} />) : null}
+            {orderedData ? orderedData.map((d, i) => <RenderFooter data={d} lang={lang} key={i} />) : null}
           </div>
         </div>
       </div>

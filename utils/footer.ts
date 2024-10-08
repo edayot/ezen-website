@@ -7,4 +7,5 @@ export interface FooterData {
     icon: string;
     url: string;
     protected?: boolean;
+    order?: number;
 }

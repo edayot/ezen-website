@@ -1,11 +1,2 @@
 User-agent: *
-Disallow: /
-Allow: /$
-Allow: /fr$
-Allow: /en$
-Allow: /it$
-Allow: /es$
-Allow: /de$
-Allow: /*/article/*
-Allow: /*/articles
-Allow: /*/map
+Allow: /*

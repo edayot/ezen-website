@@ -50,8 +50,8 @@ interface TablePropsWithDocument extends TableProps {
 function CreateTableLine({document, documents, setDocuments} : TablePropsWithDocument) {
 
   const elements = [
-    (<div className="min-w-10 flex flex-row justify-center items-center"><RenderFooter data={document.data} lang="en"/></div>),
-    (<Input value={document.data.url} onValueChange={(value) => {
+    (<div key="render" className="min-w-10 flex flex-row justify-center items-center"><RenderFooter data={document.data} lang="en"/></div>),
+    (<Input key="input_url" value={document.data.url} onValueChange={(value) => {
       setDocuments(documents.map((doc) => {
         if (doc.id === document.id) {
           doc.data.url = value
@@ -60,7 +60,7 @@ function CreateTableLine({document, documents, setDocuments} : TablePropsWithDoc
         return doc
       }))
     }}/>),
-    (<Input value={document.data.icon} onValueChange={(value) => {
+    (<Input key="input_icon" value={document.data.icon} onValueChange={(value) => {
       setDocuments(documents.map((doc) => {
         if (doc.id === document.id) {
           doc.data.icon = value
@@ -75,8 +75,12 @@ function CreateTableLine({document, documents, setDocuments} : TablePropsWithDoc
   <div className="flex flex-row gap-2 justify-start items-center h-full">
       {elements.map((line, index) => (
         <>
-          {line}
-          {index < elements.length - 1 && <Divider orientation="vertical" className="h-6"/>}
+          <div key={`${index}_line`}>
+            {line}
+          </div>
+          <div key={`${index}_divider`}>
+            {index < elements.length - 1 && <Divider orientation="vertical" className="h-6"/>}
+          </div>
         </>
       ))}
   </div>)
@@ -86,7 +90,7 @@ function CreateTableLine({document, documents, setDocuments} : TablePropsWithDoc
 function CreateTable({documents, setDocuments} : TableProps) {
 
   const lines = documents.map((document) => {
-    return <CreateTableLine document={document} documents={documents} setDocuments={setDocuments}/>
+    return <CreateTableLine document={document} documents={documents} setDocuments={setDocuments} key={document.id}/>
   })
 
   return (
@@ -95,8 +99,12 @@ function CreateTable({documents, setDocuments} : TableProps) {
       <div className="flex flex-col gap-2">
           {lines.map((line, index) => (
             <>
-              {line}
-              {index < lines.length - 1 && <Divider />}
+              <div key={`${index}_line`}>
+                {line}
+              </div>
+              <div key={`${index}_divider`}>
+                {index < lines.length - 1 && <Divider/>}
+              </div>
             </>
           ))}
       </div>

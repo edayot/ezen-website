@@ -50,7 +50,7 @@ interface TablePropsWithDocument extends TableProps {
 function CreateTableLine({document, documents, setDocuments} : TablePropsWithDocument) {
 
   const elements = [
-    (<RenderFooter data={document.data} lang="en"/>),
+    (<div className="min-w-10 flex flex-row justify-center items-center"><RenderFooter data={document.data} lang="en"/></div>),
     (<Input value={document.data.url} onValueChange={(value) => {
       setDocuments(documents.map((doc) => {
         if (doc.id === document.id) {
@@ -92,12 +92,12 @@ function CreateTable({documents, setDocuments} : TableProps) {
   return (
   <Card>
     <CardBody>
-      <div className="flex flex-col">
+      <div className="flex flex-col gap-2">
           {lines.map((line, index) => (
-            <div key={index}>
+            <>
               {line}
               {index < lines.length - 1 && <Divider />}
-            </div>
+            </>
           ))}
       </div>
     </CardBody>

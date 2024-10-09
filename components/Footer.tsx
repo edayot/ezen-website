@@ -9,8 +9,7 @@ import { getDocs } from "@firebase/firestore";
 import { locales } from "@/utils/langs";
 import { useEffect, useState } from "react";
 import { Tooltip } from "@nextui-org/react";
-import Image from "next/image";
-
+import { Image } from "@nextui-org/react";
 
 export function RenderFooter({ data, lang }: { data: FooterData; lang: typeof locales[number] }) {
   if (data.url.trim() === "") {

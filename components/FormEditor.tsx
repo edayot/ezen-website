@@ -159,8 +159,22 @@ export function UploadToCloud({
     });
   };
 
+  const toastSuccess = (message: string) => {
+    toast.success(message, {
+      position: "bottom-right",
+      autoClose: 2500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      transition: Bounce,
+      theme: theme,
+    });
+  }
+
   setInterval(() => {
-    if (task) {
+    if (task !== null && task.snapshot.totalBytes > 0) {
       setPercent(
         (task.snapshot.bytesTransferred / task.snapshot.totalBytes) * 100,
       );
@@ -204,7 +218,7 @@ export function UploadToCloud({
           console.log("Uploaded a blob or file!", snapshot);
           getDownloadURL(snapshot.ref).then((url) => {
             onUploadComplete(url, file.name, width, height);
-            toastError("");
+            toastSuccess("Successfully uploaded file " + file.name);
             onClose();
             setTask(null);
           });
@@ -247,7 +261,7 @@ export function UploadToCloud({
       >
         <ModalContent>
           <ModalBody>
-            <div className="flex flex-col justify-center items-center">
+            <div className="flex flex-col justify-center items-center gap-2">
               <>
                 <CircularProgress size="lg" />
                 <Progress

@@ -1,5 +1,4 @@
 import firebaseApp from "@/utils/firebaseConfig";
-import exp from "constants";
 import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { collection, getFirestore } from "firebase/firestore";
 import { getStorage, ref } from "firebase/storage";

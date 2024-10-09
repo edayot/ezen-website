@@ -16,7 +16,6 @@ const ToMapButton = lazy(() =>
 );
 
 export default function Home({ params }: { params: HomeProps }) {
-
   const [data, setData] = useState<PlantData | null>(null);
 
   useEffect(() => {
@@ -24,7 +23,6 @@ export default function Home({ params }: { params: HomeProps }) {
       setData(document.data() as PlantData);
     });
   }, [params.name]);
-
 
   if (data === null) {
     return <></>;

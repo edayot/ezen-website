@@ -171,7 +171,7 @@ export function UploadToCloud({
       transition: Bounce,
       theme: theme,
     });
-  }
+  };
 
   setInterval(() => {
     if (task !== null && task.snapshot.totalBytes > 0) {

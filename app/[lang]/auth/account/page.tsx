@@ -4,7 +4,13 @@ import { UploadToCloud } from "@/components/FormEditor";
 import { IsUserLoggedIn, RedirectComponent } from "@/components/RedirectButton";
 import { useTranslation } from "@/dictionaries/client";
 import { HomeProps } from "@/dictionaries/dictionaries";
-import { auth, footerRef, mapRef, signOutGlobal, storage } from "@/utils/firebase";
+import {
+  auth,
+  footerRef,
+  mapRef,
+  signOutGlobal,
+  storage,
+} from "@/utils/firebase";
 import { FooterData } from "@/utils/footer";
 import { locales } from "@/utils/langs";
 import { addDoc, doc, getDocs, setDoc } from "@firebase/firestore";
@@ -13,10 +19,6 @@ import {
   Card,
   CardBody,
   Divider,
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownTrigger,
   Image,
   Input,
   Modal,
@@ -30,89 +32,110 @@ import {
 import { getDownloadURL, ref } from "firebase/storage";
 import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
-import { FiEdit, FiPlus, FiSave } from "react-icons/fi";
+import { FiPlus, FiSave } from "react-icons/fi";
 
-
-interface Document { 
-  id: string; 
-  data: FooterData 
+interface Document {
+  id: string;
+  data: FooterData;
 }
 
 interface TableProps {
   documents: Document[];
-  setDocuments: (documents: Document[]) => void
+  setDocuments: (documents: Document[]) => void;
 }
 interface TablePropsWithDocument extends TableProps {
-  document: Document
+  document: Document;
 }
 
-
-function CreateTableLine({document, documents, setDocuments} : TablePropsWithDocument) {
-
+function CreateTableLine({
+  document,
+  documents,
+  setDocuments,
+}: TablePropsWithDocument) {
   const elements = [
-    (<div key="render" className="min-w-10 flex flex-row justify-center items-center"><RenderFooter data={document.data} lang="en"/></div>),
-    (<Input key="input_url" value={document.data.url} onValueChange={(value) => {
-      setDocuments(documents.map((doc) => {
-        if (doc.id === document.id) {
-          doc.data.url = value
-          return doc
-        }
-        return doc
-      }))
-    }}/>),
-    (<Input key="input_icon" value={document.data.icon} onValueChange={(value) => {
-      setDocuments(documents.map((doc) => {
-        if (doc.id === document.id) {
-          doc.data.icon = value
-          return doc
-        }
-        return doc
-      }))
-    }}/>),
-  ]
+    <div
+      key="render"
+      className="min-w-10 flex flex-row justify-center items-center"
+    >
+      <RenderFooter data={document.data} lang="en" />
+    </div>,
+    <Input
+      key="input_url"
+      value={document.data.url}
+      onValueChange={(value) => {
+        setDocuments(
+          documents.map((doc) => {
+            if (doc.id === document.id) {
+              doc.data.url = value;
+              return doc;
+            }
+            return doc;
+          }),
+        );
+      }}
+    />,
+    <Input
+      key="input_icon"
+      value={document.data.icon}
+      onValueChange={(value) => {
+        setDocuments(
+          documents.map((doc) => {
+            if (doc.id === document.id) {
+              doc.data.icon = value;
+              return doc;
+            }
+            return doc;
+          }),
+        );
+      }}
+    />,
+  ];
 
   return (
-  <div className="flex flex-row gap-2 justify-start items-center h-full">
+    <div className="flex flex-row gap-2 justify-start items-center h-full">
       {elements.map((line, index) => (
         <>
-          <div key={`${index}_line`}>
-            {line}
-          </div>
+          <div key={`${index}_line`}>{line}</div>
           <div key={`${index}_divider`}>
-            {index < elements.length - 1 && <Divider orientation="vertical" className="h-6"/>}
+            {index < elements.length - 1 && (
+              <Divider orientation="vertical" className="h-6" />
+            )}
           </div>
         </>
       ))}
-  </div>)
+    </div>
+  );
 }
 
-
-function CreateTable({documents, setDocuments} : TableProps) {
-
+function CreateTable({ documents, setDocuments }: TableProps) {
   const lines = documents.map((document) => {
-    return <CreateTableLine document={document} documents={documents} setDocuments={setDocuments} key={document.id}/>
-  })
+    return (
+      <CreateTableLine
+        document={document}
+        documents={documents}
+        setDocuments={setDocuments}
+        key={document.id}
+      />
+    );
+  });
 
   return (
-  <Card>
-    <CardBody>
-      <div className="flex flex-col gap-2">
+    <Card>
+      <CardBody>
+        <div className="flex flex-col gap-2">
           {lines.map((line, index) => (
             <>
-              <div key={`${index}_line`}>
-                {line}
-              </div>
+              <div key={`${index}_line`}>{line}</div>
               <div key={`${index}_divider`}>
-                {index < lines.length - 1 && <Divider/>}
+                {index < lines.length - 1 && <Divider />}
               </div>
             </>
           ))}
-      </div>
-    </CardBody>
-  </Card>
-  )
+        </div>
+      </CardBody>
+    </Card>
+  );
 }
-
 
 function FooterTable({ lang }: { lang: (typeof locales)[number] }) {
   const initData: FooterData = {
@@ -147,18 +170,20 @@ function FooterTable({ lang }: { lang: (typeof locales)[number] }) {
     onOpen();
     setProgress(0);
     for (let i = 0; i < documents.length; i++) {
-      await setDoc(doc(footerRef, documents[i].id), documents[i].data)
+      await setDoc(doc(footerRef, documents[i].id), documents[i].data);
       setProgress(i + 1);
     }
     onClose();
   };
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
 
-  const onUploadComplete = (url: string) => {setUrl(url)}
+  const onUploadComplete = (url: string) => {
+    setUrl(url);
+  };
   const getStorageRef = (filename: string) => {
-    return ref(storage, `footer/${filename}`)
-  }
-  const [url, setUrl] = useState("")
+    return ref(storage, `footer/${filename}`);
+  };
+  const [url, setUrl] = useState("");
 
   return (
     <div className="flex flex-col gap-2">
@@ -190,10 +215,13 @@ function FooterTable({ lang }: { lang: (typeof locales)[number] }) {
           </Tooltip>
         </div>
       </div>
-      <CreateTable documents={documents} setDocuments={setDocuments}/>
-      <UploadToCloud onUploadComplete={onUploadComplete} getStorageRef={getStorageRef}/>
+      <CreateTable documents={documents} setDocuments={setDocuments} />
+      <UploadToCloud
+        onUploadComplete={onUploadComplete}
+        getStorageRef={getStorageRef}
+      />
       <Snippet codeString={url} size="sm" symbol="">
-        {url.slice(0,30)}...
+        {url.slice(0, 30)}...
       </Snippet>
     </div>
   );

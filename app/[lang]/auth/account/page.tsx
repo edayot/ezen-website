@@ -4,7 +4,7 @@ import { UploadToCloud } from "@/components/FormEditor";
 import { IsUserLoggedIn, RedirectComponent } from "@/components/RedirectButton";
 import { useTranslation } from "@/dictionaries/client";
 import { HomeProps } from "@/dictionaries/dictionaries";
-import { auth, footerRef, mapRef, signOutGlobal } from "@/utils/firebase";
+import { auth, footerRef, mapRef, signOutGlobal, storage } from "@/utils/firebase";
 import { FooterData } from "@/utils/footer";
 import { locales } from "@/utils/langs";
 import { addDoc, doc, getDocs, setDoc } from "@firebase/firestore";
@@ -27,7 +27,7 @@ import {
   Tooltip,
   useDisclosure,
 } from "@nextui-org/react";
-import { getDownloadURL } from "firebase/storage";
+import { getDownloadURL, ref } from "firebase/storage";
 import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FiEdit, FiPlus, FiSave } from "react-icons/fi";
@@ -154,6 +154,12 @@ function FooterTable({ lang }: { lang: (typeof locales)[number] }) {
   };
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
 
+  const onUploadComplete = (url: string) => {setUrl(url)}
+  const getStorageRef = (filename: string) => {
+    return ref(storage, `footer/${filename}`)
+  }
+  const [url, setUrl] = useState("")
+
   return (
     <div className="flex flex-col gap-2">
       <Modal
@@ -185,6 +191,10 @@ function FooterTable({ lang }: { lang: (typeof locales)[number] }) {
         </div>
       </div>
       <CreateTable documents={documents} setDocuments={setDocuments}/>
+      <UploadToCloud onUploadComplete={onUploadComplete} getStorageRef={getStorageRef}/>
+      <Snippet codeString={url} size="sm" symbol="">
+        {url.slice(0,30)}...
+      </Snippet>
     </div>
   );
 }

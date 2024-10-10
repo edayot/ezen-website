@@ -187,7 +187,7 @@ function CreateTableLine({
         );
       }}
     />,
-    <Popover placement="right">
+    <Popover placement="right" key="translate_tooltip">
       <PopoverTrigger>
         <Button variant="bordered" isIconOnly>
           <FiGlobe />

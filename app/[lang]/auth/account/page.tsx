@@ -274,6 +274,9 @@ function FooterTable({ lang }: { lang: (typeof locales)[number] }) {
   };
   const [url, setUrl] = useState("");
 
+  if (!documents) {
+    return <></>;
+  }
   return (
     <div className="flex flex-col gap-2">
       <Modal

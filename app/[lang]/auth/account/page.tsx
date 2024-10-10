@@ -13,7 +13,7 @@ import {
 } from "@/utils/firebase";
 import { FooterData } from "@/utils/footer";
 import { locales } from "@/utils/langs";
-import { addDoc, doc, getDocs, setDoc } from "@firebase/firestore";
+import { addDoc, doc, getDocs, setDoc, deleteDoc } from "@firebase/firestore";
 import {
   Button,
   Card,
@@ -25,14 +25,18 @@ import {
   ModalBody,
   ModalContent,
   ModalHeader,
+  ModalFooter,
   Snippet,
   Tooltip,
+  Progress,
   useDisclosure,
 } from "@nextui-org/react";
 import { getDownloadURL, ref } from "firebase/storage";
 import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
-import { FiPlus, FiSave } from "react-icons/fi";
+import { FiX, FiPlus, FiSave } from "react-icons/fi";
+import { Bounce, toast } from "react-toastify";
+import { useTheme } from "next-themes";
 
 interface Document {
   id: string;
@@ -42,6 +46,7 @@ interface Document {
 interface TableProps {
   documents: Document[];
   setDocuments: (documents: Document[]) => void;
+  refresh: () => void
 }
 interface TablePropsWithDocument extends TableProps {
   document: Document;
@@ -51,7 +56,37 @@ function CreateTableLine({
   document,
   documents,
   setDocuments,
+  refresh
 }: TablePropsWithDocument) {
+
+  const handleDelete = () => {
+    setLoading(true)
+    deleteDoc(doc(footerRef, document.id)).then(() => {
+      onClose()
+      setLoading(false)
+      refresh()
+    }).catch(() => {
+      setLoading(false)
+      onClose()
+      toast.error("Error deleting document", {
+        position: "bottom-right",
+        autoClose: 2500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        transition: Bounce,
+        theme: theme,
+      })
+    })
+  }
+  const {isOpen, onOpen, onOpenChange, onClose} = useDisclosure();
+  const t = useTranslation()
+  const [loading, setLoading] = useState(false)
+  const { theme } = useTheme();
+
+
   const elements = [
     <div
       key="render"
@@ -89,9 +124,38 @@ function CreateTableLine({
         );
       }}
     />,
+    <Button
+      color="danger"
+      isIconOnly
+      onClick={onOpen}
+      >
+        <FiX/>
+    </Button>
   ];
 
   return (
+    <>
+    <Modal
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        isDismissable={false}
+        isKeyboardDismissDisabled={true}
+        closeButton={<></>}
+      >
+        <ModalContent>
+          <ModalBody>
+            {t["auth.account.footer.confirm_delete"]}
+          </ModalBody>
+          <ModalFooter>
+            <Button color="danger" onPress={handleDelete} isLoading={loading}>
+              {t["auth.account.footer.delete"]}
+            </Button>
+            <Button color="primary" variant="light" onPress={onClose}>
+            {t["auth.account.footer.cancel"]}
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     <div className="flex flex-row gap-2 justify-start items-center h-full">
       {elements.map((line, index) => (
         <>
@@ -104,10 +168,11 @@ function CreateTableLine({
         </>
       ))}
     </div>
+    </>
   );
 }
 
-function CreateTable({ documents, setDocuments }: TableProps) {
+function CreateTable({ documents, setDocuments, refresh}: TableProps) {
   const lines = documents.map((document) => {
     return (
       <CreateTableLine
@@ -115,6 +180,7 @@ function CreateTable({ documents, setDocuments }: TableProps) {
         documents={documents}
         setDocuments={setDocuments}
         key={document.id}
+        refresh={refresh}
       />
     );
   });
@@ -197,7 +263,15 @@ function FooterTable({ lang }: { lang: (typeof locales)[number] }) {
         <ModalContent>
           <ModalHeader className="flex flex-col gap-1">Modal Title</ModalHeader>
           <ModalBody>
-            Progress : {progress}, Total : {documents.length}
+            <div className="flex flex-col gap-2 justify-center items-center">
+                <Progress
+                  aria-label="Uploading..."
+                  value={progress/documents.length * 100 || 0}
+                  className="max-w-md"
+                />
+              {progress}/{documents.length}
+            </div>
+            
           </ModalBody>
         </ModalContent>
       </Modal>
@@ -215,7 +289,7 @@ function FooterTable({ lang }: { lang: (typeof locales)[number] }) {
           </Tooltip>
         </div>
       </div>
-      <CreateTable documents={documents} setDocuments={setDocuments} />
+      <CreateTable documents={documents} setDocuments={setDocuments} refresh={refresh}/>
       <UploadToCloud
         onUploadComplete={onUploadComplete}
         getStorageRef={getStorageRef}
@@ -284,7 +358,7 @@ export default function Home({ params }: { params: HomeProps }) {
                 <Image src={mapUrl} alt="Map Image" />
               </div>
             </div>
-            <h2>{t["auth.account.custom_footer"]}</h2>
+            <h2>{t["auth.account.footer.title"]}</h2>
           </div>
           <div className="w-5/6 max-w-3xl">
             <FooterTable lang={params.lang} />

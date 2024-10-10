@@ -33,7 +33,15 @@
       "signout": "Sign out",
       "change_map": "Change map background",
       "change_map_small": "(you may need to change the position of all articles)",
-      "dropzone": "Drop or click to upload an image"
+      "dropzone": "Drop or click to upload an image",
+      "footer": {
+        "confirm_delete": "Confirm deletion?",
+        "delete": "Delete icon",
+        "cancel": "Cancel",
+        "title": "Change footer icons",
+        "button_tooltip": "Add an icon",
+        "save_tooltip": "Save icons"
+      }
     }
   },
   "articles": {

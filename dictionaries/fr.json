@@ -33,7 +33,15 @@
       "signout": "Déconnexion",
       "change_map": "Remplacer le fond de carte",
       "change_map_small": "(vous devrez peut-être changer la position de tous les articles)",
-      "dropzone": "Déposez ou cliquez pour télécharger une image"
+      "dropzone": "Déposez ou cliquez pour télécharger une image",
+      "footer": {
+        "confirm_delete": "Confirmer la suppression ?",
+        "delete": "Supprimer l'icone",
+        "cancel": "Annuler",
+        "title": "Changer les icônes du bas de page",
+        "button_tooltip": "Ajouter une icône",
+        "save_tooltip": "Sauvegarder les icônes"
+      }
     }
   },
   "articles": {

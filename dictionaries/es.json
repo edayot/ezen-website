@@ -33,7 +33,15 @@
       "signout": "Cerrar sesión",
       "change_map": "Cambiar fondo del mapa",
       "change_map_small": "(es posible que deba cambiar la posición de todos los artículos)",
-      "dropzone": "Suelte o haga clic para cargar una imagen"
+      "dropzone": "Suelte o haga clic para cargar una imagen",
+      "footer": {
+        "confirm_delete": "¿Confirmar eliminación?",
+        "delete": "Eliminar icono",
+        "cancel": "Cancelar",
+        "title": "Cambiar iconos del pie de página",
+        "button_tooltip": "Agregar un icono",
+        "save_tooltip": "Guardar iconos"
+      }
     }
   },
   "articles": {

@@ -33,7 +33,15 @@
       "signout": "Abmelden",
       "change_map": "Kartenhintergrund ändern",
       "change_map_small": "(möglicherweise müssen Sie die Position aller Artikel ändern)",
-      "dropzone": "Zum Hochladen eines Bildes ablegen oder klicken"
+      "dropzone": "Zum Hochladen eines Bildes ablegen oder klicken",
+      "footer": {
+        "confirm_delete": "Löschen bestätigen?",
+        "delete": "Symbol löschen",
+        "cancel": "Abbrechen",
+        "title": "Fußzeilen-Symbole ändern",
+        "button_tooltip": "Ein Symbol hinzufügen",
+        "save_tooltip": "Symbole speichern"
+      }
     }
   },
   "articles": {

@@ -172,7 +172,7 @@ export function ArticlesViewer({ lang }: { lang: (typeof locales)[number] }) {
       getDocs(
         query(
           articlesRef,
-          orderBy("date"),
+          orderBy("date", "desc"),
           startAfter(date),
           limit(elementsPerPage),
           where("disable_in_search", "==", false),

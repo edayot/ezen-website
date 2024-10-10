@@ -68,7 +68,7 @@ export function Footer({ lang }: { lang: (typeof locales)[number] }) {
 
   return (
     <div className="w-full">
-      <div className="bg-default/60 backdrop-blur-sm border-default/60 border">
+      <div className="bg-default/60 backdrop-blur-sm border-default/60 border mt-8">
         <div className="flex flex-row justify-between items-center my-[0.15rem] mx-16">
           <div className="flex flex-row justify-start text-[10px]">
             {t["footer.madeBy"]}

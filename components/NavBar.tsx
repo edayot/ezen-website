@@ -219,10 +219,10 @@ export default function NavbarComponent({
         <NavbarContent justify="start">
           <NavBarLogo />
         </NavbarContent>
-        <NavbarContent justify="center" className="gap-1 sm:gap-4">
+        <NavbarContent justify="center" className="gap-2 sm:gap-4">
           <NavBarLeftContent size={size} />
         </NavbarContent>
-        <NavbarContent justify="end" className="gap-1 sm:gap-4">
+        <NavbarContent justify="end" className="gap-2 sm:gap-4">
           <NavBarRightContent size={size} lang={lang} />
         </NavbarContent>
       </Navbar>

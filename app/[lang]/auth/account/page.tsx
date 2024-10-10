@@ -13,7 +13,7 @@ import {
 } from "@/utils/firebase";
 import { FooterData } from "@/utils/footer";
 import { locales } from "@/utils/langs";
-import { addDoc, doc, getDocs, setDoc, deleteDoc } from "@firebase/firestore";
+import { addDoc, deleteDoc, doc, getDocs, setDoc } from "@firebase/firestore";
 import {
   Button,
   Card,
@@ -24,19 +24,19 @@ import {
   Modal,
   ModalBody,
   ModalContent,
-  ModalHeader,
   ModalFooter,
+  ModalHeader,
+  Progress,
   Snippet,
   Tooltip,
-  Progress,
   useDisclosure,
 } from "@nextui-org/react";
 import { getDownloadURL, ref } from "firebase/storage";
+import { useTheme } from "next-themes";
 import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
-import { FiX, FiPlus, FiSave } from "react-icons/fi";
+import { FiPlus, FiSave, FiX } from "react-icons/fi";
 import { Bounce, toast } from "react-toastify";
-import { useTheme } from "next-themes";
 
 interface Document {
   id: string;
@@ -46,7 +46,7 @@ interface Document {
 interface TableProps {
   documents: Document[];
   setDocuments: (documents: Document[]) => void;
-  refresh: () => void
+  refresh: () => void;
 }
 interface TablePropsWithDocument extends TableProps {
   document: Document;
@@ -56,36 +56,36 @@ function CreateTableLine({
   document,
   documents,
   setDocuments,
-  refresh
+  refresh,
 }: TablePropsWithDocument) {
-
   const handleDelete = () => {
-    setLoading(true)
-    deleteDoc(doc(footerRef, document.id)).then(() => {
-      onClose()
-      setLoading(false)
-      refresh()
-    }).catch(() => {
-      setLoading(false)
-      onClose()
-      toast.error("Error deleting document", {
-        position: "bottom-right",
-        autoClose: 2500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        transition: Bounce,
-        theme: theme,
+    setLoading(true);
+    deleteDoc(doc(footerRef, document.id))
+      .then(() => {
+        onClose();
+        setLoading(false);
+        refresh();
       })
-    })
-  }
-  const {isOpen, onOpen, onOpenChange, onClose} = useDisclosure();
-  const t = useTranslation()
-  const [loading, setLoading] = useState(false)
+      .catch(() => {
+        setLoading(false);
+        onClose();
+        toast.error("Error deleting document", {
+          position: "bottom-right",
+          autoClose: 2500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          transition: Bounce,
+          theme: theme,
+        });
+      });
+  };
+  const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
+  const t = useTranslation();
+  const [loading, setLoading] = useState(false);
   const { theme } = useTheme();
-
 
   const elements = [
     <div
@@ -126,7 +126,7 @@ function CreateTableLine({
         );
       }}
     />,
-    <Input 
+    <Input
       isDisabled={document.data.protected}
       key="input_order"
       type="number"
@@ -142,8 +142,7 @@ function CreateTableLine({
             return doc;
           }),
         );
-      }
-    }
+      }}
     />,
     <Button
       isDisabled={document.data.protected}
@@ -151,14 +150,14 @@ function CreateTableLine({
       color="danger"
       isIconOnly
       onClick={onOpen}
-      >
-        <FiX/>
-    </Button>
+    >
+      <FiX />
+    </Button>,
   ];
 
   return (
     <>
-    <Modal
+      <Modal
         isOpen={isOpen}
         onOpenChange={onOpenChange}
         isDismissable={false}
@@ -166,36 +165,34 @@ function CreateTableLine({
         closeButton={<></>}
       >
         <ModalContent>
-          <ModalBody>
-            {t["auth.account.footer.confirm_delete"]}
-          </ModalBody>
+          <ModalBody>{t["auth.account.footer.confirm_delete"]}</ModalBody>
           <ModalFooter>
             <Button color="danger" onPress={handleDelete} isLoading={loading}>
               {t["auth.account.footer.delete"]}
             </Button>
             <Button color="primary" variant="light" onPress={onClose}>
-            {t["auth.account.footer.cancel"]}
+              {t["auth.account.footer.cancel"]}
             </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
-    <div className="flex flex-row gap-2 justify-start items-center h-full">
-      {elements.map((line, index) => (
-        <>
-          <div key={`${index}_line`}>{line}</div>
-          <div key={`${index}_divider`}>
-            {index < elements.length - 1 && (
-              <Divider orientation="vertical" className="h-6" />
-            )}
-          </div>
-        </>
-      ))}
-    </div>
+      <div className="flex flex-row gap-2 justify-start items-center h-full">
+        {elements.map((line, index) => (
+          <>
+            <div key={`${index}_line`}>{line}</div>
+            <div key={`${index}_divider`}>
+              {index < elements.length - 1 && (
+                <Divider orientation="vertical" className="h-6" />
+              )}
+            </div>
+          </>
+        ))}
+      </div>
     </>
   );
 }
 
-function CreateTable({ documents, setDocuments, refresh}: TableProps) {
+function CreateTable({ documents, setDocuments, refresh }: TableProps) {
   const lines = documents.map((document) => {
     return (
       <CreateTableLine
@@ -241,7 +238,9 @@ function FooterTable({ lang }: { lang: (typeof locales)[number] }) {
   useEffect(() => {
     getDocs(footerRef).then((q) => {
       setDocuments(
-        q.docs.map((doc) => ({ id: doc.id, data: doc.data() as FooterData })).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0))
+        q.docs
+          .map((doc) => ({ id: doc.id, data: doc.data() as FooterData }))
+          .sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0)),
       );
     });
   }, [edit]);
@@ -290,14 +289,13 @@ function FooterTable({ lang }: { lang: (typeof locales)[number] }) {
           <ModalHeader className="flex flex-col gap-1">Modal Title</ModalHeader>
           <ModalBody>
             <div className="flex flex-col gap-2 justify-center items-center">
-                <Progress
-                  aria-label="Uploading..."
-                  value={progress/documents.length * 100 || 0}
-                  className="max-w-md"
-                />
+              <Progress
+                aria-label="Uploading..."
+                value={(progress / documents.length) * 100 || 0}
+                className="max-w-md"
+              />
               {progress}/{documents.length}
             </div>
-            
           </ModalBody>
         </ModalContent>
       </Modal>
@@ -315,7 +313,11 @@ function FooterTable({ lang }: { lang: (typeof locales)[number] }) {
           </Tooltip>
         </div>
       </div>
-      <CreateTable documents={documents} setDocuments={setDocuments} refresh={refresh}/>
+      <CreateTable
+        documents={documents}
+        setDocuments={setDocuments}
+        refresh={refresh}
+      />
       <UploadToCloud
         onUploadComplete={onUploadComplete}
         getStorageRef={getStorageRef}
@@ -395,3 +397,4 @@ export default function Home({ params }: { params: HomeProps }) {
     </>
   );
 }
+30;

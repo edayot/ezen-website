@@ -189,7 +189,7 @@ function CreateTableLine({
     />,
     <Popover placement="right" key="translate_tooltip">
       <PopoverTrigger>
-        <Button variant="bordered" isIconOnly>
+        <Button variant="bordered" isIconOnly isDisabled={document.data.protected}>
           <FiGlobe />
         </Button>
       </PopoverTrigger>

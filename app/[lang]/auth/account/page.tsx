@@ -125,6 +125,7 @@ function CreateTableLine({
       }}
     />,
     <Button
+      key="delete_button"
       color="danger"
       isIconOnly
       onClick={onOpen}

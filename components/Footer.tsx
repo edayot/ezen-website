@@ -74,7 +74,7 @@ export function Footer({ lang }: { lang: (typeof locales)[number] }) {
             {t["footer.madeBy"]}
           </div>
 
-          <div className="flex flex-row justify-end mx-2 my-1">
+          <div className="flex flex-row justify-end mx-2 my-1 gap-2">
             {orderedData
               ? orderedData.map((d, i) => (
                   <RenderFooter data={d} lang={lang} key={i} />

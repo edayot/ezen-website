@@ -95,6 +95,7 @@ function CreateTableLine({
       <RenderFooter data={document.data} lang="en" />
     </div>,
     <Input
+      isDisabled={document.data.protected}
       key="input_url"
       value={document.data.url}
       onValueChange={(value) => {
@@ -110,6 +111,7 @@ function CreateTableLine({
       }}
     />,
     <Input
+      isDisabled={document.data.protected}
       key="input_icon"
       value={document.data.icon}
       onValueChange={(value) => {
@@ -124,7 +126,27 @@ function CreateTableLine({
         );
       }}
     />,
+    <Input 
+      isDisabled={document.data.protected}
+      key="input_order"
+      type="number"
+      min={1}
+      value={String(document.data.order) || "0"}
+      onValueChange={(value) => {
+        setDocuments(
+          documents.map((doc) => {
+            if (doc.id === document.id) {
+              doc.data.order = parseInt(value);
+              return doc;
+            }
+            return doc;
+          }),
+        );
+      }
+    }
+    />,
     <Button
+      isDisabled={document.data.protected}
       key="delete_button"
       color="danger"
       isIconOnly
@@ -219,7 +241,7 @@ function FooterTable({ lang }: { lang: (typeof locales)[number] }) {
   useEffect(() => {
     getDocs(footerRef).then((q) => {
       setDocuments(
-        q.docs.map((doc) => ({ id: doc.id, data: doc.data() as FooterData })),
+        q.docs.map((doc) => ({ id: doc.id, data: doc.data() as FooterData })).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0))
       );
     });
   }, [edit]);

@@ -28,8 +28,10 @@ function Article({ data }: { data: PlantData }) {
         <p className="text-sm text-black font-sans italic">{latin_name}</p>
       </div>
       <br />
-      <div className="text-sm text-black font-sans text-justify	">
-        <MarkdownRender>{data[defaultLocale].desc}</MarkdownRender>
+      <div className="text-sm text-black font-sans text-justify disable-image	">
+        <MarkdownRender disable_img>
+          {data[defaultLocale].desc}
+        </MarkdownRender>
       </div>
     </>
   );
@@ -109,7 +111,7 @@ export function ExportButton({ id, data }: { id: string; data: PlantData }) {
 
   return (
     <>
-      <div style={{ position: "absolute", left: "-1000000px", top: "600px" }}>
+      <div style={{ position: "absolute", left: "100px", top: "600px" }}>
         <div ref={fullRef}>
           <ComponentToPrint url={url} data={data} />
         </div>

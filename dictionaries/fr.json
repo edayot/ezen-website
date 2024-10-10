@@ -40,7 +40,8 @@
         "cancel": "Annuler",
         "title": "Changer les icônes du bas de page",
         "button_tooltip": "Ajouter une icône",
-        "save_tooltip": "Sauvegarder les icônes"
+        "save_tooltip": "Sauvegarder les icônes",
+        "choose_tooltip": "Choisir le texte au survol"
       }
     }
   },

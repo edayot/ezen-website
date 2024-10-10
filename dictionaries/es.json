@@ -40,7 +40,8 @@
         "cancel": "Cancelar",
         "title": "Cambiar iconos del pie de página",
         "button_tooltip": "Agregar un icono",
-        "save_tooltip": "Guardar iconos"
+        "save_tooltip": "Guardar iconos",
+        "choose_tooltip": "Elegir texto al pasar el mouse"
       }
     }
   },

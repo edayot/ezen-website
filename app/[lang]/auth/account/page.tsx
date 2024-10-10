@@ -26,6 +26,9 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
   Progress,
   Snippet,
   Tooltip,
@@ -35,7 +38,7 @@ import { getDownloadURL, ref } from "firebase/storage";
 import { useTheme } from "next-themes";
 import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
-import { FiPlus, FiSave, FiX } from "react-icons/fi";
+import { FiGlobe, FiPlus, FiSave, FiX } from "react-icons/fi";
 import { Bounce, toast } from "react-toastify";
 
 interface Document {
@@ -44,6 +47,7 @@ interface Document {
 }
 
 interface TableProps {
+  lang: (typeof locales)[number];
   documents: Document[];
   setDocuments: (documents: Document[]) => void;
   refresh: () => void;
@@ -52,7 +56,46 @@ interface TablePropsWithDocument extends TableProps {
   document: Document;
 }
 
+function InputForTooltip({
+  lang,
+  document,
+  documents,
+  setDocuments,
+  refresh,
+}: TablePropsWithDocument) {
+  const t = useTranslation();
+  return (
+    <Input
+      label={t[`navbar.lang_switch.${lang}`]}
+      className="z-[999999999]"
+      key="input_tooltip"
+      value={document.data.tooltip?.[lang] || ""}
+      onValueChange={(value) => {
+        setDocuments(
+          documents.map((doc) => {
+            if (doc.id === document.id) {
+              if (!doc.data.tooltip) {
+                doc.data.tooltip = {
+                  en: "",
+                  it: "",
+                  fr: "",
+                  de: "",
+                  es: "",
+                };
+              }
+              doc.data.tooltip[lang] = value;
+              return doc;
+            }
+            return doc;
+          }),
+        );
+      }}
+    />
+  );
+}
+
 function CreateTableLine({
+  lang,
   document,
   documents,
   setDocuments,
@@ -92,7 +135,7 @@ function CreateTableLine({
       key="render"
       className="min-w-10 flex flex-row justify-center items-center"
     >
-      <RenderFooter data={document.data} lang="en" />
+      <RenderFooter data={document.data} lang={lang} />
     </div>,
     <Input
       isDisabled={document.data.protected}
@@ -144,6 +187,54 @@ function CreateTableLine({
         );
       }}
     />,
+    <Popover placement="right">
+      <PopoverTrigger>
+        <Button variant="bordered" isIconOnly>
+          <FiGlobe />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent>
+        <div className="flex flex-col gap-2 m-4">
+          <h3>{t["auth.account.footer.choose_tooltip"]}</h3>
+          <InputForTooltip
+            lang="en"
+            document={document}
+            documents={documents}
+            setDocuments={setDocuments}
+            refresh={refresh}
+          />
+          <InputForTooltip
+            lang="it"
+            document={document}
+            documents={documents}
+            setDocuments={setDocuments}
+            refresh={refresh}
+          />
+          <InputForTooltip
+            lang="fr"
+            document={document}
+            documents={documents}
+            setDocuments={setDocuments}
+            refresh={refresh}
+          />
+          <InputForTooltip
+            lang="de"
+            document={document}
+            documents={documents}
+            setDocuments={setDocuments}
+            refresh={refresh}
+          />
+          <InputForTooltip
+            lang="es"
+            document={document}
+            documents={documents}
+            setDocuments={setDocuments}
+            refresh={refresh}
+          />
+        </div>
+      </PopoverContent>
+    </Popover>,
+
     <Button
       isDisabled={document.data.protected}
       key="delete_button"
@@ -192,10 +283,11 @@ function CreateTableLine({
   );
 }
 
-function CreateTable({ documents, setDocuments, refresh }: TableProps) {
+function CreateTable({ documents, setDocuments, refresh, lang }: TableProps) {
   const lines = documents.map((document) => {
     return (
       <CreateTableLine
+        lang={lang}
         document={document}
         documents={documents}
         setDocuments={setDocuments}
@@ -314,6 +406,7 @@ function FooterTable({ lang }: { lang: (typeof locales)[number] }) {
         </div>
       </div>
       <CreateTable
+        lang={lang}
         documents={documents}
         setDocuments={setDocuments}
         refresh={refresh}

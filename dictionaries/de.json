@@ -40,7 +40,8 @@
         "cancel": "Abbrechen",
         "title": "Fußzeilen-Symbole ändern",
         "button_tooltip": "Ein Symbol hinzufügen",
-        "save_tooltip": "Symbole speichern"
+        "save_tooltip": "Symbole speichern",
+        "choose_tooltip": "Text beim Überfahren auswählen"
       }
     }
   },

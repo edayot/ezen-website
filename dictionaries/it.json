@@ -40,7 +40,8 @@
         "cancel": "Annulla",
         "title": "Cambia le icone del piè di pagina",
         "button_tooltip": "Aggiungi un'icona",
-        "save_tooltip": "Salva le icone"
+        "save_tooltip": "Salva le icone",
+        "choose_tooltip": "Scegli il testo al passaggio del mouse"
       }
     }
   },

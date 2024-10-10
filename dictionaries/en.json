@@ -40,7 +40,8 @@
         "cancel": "Cancel",
         "title": "Change footer icons",
         "button_tooltip": "Add an icon",
-        "save_tooltip": "Save icons"
+        "save_tooltip": "Save icons",
+        "choose_tooltip": "Choose text on hover"
       }
     }
   },

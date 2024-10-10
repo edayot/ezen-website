@@ -318,7 +318,7 @@ function FooterTable({ lang }: { lang: (typeof locales)[number] }) {
         getStorageRef={getStorageRef}
       />
       <Snippet codeString={url} size="sm" symbol="">
-        {url.slice(0, 30)}...
+        {url.slice(0, 50)}...
       </Snippet>
     </div>
   );
@@ -383,7 +383,7 @@ export default function Home({ params }: { params: HomeProps }) {
             </div>
             <h2>{t["auth.account.footer.title"]}</h2>
           </div>
-          <div className="w-5/6 max-w-3xl">
+          <div className="w-5/6 max-w-3xl flex flex-col">
             <FooterTable lang={params.lang} />
           </div>
           <br />

@@ -30,7 +30,7 @@ export default function Home({ params }: { params: HomeProps }) {
   if (data === undefined) {
     return <NotFound id={params.name} />;
   }
-  if (!params.bypass && (data.disable_in_search || data.disable_map_position)) {
+  if (!params.bypass && (data.disable_in_search)) {
     return <NotFound id={params.name} />;
   }
 

@@ -62,7 +62,10 @@ function ComponentToPrint({ url, data }: { url: string; data: PlantData }) {
 }
 
 export function ExportButton({ id, data }: { id: string; data: PlantData }) {
-  const url = `https://ezen-website.vercel.app/article/${id}`;
+  let url = `https://ezen-website.vercel.app/article/${id}`;
+  if (id === "home") {
+    url = `https://ezen-website.vercel.app/`;
+  }
 
   const [_, convertToPngFull, fullRef] = useToPng<HTMLDivElement>({
     onSuccess: (data) => {
